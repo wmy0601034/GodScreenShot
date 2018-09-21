@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     private DMTabHost tab_host;
     private MFViewPager viewpager;
     private ImageButton btnAdd;
-
+    //hi from book
     private MainTabAdpter adapter;
     private int currentPageIndex = 0;
 
