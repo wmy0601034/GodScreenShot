@@ -57,6 +57,11 @@ freeline.py
 freeline/
 freeline_project_description.json
 
+#unknow
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+
 # fastlane
 fastlane/report.xml
 fastlane/Preview.html
