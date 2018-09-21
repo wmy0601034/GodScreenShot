@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wechat_wallet_gray"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/wechat_wallet_gray" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/wechat_wallet_gray">
+
+
+            <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                android:id="@+id/arrow"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                app:arrowColor="@color/white"
+                app:arrowDirection="left"
+                app:arrowWidth="1dp" />
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/arrow"
+                android:gravity="center"
+                android:text="我的钱包"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btnRight"
+                android:layout_width="56dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@mipmap/akg" />
+
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rcvWallet"
+            android:background="@color/tab_layout_top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        <!--<ScrollView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:orientation="vertical">-->
+
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal">-->
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/llShoufukuan"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="160dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="?attr/selectableItemBackground"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="40dp"-->
+                            <!--android:layout_height="40dp"-->
+                            <!--android:layout_margin="16dp"-->
+                            <!--android:src="@mipmap/app_views_pages_wechat_common_images_walleticontop1" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="收付款"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="16sp" />-->
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/llLingqian"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="160dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="?attr/selectableItemBackground"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="40dp"-->
+                            <!--android:layout_height="40dp"-->
+                            <!--android:layout_margin="16dp"-->
+                            <!--android:src="@mipmap/app_views_pages_wechat_common_images_walleticontop2" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="零钱"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="16sp" />-->
+
+                        <!--<TextView-->
+                            <!--android:id="@+id/tvBalance"-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginTop="4dp"-->
+                            <!--android:text="¥4.84"-->
+                            <!--android:textColor="@color/white" />-->
+                    <!--</LinearLayout>-->
+
+                    <!--<LinearLayout-->
+                        <!--android:id="@+id/llyinhangka"-->
+                        <!--android:layout_width="0dp"-->
+                        <!--android:layout_height="160dp"-->
+                        <!--android:layout_weight="1"-->
+                        <!--android:background="?attr/selectableItemBackground"-->
+                        <!--android:gravity="center_horizontal"-->
+                        <!--android:orientation="vertical">-->
+
+                        <!--<ImageView-->
+                            <!--android:layout_width="40dp"-->
+                            <!--android:layout_height="40dp"-->
+                            <!--android:layout_margin="16dp"-->
+                            <!--android:src="@mipmap/app_views_pages_wechat_common_images_walleticontop3" />-->
+
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="银行卡"-->
+                            <!--android:textColor="@color/white"-->
+                            <!--android:textSize="16sp" />-->
+                    <!--</LinearLayout>-->
+                <!--</LinearLayout>-->
+                <!--<View-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="8dp"-->
+                    <!--android:background="@color/tab_layout_top_divider"/>-->
+                <!---->
+            <!--</LinearLayout>-->
+
+        <!--</ScrollView>-->
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:visibility="gone"/>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary">
+
+            <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                android:id="@+id/arrowBack"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                app:arrowColor="@color/white"
+                app:arrowDirection="left"/>
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/arrowBack"
+                android:gravity="center"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="16sp"/>
+
+            <ImageButton
+                android:id="@+id/btnRight"
+                android:layout_width="66dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@mipmap/app_views_pages_wechat_common_images_imoneyoutmore"/>
+        </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcvConversation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/wechat_contract_divider_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:minHeight="48dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp">
+
+        <ImageButton
+            android:id="@+id/btnVoice"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="centerCrop"
+            android:background="?attr/selectableItemBackground"
+            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon1"/>
+
+        <EditText
+            android:id="@+id/edContent"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:singleLine="false"
+            android:textCursorDrawable="@drawable/wechat_cursor_style"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_weight="1"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"/>
+        <ImageButton
+            android:id="@+id/btnFace"
+            android:scaleType="centerCrop"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon2"/>
+
+        <ImageButton
+            android:id="@+id/btnAdd"
+            android:scaleType="centerCrop"
+            android:layout_marginLeft="16dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon3"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tab_layout_top_divider"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wechat_red_packet_red"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/statusBar"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@color/transparent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/wechat_red_packet_red">
+
+
+            <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                android:id="@+id/arrowBack"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"
+                app:arrowColor="@color/wechat_red_packet_gold"
+                app:arrowDirection="left"
+                app:arrowWidth="2dp" />
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="6dp"
+                android:layout_toRightOf="@id/arrowBack"
+                android:gravity="center"
+                android:text="发红包"
+                android:textColor="@color/wechat_red_packet_gold"
+                android:textSize="16sp" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+                <include layout="@layout/wechat_red_packet_right" />
+
+                <ImageButton
+                    android:id="@+id/btnRight"
+                    android:layout_width="66dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackground" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="24dp"
+        android:background="@drawable/common_conner_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="单个金额"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edMoney"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:digits="0.123456789"
+            android:gravity="center_vertical|right"
+            android:hint="0.00"
+            android:singleLine="true"
+            android:textColor="@color/mifpay_black_important"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="16dp"
+            android:text="元"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:background="@drawable/common_conner_white_bg"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="留言"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edMark"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:background="@color/transparent"
+            android:gravity="center_vertical|right"
+            android:hint="恭喜发财，大吉大利"
+            android:maxLength="25"
+            android:singleLine="false"
+            android:textColor="@color/mifpay_black_important"
+            android:textColorHint="@color/gray"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:gravity="top"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="top"
+            android:text="¥"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_toRightOf="@id/tvUnit"
+            android:gravity="top"
+            android:text="0.00"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="36sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_margin="24dp"
+        android:textSize="18sp"
+        android:textColor="@color/white"
+        android:text="塞钱进红包"
+        android:background="@drawable/common_conner_button_bg_red_packet"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:textSize="14sp"
+        android:text="未领取的红包，将于24小时后发起退款"
+        android:layout_marginBottom="16dp"/>
+</LinearLayout>

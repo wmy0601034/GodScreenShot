@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/common_default_activity_color"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llUser"
+                android:layout_width="match_parent"
+                android:layout_height="112dp"
+                android:background="@color/mifpay_blue"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingLeft="@dimen/common_margin_two_side"
+                android:paddingRight="@dimen/common_margin_two_side">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgAvatar"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:src="@mipmap/app_images_defaultface"/>
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/common_margin_two_side"
+                    android:layout_weight="1"
+                    android:text="未登录"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"/>
+
+                <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    app:arrowColor="@color/white"
+                    app:arrowDirection="right"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="@dimen/common_margin_two_side"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="登录手机"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvMobile"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="18077160601"
+                        android:textColor="@color/text_gray"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="状态"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvStatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="正常"
+                        android:textColor="@color/mifpay_green"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llCommentType"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="会员类型"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvType"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="免费用户"
+                        android:textColor="@color/text_gray"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llExpires"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="到期时间"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvExpires"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="永久用户"
+                        android:textColor="@color/text_gray"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llWaterMark"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="去水印"
+                        android:textColor="@color/black"/>
+
+                    <TextView
+                        android:id="@+id/tvWaterMark"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="未去水印"
+                        android:textColor="@color/red"
+                        android:textSize="12sp"/>
+
+                    <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:arrowColor="@color/text_gray"
+                        app:arrowDirection="right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+
+                <LinearLayout
+                    android:id="@+id/llContract"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/windows_color"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="在线客服"
+                        android:textColor="@color/black"/>
+
+                    <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        app:arrowColor="@color/text_gray"
+                        app:arrowDirection="right"/>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.1dp"
+                    android:layout_marginLeft="8dp"
+                    android:background="@color/tab_layout_top_divider"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mifpay_blue"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/mifpay_blue"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="返回"
+            android:textColor="@color/mifu_white"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text=""
+            android:textColor="@color/mifu_white"/>
+
+        <TextView
+            android:id="@+id/tvSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="添加"
+            android:textColor="@color/mifu_white"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"></android.support.v4.view.ViewPager>
+
+    <RadioGroup
+        android:id="@+id/rdoTab"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rdoMain"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/launcher_main_selector"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp"
+            android:text="首页"
+            android:textColor="@color/launcher_tab_textcolor_selector"
+            android:textSize="12sp"/>
+
+        <RadioButton
+            android:id="@+id/rdoUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/launcher_user_selector"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp"
+            android:text="用户"
+            android:textColor="@color/launcher_tab_textcolor_selector"
+            android:textSize="12sp"/>
+
+        <RadioButton
+            android:id="@+id/rdoSetting"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:button="@null"
+            android:drawableTop="@drawable/launcher_more_selector"
+            android:gravity="bottom|center_horizontal"
+            android:paddingBottom="2dp"
+            android:paddingTop="4dp"
+            android:text="设置"
+            android:textColor="@color/launcher_tab_textcolor_selector"
+            android:textSize="12sp"/>
+    </RadioGroup>
+</LinearLayout>

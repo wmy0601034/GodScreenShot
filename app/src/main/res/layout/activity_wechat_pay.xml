@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/base_wechat_status_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary">
+
+        <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+            android:id="@+id/arrowBack"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            app:arrowColor="@color/white"
+            app:arrowDirection="left"
+            app:arrowWidth="1.5dp" />
+
+        <TextView
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/arrowBack"
+            android:gravity="center"
+            android:text="微信支付"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <ImageButton
+            android:id="@+id/btnRight"
+            android:layout_width="66dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@mipmap/adn" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/lvPay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="48dp"
+            android:divider="@color/transparent"
+            android:dividerHeight="0dp"></ListView>
+
+        <RelativeLayout
+            android:id="@+id/rlBottom"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true">
+
+            <LinearLayout
+                android:id="@+id/llInput"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:orientation="horizontal"
+                android:paddingRight="12dp"
+                android:visibility="gone">
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_achatbottomicon5" />
+
+                <View
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/tab_layout_top_divider" />
+
+                <ImageButton
+                    android:id="@+id/btnVoice"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="12dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon1" />
+
+                <EditText
+                    android:id="@+id/edContent"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_weight="1"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+                    android:singleLine="false"
+                    android:textCursorDrawable="@drawable/wechat_cursor_style" />
+
+                <ImageButton
+                    android:id="@+id/btnFace"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon2" />
+
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_marginLeft="16dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:scaleType="centerCrop"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon3" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llTab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:minHeight="48dp"
+                android:orientation="horizontal"
+                android:visibility="visible">
+
+                <ImageButton
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:background="?attr/selectableItemBackground"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_achatbottomicon5" />
+
+                <View
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/tab_layout_top_divider" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="我的账单"
+                        android:textColor="@color/mifpay_black_secondary" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:src="@mipmap/app_views_pages_wechat_common_images_achatbottommenuicon1" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/tab_layout_top_divider" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="账户安全"
+                        android:textColor="@color/mifpay_black_secondary" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:src="@mipmap/app_views_pages_wechat_common_images_achatbottommenuicon1" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.1dp"
+                    android:layout_height="match_parent"
+                    android:background="@color/tab_layout_top_divider" />
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:text="其他帮助"
+                        android:textColor="@color/mifpay_black_secondary" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:src="@mipmap/app_views_pages_wechat_common_images_achatbottommenuicon1" />
+                </RelativeLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:layout_above="@id/rlBottom"
+            android:background="@color/tab_layout_top_divider" />
+    </RelativeLayout>
+</LinearLayout>

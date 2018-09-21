@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary">
+
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:textColor="@color/white"
+                android:text="微信(47)"
+                android:layout_marginLeft="15dp"
+                android:textSize="16sp"
+                android:gravity="center"/>
+            <ImageButton
+                android:id="@+id/btnAdd"
+                android:layout_width="66dp"
+                android:layout_height="48dp"
+                android:src="@mipmap/app_images_navjia"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"/>
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_toLeftOf="@id/btnAdd"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@mipmap/aba"
+                android:background="?attr/selectableItemBackground"/>
+
+        </RelativeLayout>
+
+</LinearLayout>

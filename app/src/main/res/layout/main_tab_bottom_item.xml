@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="50dp"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rl_tab_icon"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="6dp">
+
+            <ImageView
+                android:id="@+id/iv_tab_item_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:src="@drawable/tab_weixin"
+                android:layout_centerHorizontal="true"
+                android:scaleType="centerInside" />
+
+            <View
+                android:id="@+id/tab_tip"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/tip_round_red_bg_shape"
+                android:visibility="gone" />
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_tab_item_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/rl_tab_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="2dp"
+            android:text="微信"
+            android:textColor="@color/tab_def_title_color_selector"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/unread_count"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:background="@drawable/wechat_notice_badge_bg"
+            android:gravity="center"
+            android:minWidth="20dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:visibility="visible" />
+    </RelativeLayout>
+</RelativeLayout>

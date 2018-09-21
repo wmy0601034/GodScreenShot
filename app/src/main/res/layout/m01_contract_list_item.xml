@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tvInitial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/wechat_contract_divider_gray"
+        android:paddingBottom="3dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="3dp"
+        android:text="A"
+        android:textSize="12sp"
+        android:textColor="@color/gray"
+        android:visibility="visible" />
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="32dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp">
+
+        <ImageView
+            android:id="@+id/imgAvatar"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@mipmap/app_images_role_10000" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:text="安之少年初如梦"
+            android:textColor="@color/mifpay_black_important"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+</LinearLayout>

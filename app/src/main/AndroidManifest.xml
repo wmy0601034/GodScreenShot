@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.nanningzhuanqian.vscreenshot">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <uses-sdk android:targetSdkVersion="24" />
+    <application
+        android:name=".base.VSSApplication"
+        android:allowBackup="true"
+        android:configChanges="orientation|keyboardHidden|screenSize"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".m00_launcher.WelcomeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".m02_add_conversation.AddCustomConversationActivity" />
+        <activity android:name=".m02_add_conversation.LocalAvatarSelectActivity" />
+        <activity android:name=".m03_add_role.AddCustomRoleActivity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".m00_launcher.LoginActivity" />
+        <activity android:name=".m00_launcher.RegisterActivity" />
+        <activity android:name=".m00_launcher.ProtocolActivitity" />
+        <activity android:name=".m00_launcher.ResetPwdActivity" />
+        <activity android:name=".m05_user.UserInfoActivity" />
+        <activity android:name=".m04_recharge.RechargeActivity" />
+        <activity
+            android:name=".m00_launcher.LauncherActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity android:name=".m06_setting.FeedbackActivity" />
+        <activity android:name=".m01_wechat_main.WechatSingeChatActivity" />
+        <activity android:name=".m01_wechat_main.WechatGroupChatActivity" />
+        <activity android:name=".m01_wechat_main.WechatTransferActivity" />
+        <activity
+            android:name=".m01_wechat_main.WechatWalletActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity android:name=".m01_wechat_main.WechatNewFriendActivity" />
+        <activity
+            android:name=".m01_wechat_main.WechatRedPacketActivity"
+            android:theme="@style/TranslucentTheme" />
+        <activity android:name=".m01_wechat_main.WechatChangeActivity" />
+        <activity android:name=".m01_wechat_main.WechatChangeDetailActivity" />
+        <activity android:name=".m01_wechat_main.WechatChangeWithdrawActivity" />
+        <activity android:name=".m01_wechat_main.WechatMomentActivity" />
+        <activity android:name=".m01_wechat_main.WechatBillActivity" />
+        <activity android:name=".m01_wechat_main.WechatPayActivity" />
+        <activity android:name=".m01_wechat_main.WechatChooseSingleChatActivity" />
+        <activity android:name=".m01_wechat_main.WechatAddNewFriendActivity" />
+        <activity android:name=".m01_wechat_main.WechatGlobalSettingActivity"/>
+        <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity"/>
+    </application>
+
+</manifest>

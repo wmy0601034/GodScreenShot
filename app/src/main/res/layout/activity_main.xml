@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.nanningzhuanqian.vscreenshot.MainActivity">
+
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:id="@+id/rlTopbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary">
+
+            <TextView
+                android:id="@+id/tvToolbarTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dp"
+                android:gravity="center"
+                android:text="微信(47)"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <ImageButton
+                android:id="@+id/btnAdd"
+                android:layout_width="66dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:background="?attr/selectableItemBackground"
+                android:src="@mipmap/app_images_navjia" />
+
+            <ImageButton
+                android:id="@+id/btnSearch"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_toLeftOf="@id/btnAdd"
+                android:background="?attr/selectableItemBackground"
+                android:src="@mipmap/aba" />
+
+        </RelativeLayout>
+
+        <com.nanningzhuanqian.vscreenshot.widget.MFViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rlTopbar"
+            android:paddingBottom="54dp"></com.nanningzhuanqian.vscreenshot.widget.MFViewPager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentBottom="true"
+            android:background="@color/common_bg"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/tab_layout_top_divider" />
+
+            <com.nanningzhuanqian.vscreenshot.widget.DMTabHost
+                android:id="@+id/tab_host"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:paddingBottom="1dp">
+
+                <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+
+                    app:drawableTop="@drawable/tab_weixin"
+                    app:tabtext="@string/app_main"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
+
+                <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:drawableTop="@drawable/tab_contact_list"
+                    app:tabtext="@string/contacts"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
+
+                <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:drawableTop="@drawable/tab_find"
+                    app:tabtext="@string/discover"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
+
+                <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    app:drawableTop="@drawable/tab_profile"
+                    app:tabtext="@string/me"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
+            </com.nanningzhuanqian.vscreenshot.widget.DMTabHost>
+        </LinearLayout>
+    </RelativeLayout>
+</LinearLayout>

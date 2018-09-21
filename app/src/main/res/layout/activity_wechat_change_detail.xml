@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mifpay_white"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/mifpay_white">
+
+        <ImageButton
+            android:id="@+id/imgBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:background="?attr/selectableItemBackground"
+            android:src="@mipmap/ab8"/>
+
+
+        <TextView
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@id/imgBack"
+            android:gravity="center"
+            android:text="零钱明细"
+            android:textColor="@color/black"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+
+    <com.nanningzhuanqian.vscreenshot.widget.CustomListview
+        android:id="@+id/lvChangeDetail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"></com.nanningzhuanqian.vscreenshot.widget.CustomListview>
+    <TextView
+        android:id="@+id/tvAdd"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:gravity="center"
+        android:background="?attr/selectableItemBackground"
+        android:textColor="@color/gray"
+        android:textSize="16sp"
+        android:text="点击添加零钱明细记录"/>
+</LinearLayout>
