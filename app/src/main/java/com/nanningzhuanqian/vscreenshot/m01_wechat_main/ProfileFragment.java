@@ -12,6 +12,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
 
 /**
  * Created by WMY on 2018/9/14.
@@ -69,6 +71,21 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     private void initData() {
 
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        getLocalProfileData();
+    }
+
+    private void getLocalProfileData() {
+        int imgRes = (int) SPUtils.get(getActivity(), Constant.KEY_PROFILE_AVATAR,0);
+        imgAvatar.setImageResource(imgRes);
+        String name = (String) SPUtils.get(getActivity(),Constant.KEY_PROFILE_NAME,"");
+        String account = (String)SPUtils.get(getActivity(),Constant.KEY_PROFILE_ACCOUNT,"");
+        tvName.setText(name);
+        tvAccount.setText("微信号："+account);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m02_add_conversation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.AvatarAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.LocalAvatarItem;
 import com.nanningzhuanqian.vscreenshot.item.LocalAvatarItems;
 
@@ -20,6 +23,7 @@ public class LocalAvatarSelectActivity extends BaseActivity {
     private TextView tvTitle;
     private GridView gvAvatar;
     private AvatarAdapter avatarAdapter;
+    private String type;
 
     @Override
     protected int getLayoutId() {
@@ -32,6 +36,8 @@ public class LocalAvatarSelectActivity extends BaseActivity {
         gvAvatar = (GridView)findViewById(R.id.gvAvatar);
         avatarAdapter = new AvatarAdapter(LocalAvatarSelectActivity.this);
         gvAvatar.setAdapter(avatarAdapter);
+        type = getIntent().getStringExtra(Constant.INTENT_KEY_TYPE);
+
     }
 
     protected void initEvent() {
@@ -44,10 +50,20 @@ public class LocalAvatarSelectActivity extends BaseActivity {
         gvAvatar.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent();
-                intent.putExtra("imgRes",LocalAvatarItems.getInstance().get(position).getImgRes());
-                setResult(999,intent);
-                finish();
+                if(TextUtils.isEmpty(type)){
+                    Intent intent = new Intent();
+                    intent.putExtra("imgRes",LocalAvatarItems.getInstance().get(position).getImgRes());
+                    setResult(999,intent);
+                    finish();
+                }else if(Constant.INTENT_VALUE_MOMENT_AVATAR.equals(type)){
+                    String imgRes = String.valueOf(LocalAvatarItems.getInstance().get(position).getImgRes());
+                    SPUtils.put(getThis(),Constant.KEY_MOMENT_AVATAR,imgRes);
+                    finish();
+                }else if(Constant.INTENT_VALUE_PROFILE_AVATAR.equals(type)){
+                    int imgRes = LocalAvatarItems.getInstance().get(position).getImgRes();
+                    SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,imgRes);
+                    finish();
+                }
             }
         });
     }

@@ -49,4 +49,5 @@ public interface API {
 
     void saveConversation(ConversationBmob conversationBmob,CallbackListener callbackListener);
 
+    void getWechatWalletContent(CallbackListener callbackListener);
 }

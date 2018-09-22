@@ -1,8 +1,5 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -10,30 +7,30 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.nanningzhuanqian.vscreenshot.MainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseDelegateAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseViewHolder;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
+import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.TencentServiceItem;
-import com.nanningzhuanqian.vscreenshot.item.TencentServiceItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatItem;
-import com.nanningzhuanqian.vscreenshot.item.WechatItems;
-import com.nanningzhuanqian.vscreenshot.item.WechatSpreadItem;
-import com.nanningzhuanqian.vscreenshot.item.WechatSpreadItems;
-import com.nanningzhuanqian.vscreenshot.item.WechatThirdServiceItem;
-import com.nanningzhuanqian.vscreenshot.item.WechatThirdServiceItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatWalletItem;
+import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfig;
+import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfigLite;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Field;
+import org.litepal.LitePal;
+
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,13 +47,11 @@ public class WechatWalletActivity extends BaseActivity {
     private BaseDelegateAdapter spreadAdapter;
     private BaseDelegateAdapter thirdServiceItemDecorationAdapter;
     private BaseDelegateAdapter thirdServiceAdapter;
+    private List<WechatWalletItem> tencentServiceItems = new ArrayList<>();
+    private List<WechatWalletItem> spreadItems = new ArrayList<>();
+    private List<WechatWalletItem> thirdServiceItems = new ArrayList<>();
+    private  VirtualLayoutManager layoutManager;
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.i(TAG, "WechatWalletActivity onCreate");
-//        setStatusBarTransparent();
-        super.onCreate(savedInstanceState);
-    }
 
     @Override
     protected int getLayoutId() {
@@ -75,56 +70,102 @@ public class WechatWalletActivity extends BaseActivity {
             }
         });
         rcvWallet = (RecyclerView) findViewById(R.id.rcvWallet);
-//        setFullScreen();
-//        initStatusBar();
+        layoutManager = new VirtualLayoutManager(getThis());
+        rcvWallet.setLayoutManager(layoutManager);
+        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
+        rcvWallet.setRecycledViewPool(viewPool);
+        viewPool.setMaxRecycledViews(BaseDelegateAdapter.ITEM_COMMON, 30);
     }
 
     @Override
     protected void initEvent() {
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        HttpUtil.getInstance().getWechatWalletContent(new CallbackListener() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onGetSuccess(Object o) {
+                List<WechatWalletConfig> configs = (List<WechatWalletConfig>) o;
+                LitePal.deleteAll(WechatWalletConfigLite.class);
+                tencentServiceItems.clear();
+                spreadItems.clear();
+                thirdServiceItems.clear();
+                for(int i = 0;i<configs.size();i++){
+                    WechatWalletItem item = configs.get(i).coverToWechatWalletBaseItem();
+                    WechatWalletConfigLite configLite = configs.get(i).coverToWechatWalletConfigLite();
+                    configLite.save();
+                    if("00".equals(item.getConfigType())){
+                        tencentServiceItems.add(item);
+                    }else if("01".equals(item.getConfigType())){
+                        spreadItems.add(item);
+                    }else if("02".equals(item.getConfigType())){
+                        thirdServiceItems.add(item);
+                    }
+                }
+                initAdapter();
+            }
+
+            @Override
+            public void onFailure(String message) {
+                getLocalConfig();
+                initAdapter();
+            }
+        });
     }
 
     @Override
     protected void initData() {
 
-        TencentServiceItems.getInstance().clear();
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon1, "信用卡还款"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon2, "手机充值"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon3, "理财通"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon4, "生活缴费"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon5, "Q币充值"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon6, "城市服务"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon7, "腾讯公益"));
-        TencentServiceItems.getInstance().add(new TencentServiceItem(R.mipmap.app_views_pages_wechat_common_images_walleticon8, "保险服务"));
+    }
 
-        WechatThirdServiceItems.getInstance().clear();
-//        WechatThirdServiceItems.getInstance().add(new WechatThirdServiceItem());
+    private void getLocalConfig(){
+        List<WechatWalletConfigLite> configLites = LitePal.findAll(WechatWalletConfigLite.class);
+        tencentServiceItems.clear();
+        spreadItems.clear();
+        thirdServiceItems.clear();
+        for(int i = 0;i<configLites.size();i++){
+            WechatWalletItem item = configLites.get(i).coverToWechatWalletBaseItem();
+            if("00".equals(item.getConfigType())){
+                tencentServiceItems.add(item);
+            }else if("01".equals(item.getConfigType())){
+                spreadItems.add(item);
+            }else if("02".equals(item.getConfigType())){
+                thirdServiceItems.add(item);
+            }
+        }
+    }
 
-        VirtualLayoutManager layoutManager = new VirtualLayoutManager(getThis());
-        rcvWallet.setLayoutManager(layoutManager);
-        RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-        rcvWallet.setRecycledViewPool(viewPool);
-        viewPool.setMaxRecycledViews(BaseDelegateAdapter.ITEM_COMMON, 30);
+    private void initAdapter() {
+        mAdapters.clear();
         delegateAdapter = new DelegateAdapter(layoutManager, true);
         walletAdapter = getWalletAdapter();
-        tencentServiceItemDecorationAdapter = getTencentServiceItemDecorationAdapter();
-        tencentServiceAdapter = getTencentServiceAdapter();
-        spreadItemDecorationAdapter = getSpreadItemDecorationAdapter();
-        spreadAdapter = getSpreadAdapter();
-        thirdServiceItemDecorationAdapter = getThirdServiceItemDecorationAdapter();
-        thirdServiceAdapter = getThirdServiceAdapter();
         mAdapters.add(walletAdapter);
-        mAdapters.add(tencentServiceItemDecorationAdapter);
-        mAdapters.add(tencentServiceAdapter);
-//        mAdapters.add(spreadItemDecorationAdapter);
-//        mAdapters.add(spreadAdapter);
-//        mAdapters.add(thirdServiceItemDecorationAdapter);
-//        mAdapters.add(thirdServiceAdapter);
+        if(tencentServiceItems.size()!=0) {
+            tencentServiceItemDecorationAdapter = getTencentServiceItemDecorationAdapter();
+            tencentServiceAdapter = getTencentServiceAdapter();
+            mAdapters.add(tencentServiceItemDecorationAdapter);
+            mAdapters.add(tencentServiceAdapter);
+        }
+        if(spreadItems.size()!=0) {
+            spreadItemDecorationAdapter = getSpreadItemDecorationAdapter();
+            spreadAdapter = getSpreadAdapter();
+            mAdapters.add(spreadItemDecorationAdapter);
+            mAdapters.add(spreadAdapter);
+        }
+        if(thirdServiceItems.size()!=0) {
+            thirdServiceItemDecorationAdapter = getThirdServiceItemDecorationAdapter();
+            thirdServiceAdapter = getThirdServiceAdapter();
+            mAdapters.add(thirdServiceItemDecorationAdapter);
+            mAdapters.add(thirdServiceAdapter);
+        }
+
         delegateAdapter.setAdapters(mAdapters);
         rcvWallet.setAdapter(delegateAdapter);
     }
@@ -132,21 +173,23 @@ public class WechatWalletActivity extends BaseActivity {
     private BaseDelegateAdapter getThirdServiceAdapter() {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(3);
         gridLayoutHelper.setSpanCount(3);
-        gridLayoutHelper.setItemCount(getItemSize(WechatItems.getInstance().size()));
-        BaseDelegateAdapter walletAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(WechatItems.getInstance().size()),
+        gridLayoutHelper.setItemCount(getItemSize(thirdServiceItems.size()));
+        BaseDelegateAdapter walletAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(thirdServiceItems.size()),
                 BaseDelegateAdapter.ITEM_WECHAT) {
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
                 Log.i(TAG, "getWechatAdapter onBindViewHolder" + position);
-                if (position < WechatItems.getInstance().size()) {
+                View dividerRight = holder.getView(R.id.dividerRight);
+                View dividerBottom = holder.getView(R.id.dividerBottom);
+                RelativeLayout llRoot = holder.getView(R.id.llRoot);
+                if (position < thirdServiceItems.size()) {
                     //初始化控件
-                    LinearLayout llRoot = holder.getView(R.id.llRoot);
                     ImageView imgIcon = holder.getView(R.id.imgIcon);
                     TextView tvName = holder.getView(R.id.tvName);
-                    final WechatItem item = WechatItems.getInstance().get(position);
-                    Picasso.with(getThis()).load(item.getImgRes()).into(imgIcon);
+                    final WechatWalletItem item = thirdServiceItems.get(position);
+                    Picasso.with(getThis()).load(item.getImgUrl()).into(imgIcon);
                     tvName.setText(item.getName());
                     llRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -154,6 +197,22 @@ public class WechatWalletActivity extends BaseActivity {
 
                         }
                     });
+                    dividerRight.setVisibility(View.VISIBLE);
+                    dividerBottom.setVisibility(View.VISIBLE);
+                    if((position+1)%3==0){
+                        dividerRight.setVisibility(View.GONE);
+                    }else{
+                        dividerRight.setVisibility(View.VISIBLE);
+                    }
+                    if( thirdServiceItems.size()<(position/3+1)*3){
+                        dividerBottom.setVisibility(View.GONE);
+                    }else{
+                        dividerBottom.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    llRoot.setBackgroundResource(R.color.windows_color);
+                    dividerRight.setVisibility(View.GONE);
+                    dividerBottom.setVisibility(View.GONE);
                 }
             }
         };
@@ -179,20 +238,22 @@ public class WechatWalletActivity extends BaseActivity {
     private BaseDelegateAdapter getSpreadAdapter() {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(3);
         gridLayoutHelper.setSpanCount(3);
-        gridLayoutHelper.setItemCount(getItemSize(WechatSpreadItems.getInstance().size()));
-        BaseDelegateAdapter spreadAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(WechatSpreadItems.getInstance().size()),
+        gridLayoutHelper.setItemCount(getItemSize(spreadItems.size()));
+        BaseDelegateAdapter spreadAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(spreadItems.size()),
                 BaseDelegateAdapter.ITEM_COMMON) {
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
-                if (position < WechatSpreadItems.getInstance().size()) {
+                View dividerRight = holder.getView(R.id.dividerRight);
+                View dividerBottom = holder.getView(R.id.dividerBottom);
+                RelativeLayout llRoot = holder.getView(R.id.llRoot);
+                if (position < spreadItems.size()) {
                     //初始化控件
-                    LinearLayout llRoot = holder.getView(R.id.llRoot);
                     ImageView imgIcon = holder.getView(R.id.imgIcon);
                     TextView tvName = holder.getView(R.id.tvName);
-                    final WechatSpreadItem item = WechatSpreadItems.getInstance().get(position);
-                    Picasso.with(getThis()).load(item.getImgRes()).into(imgIcon);
+                    final WechatWalletItem item = spreadItems.get(position);
+                    Picasso.with(getThis()).load(item.getImgUrl()).into(imgIcon);
                     tvName.setText(item.getName());
                     llRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
@@ -201,6 +262,22 @@ public class WechatWalletActivity extends BaseActivity {
 
                         }
                     });
+                    dividerRight.setVisibility(View.VISIBLE);
+                    dividerBottom.setVisibility(View.VISIBLE);
+                    if((position+1)%3==0){
+                        dividerRight.setVisibility(View.GONE);
+                    }else{
+                        dividerRight.setVisibility(View.VISIBLE);
+                    }
+                    if( spreadItems.size()<(position/3+1)*3){
+                        dividerBottom.setVisibility(View.GONE);
+                    }else{
+                        dividerBottom.setVisibility(View.VISIBLE);
+                    }
+                }else{
+                    llRoot.setBackgroundResource(R.color.windows_color);
+                    dividerRight.setVisibility(View.GONE);
+                    dividerBottom.setVisibility(View.GONE);
                 }
             }
         };
@@ -226,31 +303,44 @@ public class WechatWalletActivity extends BaseActivity {
     private BaseDelegateAdapter getTencentServiceAdapter() {
         GridLayoutHelper gridLayoutHelper = new GridLayoutHelper(3);
         gridLayoutHelper.setSpanCount(3);
-        gridLayoutHelper.setHGap(2);
-        gridLayoutHelper.setVGap(2);
-        gridLayoutHelper.setItemCount(getItemSize(TencentServiceItems.getInstance().size()));
-        BaseDelegateAdapter tencentServiceAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(TencentServiceItems.getInstance().size()),
+        gridLayoutHelper.setItemCount(getItemSize(tencentServiceItems.size()));
+        BaseDelegateAdapter tencentServiceAdapter = new BaseDelegateAdapter(getThis(), gridLayoutHelper, R.layout.main_wechat_wallet_item, getItemSize(tencentServiceItems.size()),
                 BaseDelegateAdapter.ITEM_COMMON) {
 
             @Override
             public void onBindViewHolder(BaseViewHolder holder, int position) {
                 super.onBindViewHolder(holder, position);
-                LinearLayout llRoot = holder.getView(R.id.llRoot);
-                if (position < TencentServiceItems.getInstance().size()) {
+                RelativeLayout llRoot = holder.getView(R.id.llRoot);
+                View dividerRight = holder.getView(R.id.dividerRight);
+                View dividerBottom = holder.getView(R.id.dividerBottom);
+                if (position < tencentServiceItems.size()) {
                     ImageView imgIcon = holder.getView(R.id.imgIcon);
                     TextView tvName = holder.getView(R.id.tvName);
-                    final TencentServiceItem item = TencentServiceItems.getInstance().get(position);
-                    Picasso.with(getThis()).load(item.getImgRes()).into(imgIcon);
+                    final WechatWalletItem item = tencentServiceItems.get(position);
+                    Picasso.with(getThis()).load(item.getImgUrl()).into(imgIcon);
                     tvName.setText(item.getName());
                     llRoot.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 
-
                         }
                     });
+                    dividerRight.setVisibility(View.VISIBLE);
+                    dividerBottom.setVisibility(View.VISIBLE);
+                    if((position+1)%3==0){
+                        dividerRight.setVisibility(View.GONE);
+                    }else{
+                        dividerRight.setVisibility(View.VISIBLE);
+                    }
+                    if( tencentServiceItems.size()<(position/3+1)*3){
+                        dividerBottom.setVisibility(View.GONE);
+                    }else{
+                        dividerBottom.setVisibility(View.VISIBLE);
+                    }
                 }else{
                     llRoot.setBackgroundResource(R.color.windows_color);
+                    dividerRight.setVisibility(View.GONE);
+                    dividerBottom.setVisibility(View.GONE);
                 }
             }
         };

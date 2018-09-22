@@ -1,5 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+import android.support.annotation.NonNull;
+
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
@@ -9,7 +11,7 @@ import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
  * Created by WMY on 2018/9/14.
  */
 
-public class ConversationItem {
+public class ConversationItem implements Comparable{
 
     private int imgRes;
     private String imgUrl;
@@ -145,5 +147,11 @@ public class ConversationItem {
         conversationBmob.setPublic(isPublic);
         conversationBmob.setPointToUser(pointToUser);
         return conversationBmob;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object o) {
+        ConversationItem item = (ConversationItem)o;
+        return (int)item.getUpdateTime()-(int)this.updateTime;
     }
 }

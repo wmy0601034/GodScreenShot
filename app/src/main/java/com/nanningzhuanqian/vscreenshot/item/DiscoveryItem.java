@@ -9,14 +9,26 @@ public class DiscoveryItem {
     private int leftImgType;
     private int rightImgRes;
     private String rightImgUrl;
-    private int rightImgType;
-    private int badge;
+    private int rightImgType;   //0 本地 1 网络
+    private int badge = 0;
     private int isIgnore;
+    private String rightContent;
 
     public DiscoveryItem( int type,String name, int leftImgRes) {
         this.name = name;
         this.type = type;
         this.leftImgRes = leftImgRes;
+    }
+
+    public DiscoveryItem( int type,String name, int leftImgRes,int rightImgType,int rightImgRes,String rightImgUrl,
+                          String rightContent) {
+        this.name = name;
+        this.type = type;
+        this.leftImgRes = leftImgRes;
+        this.rightImgType = rightImgType;
+        this.rightImgRes = rightImgRes;
+        this.rightImgUrl = rightImgUrl;
+        this.rightContent = rightContent;
     }
 
     public String getName() {
@@ -97,5 +109,13 @@ public class DiscoveryItem {
 
     public void setIsIgnore(int isIgnore) {
         this.isIgnore = isIgnore;
+    }
+
+    public String getRightContent() {
+        return rightContent;
+    }
+
+    public void setRightContent(String rightContent) {
+        this.rightContent = rightContent;
     }
 }

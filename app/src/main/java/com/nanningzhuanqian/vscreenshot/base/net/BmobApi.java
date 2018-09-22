@@ -7,6 +7,7 @@ import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 import com.nanningzhuanqian.vscreenshot.model.User;
+import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfig;
 
 import java.util.List;
 
@@ -133,6 +134,21 @@ public class BmobApi implements API {
             @Override
             public void done(String s, BmobException e) {
 
+            }
+        });
+    }
+
+    @Override
+    public void getWechatWalletContent(final CallbackListener callbackListener) {
+        BmobQuery<WechatWalletConfig> query = new BmobQuery<WechatWalletConfig>();
+        query.findObjects(new FindListener<WechatWalletConfig>() {
+            @Override
+            public void done(List<WechatWalletConfig> list, BmobException e) {
+                if(e==null){
+                    callbackListener.onGetSuccess(list);
+                }else{
+                    callbackListener.onFailure(e.toString());
+                }
             }
         });
     }

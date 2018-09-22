@@ -39,5 +39,6 @@ dependencies {
     compile 'com.alibaba:fastjson:1.2.23'
     compile 'org.litepal.android:core:2.0.0'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
+    compile 'org.greenrobot:eventbus:3.0.0'
 
 }

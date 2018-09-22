@@ -25,6 +25,10 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
 import com.nanningzhuanqian.vscreenshot.widget.LoadingDialog;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import java.lang.reflect.Field;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -57,7 +61,15 @@ public abstract class BaseActivity extends AppCompatActivity {
         initEvent();
         initData();
         initStatusBar();
+        EventBus.getDefault().register(this);
+
+        }
+
+    //定义处理接收的方法
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void handleEvent(EventBus eventBus){
     }
+
 
     /**
      * 是否可以使用沉浸式
@@ -266,5 +278,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG,"onDestroy");
+        EventBus.getDefault().unregister(this);
     }
 }

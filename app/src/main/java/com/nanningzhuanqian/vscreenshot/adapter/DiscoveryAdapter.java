@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
@@ -50,7 +51,6 @@ public class DiscoveryAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ViewHolder viewHolder = (ViewHolder) holder;
         int section = getSectionForPosition(position);
-        Log.i("wmy", "section = " + section);
         final DiscoveryItem item = DiscoveryItems.getInstance().get(position);
         if (section == -1) {
             viewHolder.tvInitial.setVisibility(View.GONE);
@@ -66,6 +66,23 @@ public class DiscoveryAdapter extends RecyclerView.Adapter {
         }
         viewHolder.imgIcon.setImageResource(item.getLeftImgRes());
         viewHolder.tvName.setText(item.getName());
+        if(item.getBadge()!=0){
+            viewHolder.tvBadge.setText(String.valueOf(item.getBadge()));
+            viewHolder.tvBadge.setVisibility(View.VISIBLE);
+        }else{
+
+        }
+        if(item.getRightImgRes()!=0){
+            viewHolder.rlRight.setVisibility(View.VISIBLE);
+            viewHolder.imgRight.setImageResource(item.getRightImgRes());
+        }else{
+
+        }
+        if(!TextUtils.isEmpty(item.getRightContent())){
+            viewHolder.rlRight.setVisibility(View.VISIBLE);
+            viewHolder.tvRight.setText(item.getRightContent());
+            viewHolder.tvRight.setVisibility(View.VISIBLE);
+        }
         viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +128,9 @@ public class DiscoveryAdapter extends RecyclerView.Adapter {
         LinearLayout rootView;
         TextView tvInitial;
         TextView tvName;
+        TextView tvBadge;
         ImageView imgIcon;
+        RelativeLayout rlRight;
         ImageView imgRight;
         TextView tvRight;
         View divider;
@@ -121,7 +140,9 @@ public class DiscoveryAdapter extends RecyclerView.Adapter {
             rootView = (LinearLayout) itemView.findViewById(R.id.rootView);
             tvInitial = (TextView) itemView.findViewById(R.id.tvInitial);
             tvName = (TextView) itemView.findViewById(R.id.tvName);
+            tvBadge = (TextView)itemView.findViewById(R.id.tvBadge);
             imgIcon = (ImageView) itemView.findViewById(R.id.imgIcon);
+            rlRight = (RelativeLayout)itemView.findViewById(R.id.rlRight);
             imgRight = (ImageView) itemView.findViewById(R.id.imgRight);
             tvRight = (TextView) itemView.findViewById(R.id.tvRight);
             divider = (View) itemView.findViewById(R.id.divider);

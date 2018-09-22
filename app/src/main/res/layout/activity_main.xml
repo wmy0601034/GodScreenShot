@@ -80,6 +80,7 @@
                 android:paddingBottom="1dp">
 
                 <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:id="@+id/rdoWechat"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -88,6 +89,7 @@
                     app:tabtext="@string/app_main"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
 
                 <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:id="@+id/rdoContract"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -95,6 +97,7 @@
                     app:tabtext="@string/contacts"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
 
                 <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:id="@+id/rdoDiscovery"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -102,6 +105,7 @@
                     app:tabtext="@string/discover"></com.nanningzhuanqian.vscreenshot.widget.DMTabButton>
 
                 <com.nanningzhuanqian.vscreenshot.widget.DMTabButton
+                    android:id="@+id/rdoUser"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

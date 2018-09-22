@@ -25,7 +25,7 @@
 
 
             <com.nanningzhuanqian.vscreenshot.widget.ArrowView
-                android:id="@+id/arrow"
+                android:id="@+id/arrowBack"
                 android:layout_width="16dp"
                 android:layout_height="16dp"
                 android:layout_centerVertical="true"
@@ -39,7 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="6dp"
-                android:layout_toRightOf="@id/arrow"
+                android:layout_toRightOf="@id/arrowBack"
                 android:gravity="center"
                 android:text="我的钱包"
                 android:textColor="@color/white"

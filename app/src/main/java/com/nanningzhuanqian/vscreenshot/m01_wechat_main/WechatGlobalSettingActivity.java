@@ -18,7 +18,6 @@ public class WechatGlobalSettingActivity extends BaseActivity {
     private TabLayout tabLayout;
     private ViewPager viewPager;
     private List<String> tabs;
-    private List<Fragment> fragments;
 
     @Override
     protected int getLayoutId() {

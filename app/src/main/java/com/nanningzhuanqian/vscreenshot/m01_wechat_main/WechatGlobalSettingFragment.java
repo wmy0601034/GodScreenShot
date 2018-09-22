@@ -5,12 +5,17 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
 
 public class WechatGlobalSettingFragment extends BaseFragment {
     private View rootView;
+    private LinearLayout llBadge;
+    private LinearLayout llNumberMode;
+    private LinearLayout llPCLoginPrompt;
+    private LinearLayout llTimeMode;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

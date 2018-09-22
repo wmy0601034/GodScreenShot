@@ -10,15 +10,32 @@ import android.widget.ImageButton;
 
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.event.RefreshUnReadCountEvent;
+import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
+import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
+import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ContactListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ConversationListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.DiscoverFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ProfileFragment;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatGlobalSettingActivity;
 import com.nanningzhuanqian.vscreenshot.m02_add_conversation.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m03_add_role.AddCustomRoleActivity;
+import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
+import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
+import com.nanningzhuanqian.vscreenshot.model.RandomManager;
+import com.nanningzhuanqian.vscreenshot.widget.DMTabButton;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabHost;
 import com.nanningzhuanqian.vscreenshot.widget.MFViewPager;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
+
+import org.greenrobot.eventbus.EventBus;
+import org.litepal.LitePal;
+
+import java.util.Random;
 
 public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
 
@@ -28,6 +45,14 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     //hi from book
     private MainTabAdpter adapter;
     private int currentPageIndex = 0;
+    private ConversationListFragment conversationListFragment;
+    private ContactListFragment contactListFragment;
+
+    private DMTabButton rdoWechat;
+    private DMTabButton rdoContract;
+    private DMTabButton rdoDiscovery;
+    private DMTabButton rdoUser;
+
 
     @Override
     protected int getLayoutId() {
@@ -39,6 +64,10 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         tab_host = (DMTabHost) findViewById(R.id.tab_host);
         viewpager = (MFViewPager) findViewById(R.id.viewpager);
         btnAdd = (ImageButton)findViewById(R.id.btnAdd);
+        rdoWechat = (DMTabButton)findViewById(R.id.rdoWechat);
+        rdoContract = (DMTabButton)findViewById(R.id.rdoContract);
+        rdoDiscovery = (DMTabButton)findViewById(R.id.rdoDiscovery);
+        rdoUser = (DMTabButton)findViewById(R.id.rdoUser);
         tab_host.setOnCheckedChangeListener(this);
         viewpager.setOnPageChangeListener(this);
         initMainTab();
@@ -59,6 +88,15 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     }
 
     @Override
+    public void handleEvent(EventBus eventBus) {
+        if(eventBus instanceof RefreshUnReadCountEvent){
+            initUnReadCount();
+        }else {
+            super.handleEvent(eventBus);
+        }
+    }
+
+    @Override
     protected void initEvent() {
 
     }
@@ -68,14 +106,32 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initUnReadCount();
+    }
+
+    private void initUnReadCount(){
+        int conversationUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
+        int contractUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
+        int discoveryUnReadCount = (int)SPUtils.get(getThis(),Constant.KEY_DISCOVERY_UNREAD_COUNT,0);
+        rdoWechat.setUnreadCount(conversationUnReadCount);
+        rdoContract.setUnreadCount(contractUnReadCount);
+        rdoDiscovery.setUnreadCount(discoveryUnReadCount);
+        rdoUser.setUnreadCount(0);
+    }
+
     private void initMainTab() {
         tab_host.setChecked(0);
         adapter = new MainTabAdpter(getSupportFragmentManager());
         viewpager.setAdapter(adapter);
         adapter.clear();
         viewpager.setOffscreenPageLimit(4);
-        adapter.addFragment(new ConversationListFragment(), getString(R.string.app_name));
-        adapter.addFragment(new ContactListFragment(), getString(R.string.contacts));
+        conversationListFragment = new ConversationListFragment();
+        contactListFragment = new ContactListFragment();
+        adapter.addFragment(conversationListFragment, getString(R.string.app_name));
+        adapter.addFragment(contactListFragment, getString(R.string.contacts));
         adapter.addFragment(new DiscoverFragment(), getString(R.string.discover));
         adapter.addFragment(new ProfileFragment(), getString(R.string.me));
         adapter.notifyDataSetChanged();
@@ -127,6 +183,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //随机添加1个对话
+                randomSingleConversation();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_20_conversation), NewActionSheetDialog
@@ -135,6 +192,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //随机添加20个对话
+                random20Conversation();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_page_setting), NewActionSheetDialog
@@ -143,6 +201,8 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //页面设置
+                Intent intent = new Intent(getThis(), WechatGlobalSettingActivity.class);
+                startActivity(intent);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_clear_conversation), NewActionSheetDialog
@@ -151,6 +211,9 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //清空对话内容
+                ConversationItems.getInstance().clear();
+                LitePal.deleteAll(ConversationLite.class);
+                conversationListFragment.notifyDataSetChanged();
             }
         });
 
@@ -219,5 +282,53 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         if(requestCode==999&&resultCode==999){
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void randomSingleConversation(){
+        generateRandomConversation(1);
+    }
+
+    private void random20Conversation(){
+        generateRandomConversation(20);
+    }
+
+    private void generateRandomConversation(int count){
+        int unReadCount = 0;
+        for(int i = 0;i<count;i++){
+            Random random = new Random();
+            int badge = random.nextInt(10);
+            boolean isPublic = random.nextBoolean();
+            boolean isBadge = random.nextBoolean();
+            boolean isIgnore = random.nextBoolean();
+            String name = RandomManager.getInstance().getRandomName();
+            long timeMillis = RandomManager.getRandomTime();
+            int imgRes =RandomManager.getInstance().getAvatarRes();
+            String content = RandomManager.getInstance().getRandomContent();
+            ConversationItem item = new ConversationItem();
+            item.setBadgeCount(badge);
+            item.setName(name);
+            item.setContent(content);
+            item.setUpdateTime(timeMillis);
+            item.setImgRes(imgRes);
+            item.setIgnore(isIgnore);
+            item.setBadge(isBadge);
+            item.setPublic(isPublic);
+            if(!isIgnore){
+                unReadCount+=badge;
+            }
+            String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
+            item.setPointToUser(mobile);
+            ConversationItems.getInstance().addFirst(item);
+
+            //保存到本地
+            ConversationLite conversationLite = item.convertToLite();
+            conversationLite.save();
+        }
+        int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
+        unReadCount +=lastUnreadCount;
+        SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
+        ConversationItems.getInstance().sort();
+        conversationListFragment.notifyDataSetChanged();
+        rdoWechat.setUnreadCount(unReadCount);
     }
 }

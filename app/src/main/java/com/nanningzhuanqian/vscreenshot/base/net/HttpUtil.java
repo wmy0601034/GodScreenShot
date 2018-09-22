@@ -67,4 +67,8 @@ public class HttpUtil {
     public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener){
         api.saveConversation(conversationBmob,callbackListener);
     }
+
+    public void getWechatWalletContent(CallbackListener callbackListener){
+        api.getWechatWalletContent(callbackListener);
+    }
 }
