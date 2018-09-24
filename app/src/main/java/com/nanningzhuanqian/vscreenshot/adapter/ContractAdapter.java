@@ -12,12 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 
 public class ContractAdapter extends RecyclerView.Adapter {
 
     public static final int ITEM_COMMON_TYPE = 0;
+    public static final int ITEM_NEW_FRIEND = 2;
     public static final int ITEM_CONTRACT_TYPE = 1;
 
     private Context context;
@@ -36,41 +40,68 @@ public class ContractAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_list_item, parent, false);
-        ViewHolder viewHolder = new ViewHolder(v);
-        return viewHolder;
+    public RecyclerView.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
+        if(viewType==ITEM_COMMON_TYPE||viewType==ITEM_CONTRACT_TYPE) {
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_list_item, parent, false);
+            CommonViewHolder viewHolder = new CommonViewHolder(v);
+            return viewHolder;
+        }else if(viewType==ITEM_NEW_FRIEND){
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_new_friend_item,
+                    parent, false);
+            NewFriendViewHolder viewHolder = new NewFriendViewHolder(v);
+            return viewHolder;
+        }
+        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ViewHolder viewHolder = (ViewHolder) holder;
-        int section = getSectionForPosition(position);
-        Log.i("wmy", "section = " + section);
-        final ContractItem item = ContractItems.getInstance().get(position);
-        if (section == -1) {
-            viewHolder.tvInitial.setVisibility(View.GONE);
-            viewHolder.divider.setVisibility(View.VISIBLE);
-        } else {
-            if (position == getPositionForSection(section)) {
-                viewHolder.tvInitial.setVisibility(View.VISIBLE);
-                viewHolder.divider.setVisibility(View.GONE);
-                viewHolder.tvInitial.setText(item.getLetters());
-            } else {
+        if(holder instanceof CommonViewHolder) {
+            CommonViewHolder viewHolder = (CommonViewHolder) holder;
+            int section = getSectionForPosition(position);
+            Log.i("wmy", "section = " + section);
+            final ContractItem item = ContractItems.getInstance().get(position);
+            if (section == -1) {
                 viewHolder.tvInitial.setVisibility(View.GONE);
                 viewHolder.divider.setVisibility(View.VISIBLE);
-            }
-        }
-        viewHolder.imgAvatar.setImageResource(item.getImgRes());
-        viewHolder.tvName.setText(item.getName());
-        viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (listener != null) {
-                    listener.onItemClick(item);
+            } else {
+                if (position == getPositionForSection(section)) {
+                    viewHolder.tvInitial.setVisibility(View.VISIBLE);
+                    viewHolder.divider.setVisibility(View.GONE);
+                    viewHolder.tvInitial.setText(item.getLetters());
+                } else {
+                    viewHolder.tvInitial.setVisibility(View.GONE);
+                    viewHolder.divider.setVisibility(View.VISIBLE);
                 }
             }
-        });
+            viewHolder.imgAvatar.setImageResource(item.getImgRes());
+            viewHolder.tvName.setText(item.getName());
+            viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (listener != null) {
+                        listener.onItemClick(item);
+                    }
+                }
+            });
+        }else if(holder instanceof NewFriendViewHolder){
+            NewFriendViewHolder viewHolder = (NewFriendViewHolder) holder;
+            int contractUnReadCount = (int) SPUtils.get(context, Constant.KEY_CONTRACT_UNREAD_COUNT,0);
+            viewHolder.unread_count.setText(String.valueOf(contractUnReadCount));
+            int size = WechatNewFriendItems.getInstance().size();
+            if(size>=1){
+                viewHolder.imgAvatar.setImageResource(WechatNewFriendItems.getInstance().get(0).getImgRes());
+            }
+            if(size>=2){
+                viewHolder.imgAvatar1.setImageResource(WechatNewFriendItems.getInstance().get(1).getImgRes());
+            }
+            if(size>=3){
+                viewHolder.imgAvatar2.setImageResource(WechatNewFriendItems.getInstance().get(2).getImgRes());
+            }
+            if(size>=4){
+                viewHolder.imgAvatar3.setImageResource(WechatNewFriendItems.getInstance().get(3).getImgRes());
+            }
+        }
     }
 
     /**
@@ -111,7 +142,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
         return ContractItems.getInstance().size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class CommonViewHolder extends RecyclerView.ViewHolder {
 
         LinearLayout rootView;
         TextView tvInitial;
@@ -119,7 +150,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
         ImageView imgAvatar;
         View divider;
 
-        public ViewHolder(View itemView) {
+        public CommonViewHolder(View itemView) {
             super(itemView);
             rootView = (LinearLayout) itemView.findViewById(R.id.rootView);
             tvInitial = (TextView) itemView.findViewById(R.id.tvInitial);
@@ -127,6 +158,27 @@ public class ContractAdapter extends RecyclerView.Adapter {
             imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
             divider = (View) itemView.findViewById(R.id.divider);
         }
-
     }
+
+    public class NewFriendViewHolder extends RecyclerView.ViewHolder {
+
+        LinearLayout rootView;
+        ImageView imgAvatar;
+        ImageView imgAvatar1;
+        ImageView imgAvatar2;
+        ImageView imgAvatar3;
+        TextView unread_count;
+
+
+        public NewFriendViewHolder(View itemView) {
+            super(itemView);
+            rootView = (LinearLayout) itemView.findViewById(R.id.rootView);
+            imgAvatar = (ImageView) itemView.findViewById(R.id.imgAvatar);
+            imgAvatar1 = (ImageView) itemView.findViewById(R.id.imgAvatar1);
+            imgAvatar2 = (ImageView) itemView.findViewById(R.id.imgAvatar2);
+            imgAvatar3 = (ImageView) itemView.findViewById(R.id.imgAvatar3);
+            unread_count = (TextView) itemView.findViewById(R.id.unread_count);
+        }
+    }
+
 }

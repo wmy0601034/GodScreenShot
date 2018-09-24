@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:gravity="center_vertical">
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_margin="8dp"/>
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="12dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textColor="@color/item_name_textcolor"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/tvContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvName"
+            android:layout_marginTop="3dp"
+            android:textColor="@color/ietm_common_textcolor"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/tvAccepted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="已通过"
+            android:textColor="@color/ietm_common_textcolor"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/tvAccept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="接受"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:paddingTop="@dimen/common_margin_up_down_short"
+            android:paddingBottom="@dimen/common_margin_up_down_short"
+            android:paddingLeft="@dimen/common_margin_two_side"
+            android:paddingRight="@dimen/common_margin_two_side"
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/common_wechat_conner_bg"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <litepal>
     <dbname value="vscreenshot"></dbname>
-    <version value="3"></version>
+    <version value="4"></version>
     <list>
         <mapping class="com.nanningzhuanqian.vscreenshot.model.ContractLite"></mapping>
 
@@ -10,5 +10,7 @@
         <mapping class="com.nanningzhuanqian.vscreenshot.model.ChangeDetail"></mapping>
 
         <mapping class="com.nanningzhuanqian.vscreenshot.model.WechatWalletConfigLite"></mapping>
+
+        <mapping class="com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite"></mapping>
     </list>
 </litepal>

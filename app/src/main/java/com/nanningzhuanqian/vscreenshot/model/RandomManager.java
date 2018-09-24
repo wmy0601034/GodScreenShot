@@ -128,4 +128,9 @@ public class RandomManager {
         int randomInt = random.nextInt(100);
         return System.currentTimeMillis() - randomInt * 60 * 1000;
     }
+
+    public static boolean getBoolean(){
+        Random random = new Random();
+        return random.nextBoolean();
+    }
 }

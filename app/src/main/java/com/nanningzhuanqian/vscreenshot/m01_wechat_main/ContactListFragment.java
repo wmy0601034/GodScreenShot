@@ -21,9 +21,12 @@ import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItem;
+import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.model.SortModel;
+import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 
 import org.litepal.LitePal;
 
@@ -100,13 +103,25 @@ public class ContactListFragment extends BaseFragment {
             ContractItem item = contractLites.get(i).convertToContractItem();
             contractItems.add(item);
         }
+        List<WechatNewFriendLite> wechatNewFriendLites = LitePal.findAll(WechatNewFriendLite.class);
+        WechatNewFriendItems.getInstance().clear();
+        for(int i = 0;i<wechatNewFriendLites.size();i++){
+            WechatNewFriendItem item = wechatNewFriendLites.get(i).convertToWechatNewFriendItem();
+            WechatNewFriendItems.getInstance().add(item);
+        }
         List<ContractItem> items = filledData(contractItems);
         Collections.sort(items, pinyinComparator);
         ContractItems.getInstance().add(items);
+
         ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "公众号", R.mipmap.app_views_pages_wechat_home_images_contacticon4));
+
         ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "标签", R.mipmap.app_views_pages_wechat_home_images_contacticon3));
         ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "群聊", R.mipmap.app_views_pages_wechat_home_images_contacticon2));
-        ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "新的朋友", R.mipmap.app_views_pages_wechat_home_images_contacticon1));
+        if(WechatNewFriendItems.getInstance().size()==0) {
+            ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "新的朋友", R.mipmap.app_views_pages_wechat_home_images_contacticon1));
+        }else{
+            ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_NEW_FRIEND, "新的朋友", R.mipmap.app_views_pages_wechat_home_images_contacticon1));
+        }
         contractAdapter.notifyDataSetChanged();
     }
 

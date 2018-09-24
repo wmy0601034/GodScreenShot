@@ -1,6 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
 import android.content.Intent;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
@@ -9,12 +10,18 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.adapter.WechatChatAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
+import com.nanningzhuanqian.vscreenshot.item.WechatChatItems;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
 
 public class WechatSingeChatActivity extends BaseActivity {
 
     private RecyclerView rcvConversation;
+    private WechatChatAdapter wechatChatAdapter;
     private ImageButton btnVoice;
     private ImageButton btnFace;
     private ImageButton btnAdd;
@@ -35,10 +42,13 @@ public class WechatSingeChatActivity extends BaseActivity {
             }
         });
         rcvConversation = (RecyclerView) findViewById(R.id.rcvConversation);
+        rcvConversation.setLayoutManager(new LinearLayoutManager(getThis()));
         btnVoice = (ImageButton) findViewById(R.id.btnVoice);
         btnFace = (ImageButton) findViewById(R.id.btnFace);
         btnAdd = (ImageButton) findViewById(R.id.btnAdd);
         edContent = (EditText) findViewById(R.id.edContent);
+        wechatChatAdapter = new WechatChatAdapter(getThis());
+        rcvConversation.setAdapter(wechatChatAdapter);
     }
 
     @Override
@@ -48,7 +58,20 @@ public class WechatSingeChatActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
+        WechatChatItem item1 = new WechatChatItem(WechatChatAdapter.TYPE_SELF,"吴MoonMoon",R.mipmap
+                .app_images_role_10000,"呵呵1", mobile);
+        WechatChatItem item2 = new WechatChatItem(WechatChatAdapter.TYPE_OTHER,"吴MoonMoon",R.mipmap
+                .app_images_role_10001,"呵呵2", mobile);
+        WechatChatItem item3 = new WechatChatItem(WechatChatAdapter.TYPE_SELF,"吴MoonMoon",R.mipmap
+                .app_images_role_10000,"呵呵3", mobile);
+        WechatChatItem item4 = new WechatChatItem(WechatChatAdapter.TYPE_OTHER,"吴MoonMoon",R.mipmap
+                .app_images_role_10001,"呵呵4", mobile);
+        WechatChatItems.getInstance().add(item1);
+        WechatChatItems.getInstance().add(item2);
+        WechatChatItems.getInstance().add(item3);
+        WechatChatItems.getInstance().add(item4);
+        wechatChatAdapter.notifyDataSetChanged();
     }
 
     private void showConversationSettingDialog() {

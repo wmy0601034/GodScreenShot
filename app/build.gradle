@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 26
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "com.nanningzhuanqian.vscreenshot"
         minSdkVersion 19
@@ -17,6 +17,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+//    configurations.all{
+//        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+//            def requested = details.requested
+//            if (requested.group == 'com.android.support') {
+//                if (!requested.name.startsWith("multidex")) {
+//                    details.useVersion '26.+'
+//                }
+//            }
+//        }
+//    }
+//    aaptOptions{
+//        cruncherEnabled = false
+//        useNewCruncher  =false
+//    }
 }
 
 dependencies {
@@ -30,7 +45,7 @@ dependencies {
     compile 'com.github.zcweng:switch-button:0.0.3@aar'
     compile 'com.borax12.materialdaterangepicker:library:1.9'
     compile files('libs/pinyin4j-2.5.0.jar')
-    compile ('com.alibaba.android:vlayout:1.2.8@aar') {
+    compile('com.alibaba.android:vlayout:1.2.8@aar') {
         transitive = true
     }
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -40,5 +55,4 @@ dependencies {
     compile 'org.litepal.android:core:2.0.0'
     compile 'com.gyf.barlibrary:barlibrary:2.3.0'
     compile 'org.greenrobot:eventbus:3.0.0'
-
 }

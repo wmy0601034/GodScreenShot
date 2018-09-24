@@ -19,12 +19,17 @@ public class Constant {
     public static final String KEY_PROFILE_NAME = "profile_name";
     public static final String KEY_PROFILE_ACCOUNT = "profile_account";
 
+
     public static final String KEY_SHOW_KANYIKAN = "show_kanyikan";
     public static final String KEY_SHOW_SOUYISOU = "show_souyisou";
     public static final String KEY_SHOW_NEARBY = "show_nearby";
     public static final String KEY_SHOW_PIAOLIUPING = "show_piaoliuping";
 
     public static final String INTENT_KEY_TYPE = "intent_key_type";
+    public static final String INTENT_KEY_POSITION = "intent_key_position";
+
+    public static final String INTENT_VALUE_EDIT = "intent_value_edit";
+    public static final String INTENT_VALUE_ADD = "intent_value_add";
 
     public static final String INTENT_VALUE_MOMENT_AVATAR = "intent_value_moment_avatar";
     public static final String INTENT_VALUE_PROFILE_AVATAR = "intent_value_profile_avatar";
