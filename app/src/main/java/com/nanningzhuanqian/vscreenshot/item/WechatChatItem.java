@@ -11,6 +11,7 @@ public class WechatChatItem {
     private int imgType;
     private String imgUrl;
     private String pointToName;
+    private boolean showTime;
 
     public int getType() {
         return type;

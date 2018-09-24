@@ -1,6 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true" />
+
+    <LinearLayout
+        android:id="@+id/llRight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTime"
+        android:gravity="right"
+        android:paddingLeft="48dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/tvRightContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:minHeight="40dp"
+            android:minWidth="48dp"
+            android:singleLine="false"
+            android:textColor="@color/black" />
+
+        <ImageView
+            android:id="@+id/imgRightAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_margin="8dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/llLeft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvTime"
+        android:paddingRight="48dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/imgLeftAvatar"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/tvTime"
+            android:layout_margin="8dp" />
+
+        <TextView
+            android:id="@+id/tvLeftContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvTime"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center_vertical"
+            android:minHeight="40dp"
+            android:minWidth="48dp"
+            android:singleLine="false" />
+    </LinearLayout>
+</RelativeLayout>

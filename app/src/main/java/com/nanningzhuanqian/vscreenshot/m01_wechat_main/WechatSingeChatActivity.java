@@ -7,21 +7,28 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatChatAdapter;
+import com.nanningzhuanqian.vscreenshot.adapter.WechatChatItemAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItems;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
+import com.nanningzhuanqian.vscreenshot.widget.CustomListview;
 
-public class WechatSingeChatActivity extends BaseActivity {
+import java.util.List;
 
-//    private RecyclerView rcvConversation;
+public class WechatSingeChatActivity extends BaseActivity implements View.OnClickListener {
+
+    private RecyclerView rcvConversation;
+//    private CustomListview lvChat;
     private WechatChatAdapter wechatChatAdapter;
+//    private WechatChatItemAdapter wechatChatItemAdapter;
     private ImageButton btnVoice;
     private ImageButton btnFace;
     private ImageButton btnAdd;
@@ -43,17 +50,22 @@ public class WechatSingeChatActivity extends BaseActivity {
         });
         rcvConversation = (RecyclerView) findViewById(R.id.rcvConversation);
         rcvConversation.setLayoutManager(new LinearLayoutManager(getThis()));
+//        lvChat = (CustomListview)findViewById(R.id.lvChat);
         btnVoice = (ImageButton) findViewById(R.id.btnVoice);
         btnFace = (ImageButton) findViewById(R.id.btnFace);
         btnAdd = (ImageButton) findViewById(R.id.btnAdd);
         edContent = (EditText) findViewById(R.id.edContent);
         wechatChatAdapter = new WechatChatAdapter(getThis());
+//        wechatChatItemAdapter = new WechatChatItemAdapter(getThis());
+//        lvChat.setAdapter(wechatChatItemAdapter);
         rcvConversation.setAdapter(wechatChatAdapter);
     }
 
     @Override
     protected void initEvent() {
-
+        btnVoice.setOnClickListener(this);
+        btnFace.setOnClickListener(this);
+        btnAdd.setOnClickListener(this);
     }
 
     @Override
@@ -82,11 +94,18 @@ public class WechatSingeChatActivity extends BaseActivity {
         WechatChatItems.getInstance().add(item4);
         WechatChatItems.getInstance().add(item5);
         WechatChatItems.getInstance().add(item6);
+//        wechatChatItemAdapter.notifyDataSetChanged();
         wechatChatAdapter.notifyDataSetChanged();
-
+        rcvConversation.scrollToPosition(WechatChatItems.getInstance().size()-1);
+//        lvChat.setSelection(WechatChatItems.getInstance().size());
     }
 
     private void showConversationSettingDialog() {
+
+    }
+
+    @Override
+    public void onClick(View v) {
 
     }
 }
