@@ -20,7 +20,7 @@ import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
 
 public class WechatSingeChatActivity extends BaseActivity {
 
-    private RecyclerView rcvConversation;
+//    private RecyclerView rcvConversation;
     private WechatChatAdapter wechatChatAdapter;
     private ImageButton btnVoice;
     private ImageButton btnFace;
@@ -60,18 +60,30 @@ public class WechatSingeChatActivity extends BaseActivity {
     protected void initData() {
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
         WechatChatItem item1 = new WechatChatItem(WechatChatAdapter.TYPE_SELF,"吴MoonMoon",R.mipmap
-                .app_images_role_10000,"呵呵1", mobile);
+                .app_images_role_10000,"呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵1", mobile);
         WechatChatItem item2 = new WechatChatItem(WechatChatAdapter.TYPE_OTHER,"吴MoonMoon",R.mipmap
-                .app_images_role_10001,"呵呵2", mobile);
+                .app_images_role_10001,
+                "呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵2", mobile);
         WechatChatItem item3 = new WechatChatItem(WechatChatAdapter.TYPE_SELF,"吴MoonMoon",R.mipmap
-                .app_images_role_10000,"呵呵3", mobile);
+                .app_images_role_10000,
+                "呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵3", mobile);
         WechatChatItem item4 = new WechatChatItem(WechatChatAdapter.TYPE_OTHER,"吴MoonMoon",R.mipmap
-                .app_images_role_10001,"呵呵4", mobile);
+                .app_images_role_10001,
+                "呵呵\n呵呵\n呵呵\n呵呵\n呵呵\n呵呵\n呵呵", mobile);
+        WechatChatItem item5 = new WechatChatItem(WechatChatAdapter.TYPE_SELF,"吴MoonMoon",R.mipmap
+                .app_images_role_10000,
+                "呵呵\n呵呵\n呵呵\n呵呵\n呵呵\n呵呵\n呵呵", mobile);
+        WechatChatItem item6 = new WechatChatItem(WechatChatAdapter.TYPE_OTHER,"吴MoonMoon",R.mipmap
+                .app_images_role_10001,
+                "呵呵\n呵呵\n呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵呵\n呵呵\n呵呵\n呵呵\n呵呵", mobile);
         WechatChatItems.getInstance().add(item1);
         WechatChatItems.getInstance().add(item2);
         WechatChatItems.getInstance().add(item3);
         WechatChatItems.getInstance().add(item4);
+        WechatChatItems.getInstance().add(item5);
+        WechatChatItems.getInstance().add(item6);
         wechatChatAdapter.notifyDataSetChanged();
+
     }
 
     private void showConversationSettingDialog() {

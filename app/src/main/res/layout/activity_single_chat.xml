@@ -46,13 +46,18 @@
                 android:src="@mipmap/app_views_pages_wechat_common_images_imoneyoutmore"/>
         </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rcvConversation"
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/rcvConversation"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:background="@color/mifpay_white"-->
+        <!--android:layout_weight="1"></android.support.v7.widget.RecyclerView>-->
+    <com.nanningzhuanqian.vscreenshot.widget.CustomListview
+        android:id="@+id/lvChat"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:background="@color/mifpay_white"
-        android:layout_weight="1"></android.support.v7.widget.RecyclerView>
-
+        android:layout_weight="1"
+        android:background="@color/mifpay_white"></com.nanningzhuanqian.vscreenshot.widget.CustomListview>
     <View
         android:layout_width="match_parent"
         android:layout_height="0.1dp"
