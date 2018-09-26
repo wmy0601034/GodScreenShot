@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -154,6 +156,14 @@ public class SPUtils {
             }
             editor.commit();
         }
+    }
+
+    public static int getBottomStatusBarHeight(Context context){
+        return (int) get(context, Constant.KEY_BOTTOM_STATUS_BAR_HEIGHT,0);
+    }
+
+    public static int getSoftInputKeyboardHeight(Context context){
+        return (int)get(context,Constant.KEY_SOFT_INPUT_KEYBORAD_HEIGHT,0);
     }
 
 

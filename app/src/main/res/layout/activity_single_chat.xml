@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -48,20 +49,11 @@
     </RelativeLayout>
 
     <android.support.v7.widget.RecyclerView
-    android:id="@+id/rcvConversation"
-    android:layout_width="match_parent"
-    android:layout_height="0dp"
-    android:background="@color/mifpay_white"
-    android:layout_weight="1"></android.support.v7.widget.RecyclerView>
-    <!--<com.nanningzhuanqian.vscreenshot.widget.CustomListview-->
-        <!--android:id="@+id/lvChat"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="0dp"-->
-        <!--android:layout_weight="1"-->
-        <!--android:dividerHeight="0dp"-->
-        <!--android:divider="@null"-->
-        <!--android:layout_marginBottom="48.1dp"-->
-        <!--android:background="@color/mifpay_white"></com.nanningzhuanqian.vscreenshot.widget.CustomListview>-->
+        android:id="@+id/rcvConversation"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/mifpay_white"></android.support.v7.widget.RecyclerView>
 
     <View
         android:layout_width="match_parent"
@@ -74,19 +66,34 @@
         android:gravity="center_vertical"
         android:minHeight="48dp"
         android:orientation="horizontal"
-        android:paddingLeft="12dp"
-        android:paddingRight="12dp">
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
 
-        <ImageButton
-            android:id="@+id/btnVoice"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon1" />
         <LinearLayout
+            android:id="@+id/llLeft"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgLeft"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon1" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvPressSpeak"
             android:layout_width="0dp"
-            android:layout_height=""></LinearLayout>
+            android:layout_height="32dp"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/wechat_press_speak_bg"
+            android:gravity="center"
+            android:text="按住 说话" />
+
         <EditText
             android:id="@+id/edContent"
             android:layout_width="0dp"
@@ -95,26 +102,209 @@
             android:layout_marginRight="8dp"
             android:layout_weight="1"
             android:paddingLeft="8dp"
-            android:paddingRight="8dp"
             android:singleLine="false"
-            android:textCursorDrawable="@drawable/wechat_cursor_style" />
+            android:textCursorDrawable="@drawable/wechat_cursor_style"
+            android:visibility="gone" />
 
-        <ImageButton
-            android:id="@+id/btnFace"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+        <LinearLayout
+            android:id="@+id/llFaceSmall"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/imgFace"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:background="?attr/selectableItemBackground"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llAddSmall"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon2" />
+            android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/btnAdd"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginLeft="16dp"
-            android:background="?attr/selectableItemBackground"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon3" />
+            <ImageView
+                android:id="@+id/imgAdd"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/app_views_pages_wechat_common_images_chatbottomicon3" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llMore"
+        android:layout_width="match_parent"
+        android:layout_height="265dp"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/tab_layout_top_divider" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
+            <LinearLayout
+                android:id="@+id/ll_dot_more"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpagerMore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/ll_dot_more" />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/llFace"
+        android:layout_width="match_parent"
+        android:layout_height="265dp"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/tab_layout_top_divider" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:id="@+id/ll_dot"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="16dp"
+                android:gravity="center"
+                android:orientation="horizontal" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@id/ll_dot" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.1dp"
+            android:background="@color/tab_layout_top_divider"></View>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/llAdd"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatemojiicon1" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="@color/tab_layout_top_divider" />
+
+            <LinearLayout
+                android:id="@+id/llNormal"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatemojiicon2" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="@color/tab_layout_top_divider" />
+
+            <LinearLayout
+                android:id="@+id/llCollect"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatemojiicon3" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="@color/tab_layout_top_divider" />
+
+            <LinearLayout
+                android:id="@+id/llSetting"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@mipmap/app_views_pages_wechat_common_images_chatemojiicon3"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="@color/tab_layout_top_divider"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

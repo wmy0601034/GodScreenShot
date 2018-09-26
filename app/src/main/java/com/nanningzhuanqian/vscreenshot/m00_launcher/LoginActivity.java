@@ -1,12 +1,16 @@
 package com.nanningzhuanqian.vscreenshot.m00_launcher;
 
 import android.content.Intent;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
@@ -15,6 +19,9 @@ import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+
+import java.lang.reflect.Field;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
@@ -28,6 +35,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private EditText edPwd;
     private Intent jumpIntent = null;
     private String cls;
+    private LinearLayout parent;
+    private View myLayout;
+    private int bottom_status_bar_height = 0;
+    private int soft_input_keyborad_height = 0;
 
     @Override
     protected int getLayoutId() {
@@ -39,6 +50,38 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         btnLogin.setOnClickListener(this);
         tvRegister.setOnClickListener(this);
         tvReset.setOnClickListener(this);
+        parent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect r = new Rect();                // 使用最外层布局填充，进行测算计算
+                parent.getWindowVisibleDisplayFrame(r);
+                int screenHeight = myLayout.getRootView().getHeight();
+                int heightDiff = screenHeight - (r.bottom - r.top);
+                if (heightDiff > 100) {
+                    // 如果超过100个像素，它可能是一个键盘。获取状态栏的高度
+                    statusBarHeight = 0;
+                }
+                try {
+                    Class<?> c = Class.forName("com.android.internal.R$dimen");
+                    Object obj = c.newInstance();
+                    Field field = c.getField("status_bar_height");
+                    int x = Integer.parseInt(field.get(obj).toString());
+                    statusBarHeight = getResources().getDimensionPixelSize(x);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                int layoutHeight = heightDiff - statusBarHeight;
+                if(0<layoutHeight&&layoutHeight<=180){
+                    bottom_status_bar_height = layoutHeight;
+                    Log.i(TAG, "虚拟导航键的高度为 height(单位像素) = " + bottom_status_bar_height);
+                    SPUtils.put(getThis(), Constant.KEY_BOTTOM_STATUS_BAR_HEIGHT,bottom_status_bar_height);
+                }else if(layoutHeight>180){
+                    soft_input_keyborad_height = layoutHeight-bottom_status_bar_height;
+                    Log.i(TAG, "键盘的高度为 height(单位像素) = " + soft_input_keyborad_height);
+                    SPUtils.put(getThis(),Constant.KEY_SOFT_INPUT_KEYBORAD_HEIGHT,soft_input_keyborad_height);
+                }
+            }
+        });
     }
 
     @Override
@@ -59,6 +102,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         tvReset = (TextView) findViewById(R.id.tvReset);
         edMobile = (EditText) findViewById(R.id.edMobile);
         edPwd = (EditText) findViewById(R.id.edPwd);
+        parent = (LinearLayout)findViewById(R.id.parent);
+        myLayout = getWindow().getDecorView();
     }
 
     @Override

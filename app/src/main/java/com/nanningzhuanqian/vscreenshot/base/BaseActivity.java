@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -95,6 +97,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         if ((localView != null) && (this.imm != null)) {
             this.imm.hideSoftInputFromWindow(localView.getWindowToken(), 2);
         }
+    }
+
+    public void showSoftKeyBoard(EditText editText){
+        InputMethodManager inputManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputManager.showSoftInput(editText, 0);
     }
 
     public void getStatusBarHeight() {
@@ -280,4 +287,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         Log.i(TAG,"onDestroy");
         EventBus.getDefault().unregister(this);
     }
+
+    /**
+     * 隐藏软键盘(只适用于Activity，不适用于Fragment)
+     */
+    public static void hideSoftKeyboard(Activity activity) {
+        View view = activity.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager inputMethodManager = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+        }
+    }
+
 }

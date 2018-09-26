@@ -25,6 +25,9 @@ public class Constant {
     public static final String KEY_SHOW_NEARBY = "show_nearby";
     public static final String KEY_SHOW_PIAOLIUPING = "show_piaoliuping";
 
+    public static final String KEY_BOTTOM_STATUS_BAR_HEIGHT ="bottom_status_bar_height";
+    public static final String KEY_SOFT_INPUT_KEYBORAD_HEIGHT = "soft_input_keyborad_height";
+
     public static final String INTENT_KEY_TYPE = "intent_key_type";
     public static final String INTENT_KEY_POSITION = "intent_key_position";
 
