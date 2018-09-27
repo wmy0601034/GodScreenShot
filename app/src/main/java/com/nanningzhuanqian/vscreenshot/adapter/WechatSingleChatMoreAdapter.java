@@ -58,7 +58,9 @@ public class WechatSingleChatMoreAdapter  extends BaseAdapter {
         if (convertView == null) {
             convertView = inflater.inflate(R.layout.wechat_single_chat_more_item, parent, false);
             viewHolder = new ViewHolder();
+            viewHolder.rootView = (LinearLayout)convertView.findViewById(R.id.rootView);
             viewHolder.imgIcon = (ImageView) convertView.findViewById(R.id.imgIcon);
+            viewHolder.tvName = (TextView)convertView.findViewById(R.id.tvName);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -67,7 +69,10 @@ public class WechatSingleChatMoreAdapter  extends BaseAdapter {
          * 在给View绑定显示的数据时，计算正确的position = position + curIndex * pageSize，
          */
         int pos = position + curIndex * pageSize;
-        viewHolder.imgIcon.setImageResource(WechatSingleChatMoreItems.getInstance().get(pos).getImgRes());
+        if(pos<WechatSingleChatMoreItems.getInstance().size()) {
+            viewHolder.imgIcon.setImageResource(WechatSingleChatMoreItems.getInstance().get(pos).getImgRes());
+            viewHolder.tvName.setText(WechatSingleChatMoreItems.getInstance().get(pos).getName());
+        }
         return convertView;
     }
 

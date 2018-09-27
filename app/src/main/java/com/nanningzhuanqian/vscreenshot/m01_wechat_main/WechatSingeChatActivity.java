@@ -40,6 +40,7 @@ import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatFaceItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatFaceItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatSingleChatMoreItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatSingleChatMoreItems;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
 import com.nanningzhuanqian.vscreenshot.widget.AutoGridView;
@@ -297,6 +298,15 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
             }else{
                 WechatFaceItems.getInstance().add(new WechatFaceItem(i, R.mipmap.app_views_pages_wechat_common_images_chatemojidel));
             }
+        }
+    }
+
+    private void initMoreItem(){
+        WechatSingleChatMoreItems.getInstance().clear();
+        for(int i = 0;i<10;i++){
+            int imageId = getResources().getIdentifier("app_views_pages_wechat_common_images_chatmore" + (i+1), "mipmap",
+                    getPackageName());
+            WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(imageId,));
         }
     }
 
