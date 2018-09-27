@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -26,6 +27,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.nanningzhuanqian.vscreenshot.MainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.FaceAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.FaceViewPagerAdapter;
@@ -36,16 +38,21 @@ import com.nanningzhuanqian.vscreenshot.adapter.WechatSingleChatMoreViewPagerAda
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatFaceItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatFaceItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatSingleChatMoreItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatSingleChatMoreItems;
+import com.nanningzhuanqian.vscreenshot.m02_add_conversation.AddCustomConversationActivity;
+import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
 import com.nanningzhuanqian.vscreenshot.widget.AutoGridView;
 import com.nanningzhuanqian.vscreenshot.widget.CustomListview;
+import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
+import org.litepal.LitePal;
 import org.w3c.dom.Text;
 
 import java.lang.reflect.Field;
@@ -54,7 +61,11 @@ import java.util.List;
 
 import cn.bmob.v3.b.V;
 
+/*
+
+ */
 public class WechatSingeChatActivity extends BaseActivity implements View.OnClickListener {
+    private ImageButton btnRight;
     private LinearLayout parent;
     private RecyclerView rcvConversation;
     private WechatChatAdapter wechatChatAdapter;
@@ -108,6 +119,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
      * 当前显示的是第几页
      */
     private int moreCurIndex = 0;
+    private boolean isFirstSet = true;
 
     @Override
     protected int getLayoutId() {
@@ -117,6 +129,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initView() {
         initWechatTopBar();
+        btnRight = (ImageButton)findViewById(R.id.btnRight);
         btnRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,6 +171,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
         inflater = LayoutInflater.from(this);
         //总的页数=总数/每页数量，并取整
         initFaceData();
+        initMoreItem();
         pageCount = (int) Math.ceil(WechatFaceItems.getInstance().size() * 1.0 / pageSize);
 //        morePageCount = (int)Math.ceil(WechatSingleChatMoreItems.getInstance().size()*1.0/morePageSize);
         pagerList = new ArrayList<View>();
@@ -183,14 +197,14 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
             LinearLayout rootView = (LinearLayout)inflater.inflate(R.layout.wechat_single_chat_more_page1,
                     viewpagerMore,false);
             GridView gridView = rootView.findViewById(R.id.gvMore);
-            gridView.setAdapter(new WechatSingleChatMoreAdapter(this, i, pageSize));
+            gridView.setAdapter(new WechatSingleChatMoreAdapter(this, i, morePageSize));
             //使用GridView作为每个ViewPager的页面，也就是说每个ViewPager的页面都是inflate出一个GridView新实例
-            pagerList.add(rootView);
+            morePagerList.add(rootView);
 
             gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    int pos = position + curIndex * pageSize;
+                    int pos = position + moreCurIndex * morePageSize;
                     Log.i(TAG,"click "+pos);
                 }
             });
@@ -218,6 +232,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                     e.printStackTrace();
                 }
                 int layoutHeight = heightDiff - statusBarHeight;
+                Log.i(TAG,"getViewTreeObserver layoutHeight = "+layoutHeight);
                 if(0<layoutHeight&&layoutHeight<=180){
                     bottom_status_bar_height = layoutHeight;
                     Log.i(TAG, "虚拟导航键的高度为 height(单位像素) = " + bottom_status_bar_height);
@@ -229,23 +244,35 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                         Log.i(TAG, "键盘的高度为 height(单位像素) = " + soft_input_keyborad_height);
                         SPUtils.put(getThis(), Constant.KEY_SOFT_INPUT_KEYBORAD_HEIGHT, soft_input_keyborad_height);
                         setFaceHeight();
+                        isFirstSet = true;
+                    }else if(height==softInputKeyboradHeight&&isFirstSet){
+                        isFirstSet = false;
+                        Log.i(TAG, "键盘的高度为 height(单位像素) = " + soft_input_keyborad_height
+                        +"键盘高度虽然相同但是是第一次设置，所以也要改变 isFirstSet = "+isFirstSet);
+                        setFaceHeight();
                     }
                 }
             }
         });
         viewpager.setAdapter(new FaceViewPagerAdapter(pagerList));
-        viewpagerMore.setAdapter(new WechatSingleChatMoreViewPagerAdapter());
+        viewpagerMore.setAdapter(new WechatSingleChatMoreViewPagerAdapter(morePagerList));
         //设置圆点
         setOvalLayout();
         setFaceHeight();
     }
 
     private void setFaceHeight(){
-        LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) llFace.getLayoutParams();
-        int height = SPUtils.getSoftInputKeyboardHeight(getApplicationContext());
-        params.height = height;
-        Log.i(TAG,"height = "+height);
-        llFace.setLayoutParams(params);
+        LinearLayout.LayoutParams llFaceLayoutParams = (LinearLayout.LayoutParams) llFace.getLayoutParams();
+        int llFaceHeight = SPUtils.getSoftInputKeyboardHeight(getApplicationContext());
+        llFaceLayoutParams.height = llFaceHeight;
+        Log.i(TAG,"llFaceHeight = "+llFaceHeight);
+        llFace.setLayoutParams(llFaceLayoutParams);
+
+        LinearLayout.LayoutParams llMoreLayoutParams = (LinearLayout.LayoutParams) llMore.getLayoutParams();
+        int llMoreHeight = SPUtils.getSoftInputKeyboardHeight(getApplicationContext());
+        llMoreLayoutParams.height = llMoreHeight;
+        Log.i(TAG,"llMoreHeight = "+llMoreHeight);
+        llMore.setLayoutParams(llMoreLayoutParams);
     }
 
     @Override
@@ -253,6 +280,8 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
         llLeft.setOnClickListener(this);
         llFaceSmall.setOnClickListener(this);
         llAddSmall.setOnClickListener(this);
+        btnRight.setOnClickListener(this);
+
     }
 
     @Override
@@ -303,11 +332,21 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
 
     private void initMoreItem(){
         WechatSingleChatMoreItems.getInstance().clear();
-        for(int i = 0;i<10;i++){
-            int imageId = getResources().getIdentifier("app_views_pages_wechat_common_images_chatmore" + (i+1), "mipmap",
-                    getPackageName());
-            WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(imageId,));
-        }
+//        for(int i = 0;i<10;i++){
+//            int imageId = getResources().getIdentifier("app_views_pages_wechat_common_images_chatmore" + (i+1), "mipmap",
+//                    getPackageName());
+//        }
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore1,"相册",0));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore2,"拍照",1));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore3,"视频通话",2));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore4,"位置",3));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore5,"红包",4));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore6,"转账",5));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore7,"语音输入",6));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore9,"我的收藏",7));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore8,"名片",8));
+        WechatSingleChatMoreItems.getInstance().add(new WechatSingleChatMoreItem(R.mipmap.app_views_pages_wechat_common_images_chatmore10,"文件",9));
+
     }
 
     private void showConversationSettingDialog() {
@@ -326,9 +365,8 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                     edContent.setFocusableInTouchMode(true);
                     edContent.requestFocus();
                     llFace.setVisibility(View.VISIBLE);
+                    llMore.setVisibility(View.GONE);
                     imgLeft.setImageResource(R.mipmap.app_views_pages_wechat_common_images_chatbottomicon1);
-//                    InputMethodManager inputManager = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-//                    inputManager.showSoftInput(edContent, 0);
                     showSoftKeyBoard(edContent);
                 } else {
                     tvPressSpeak.setVisibility(View.VISIBLE);
@@ -342,6 +380,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                 isFaceLayoutShowing = !isFaceLayoutShowing;
                 if(isFaceLayoutShowing){
                     llFace.setVisibility(View.VISIBLE);
+                    llMore.setVisibility(View.GONE);
                     edContent.setVisibility(View.VISIBLE);
                     tvPressSpeak.setVisibility(View.GONE);
                     llFaceSmall.requestFocus();
@@ -360,7 +399,12 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                 }
                 break;
             case R.id.llAddSmall:
-
+                llMore.setVisibility(View.VISIBLE);
+                llFace.setVisibility(View.GONE);
+                hideSoftKeyBoard();
+                break;
+            case R.id.btnRight:
+                showChatSettingSheetDialog();
                 break;
         }
     }
@@ -395,8 +439,82 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
             public void onPageScrollStateChanged(int arg0) {
             }
         });
+
+        for (int i = 0; i < morePageCount; i++) {
+            ll_dot_more.addView(inflater.inflate(R.layout.wechat_face_viewpage_dot, null));
+        }
+        // 默认显示第一页
+        ll_dot_more.getChildAt(0).findViewById(R.id.v_dot)
+                .setBackgroundResource(R.drawable.wechat_face_viewpager_dot_selected);
+        viewpagerMore.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            public void onPageSelected(int position) {
+                // 取消圆点选中
+                ll_dot_more.getChildAt(moreCurIndex)
+                        .findViewById(R.id.v_dot)
+                        .setBackgroundResource(R.drawable.wechat_face_viewpager_dot_normal);
+                // 圆点选中
+                ll_dot_more.getChildAt(position)
+                        .findViewById(R.id.v_dot)
+                        .setBackgroundResource(R.drawable.wechat_face_viewpager_dot_selected);
+                moreCurIndex = position;
+            }
+
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
+
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
     }
 
+    private void showChatSettingSheetDialog(){
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingeChatActivity.this);
 
+        builder.setCancelable(false);
+        builder.setCancelButtonVisiable(true);
+        builder.setCanceledOnTouchOutside(true);
+        builder.setTitle(getString(R.string.action_settings));
+        builder.addSheetItem("设置", NewActionSheetDialog
+                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+                .OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //跳转到设置页面
+                Intent intent = new Intent(getThis(),WechatConversationSettingActivity.class);
+                startActivity(intent);
+            }
+        });
+        builder.addSheetItem("用户管理", NewActionSheetDialog
+                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+                .OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //用户管理 编辑用户 选择自己发言还是对方发言 语音模式
+
+            }
+        });
+        builder.addSheetItem(getResources().getString(R.string.sheet_item_clear_conversation), NewActionSheetDialog
+                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+                .OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //清空对话内容
+                WechatChatItems.getInstance().clear();
+                wechatChatAdapter.notifyDataSetChanged();
+            }
+        });
+        builder.addSheetItem("删除用户", NewActionSheetDialog
+                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+                .OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //根据传入的position删除该用户
+
+            }
+        });
+
+        Dialog dialog = builder.create();
+        dialog.show();
+    }
 
 }

@@ -37,14 +37,17 @@ public class WechatSingleChatMoreAdapter  extends BaseAdapter {
      */
     @Override
     public int getCount() {
-        return WechatSingleChatMoreItems.getInstance().size() > (curIndex + 1) * pageSize ? pageSize : (WechatSingleChatMoreItems.getInstance()
-                .size() - curIndex * pageSize);
+        return 8;
 
     }
 
     @Override
     public Object getItem(int position) {
-        return WechatSingleChatMoreItems.getInstance().get(position + curIndex * pageSize);
+        if(position<WechatSingleChatMoreItems.getInstance().size()) {
+            return WechatSingleChatMoreItems.getInstance().get(position + curIndex * pageSize);
+        }else{
+            return null;
+        }
     }
 
     @Override

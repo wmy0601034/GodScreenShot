@@ -61,6 +61,8 @@
         <activity android:name=".m01_wechat_main.WechatCustomNewFriendActivity" />
         <activity android:name=".m01_wechat_main.WechatGlobalSettingActivity"/>
         <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity"/>
+        <activity android:name=".m01_wechat_main.WechatConversationSettingActivity"/>
+        <activity android:name=".m01_wechat_main.ChatBgSelectActivity"/>
     </application>
 
 </manifest>

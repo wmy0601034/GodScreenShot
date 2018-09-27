@@ -9,4 +9,27 @@
         android:background="@color/mifpay_blue"
         android:visibility="gone"/>
     <include layout="@layout/base_top"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/common_margin_up_down"
+        android:background="@color/mifpay_white"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:id="@+id/llAvatar"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+    <View android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:id="@+id/btnLogout"
+        android:text="退出登录"
+        android:gravity="center"
+        android:textColor="@color/mifpay_red"
+        android:textSize="16sp"
+        android:background="?attr/selectableItemBackground"/>
 </LinearLayout>

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/mifpay_white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include layout="@layout/base_common_status_bar"/>
+    <include layout="@layout/base_top"/>
+     <LinearLayout
+         android:layout_marginTop="@dimen/common_margin_up_down"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical"
+       android:background="@color/white">
+    <LinearLayout
+        android:id="@+id/llTimeMode"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="自动设置标题" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/tglAutoSetTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="标题" />
+
+        <EditText
+            android:id="@+id/edTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="right|center_vertical"
+            android:inputType="text"
+            android:minWidth="32dp"
+            android:text="" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:src="@mipmap/app_views_pages_alipay_common_images_alipayaccounticon1" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="听筒模式" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/tglVoiceMode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="免打扰" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/tglIgnore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="使用当前聊天背景" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/tglUseCurrentBg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:id="@+id/llCurrentBg"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="当前聊天背景" />
+
+        <ImageView
+            android:id="@+id/imgCurrentBg"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/app_images_defaultface" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="使用全局聊天背景" />
+
+        <com.suke.widget.SwitchButton
+            android:id="@+id/tglUseGlobalBg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sb_checked="false"
+            app:sb_show_indicator="false" />
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:id="@+id/llGlobalBg"
+        android:layout_width="match_parent"
+        android:layout_height="72dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="全局聊天背景" />
+
+        <ImageView
+            android:id="@+id/imgGlobalBg"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_marginRight="8dp"
+            android:src="@mipmap/app_images_defaultface" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/tab_layout_top_divider" />
+    <LinearLayout
+        android:id="@+id/llTextSize"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="字体大小" />
+
+        <TextView
+            android:id="@+id/tvTextSize"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginRight="8dp"
+            android:text="标准"
+            android:background="@color/transparent"
+            android:gravity="center_vertical|right"
+            android:minWidth="16dp"
+            android:textColor="@color/gray" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.1dp"
+        android:background="@color/gray" />
+       </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvSave"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:text="保存"
+        android:textSize="16sp"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:background="@drawable/common_conner_button_bg_blue_light"
+        android:layout_marginTop="@dimen/common_margin_up_down"
+        android:layout_marginLeft="@dimen/common_margin_two_side_short"
+        android:layout_marginRight="@dimen/common_margin_two_side_short"/>
+
+</LinearLayout>
