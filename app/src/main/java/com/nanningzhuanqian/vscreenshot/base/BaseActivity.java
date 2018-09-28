@@ -45,6 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public TextView tvToolbarTitle;
     public ImageButton btnRight;
     public Button btnOption;
+    public TextView tvRight;
 
     private InputMethodManager imm;
     protected ImmersionBar mImmersionBar;

@@ -63,6 +63,10 @@
         <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity"/>
         <activity android:name=".m01_wechat_main.WechatConversationSettingActivity"/>
         <activity android:name=".m01_wechat_main.ChatBgSelectActivity"/>
+        <activity android:name=".m01_wechat_main.moment.AddTextMomentActivity"/>
+        <activity android:name=".m01_wechat_main.moment.AddImageMomentActivity"/>
+        <activity android:name=".m01_wechat_main.moment.AddVideoMomentActivity"/>
+        <activity android:name=".m01_wechat_main.moment.AddLinkMomentActivity"/>
     </application>
 
 </manifest>

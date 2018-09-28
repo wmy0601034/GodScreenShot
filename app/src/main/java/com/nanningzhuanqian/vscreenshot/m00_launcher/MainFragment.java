@@ -102,7 +102,7 @@ public class MainFragment extends BaseFragment {
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconpoketmoney, "零钱", 7));
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconmoneydetail, "零钱明细", 8));
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechatmoneyout, "零钱提现", 9));
-//        WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechattimeline, "朋友圈", 10));
+        WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechattimeline, "朋友圈", 10));
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechatwallettrans, "账单", 11));
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechat, "微信支付", 12));
         WechatItems.getInstance().add(new WechatItem(R.mipmap.app_images_iconwechat, "微信设置", 13));
