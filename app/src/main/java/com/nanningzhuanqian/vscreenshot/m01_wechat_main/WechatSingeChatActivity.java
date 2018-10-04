@@ -490,7 +490,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick(int which) {
                 //用户管理 编辑用户 选择自己发言还是对方发言 语音模式
-
+                // TODO: 2018/10/2 实现用户 管理  
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_clear_conversation), NewActionSheetDialog

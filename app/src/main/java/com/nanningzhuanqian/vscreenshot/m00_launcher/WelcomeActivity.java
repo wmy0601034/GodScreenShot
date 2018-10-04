@@ -172,6 +172,7 @@ public class WelcomeActivity extends BaseActivity {
 
             @Override
             public void onGetSuccess(Object o) {
+                // TODO: 2018/10/5 在这里加上对小程序icon和小程序URL的获取 并在微信的发现页面加上对url的加载
                 Config config = (Config) o;
                 SPUtils.put(getThis(), Constant.KEY_CONTRACT_QQ, config.getContractQQ());
                 SPUtils.put(getThis(), Constant.KEY_VERSION_CODE, config.getVersionCode());
