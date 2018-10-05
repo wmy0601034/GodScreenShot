@@ -1,15 +1,11 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main.moment;
 
-import android.widget.EditText;
-
-import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
-public class AddVideoMomentActivity extends BaseActivity {
-
+public class BaseMomentEditActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_wechat_add_vedio_moment;
+        return getLayoutId();
     }
 
     @Override

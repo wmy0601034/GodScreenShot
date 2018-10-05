@@ -67,6 +67,9 @@
         <activity android:name=".m01_wechat_main.moment.AddImageMomentActivity"/>
         <activity android:name=".m01_wechat_main.moment.AddVideoMomentActivity"/>
         <activity android:name=".m01_wechat_main.moment.AddLinkMomentActivity"/>
+        <activity android:name=".m01_wechat_main.moment.WechatLocationEditActivity"/>
+        <activity android:name=".m01_wechat_main.moment.WechatPermissionEditActivity"/>
+        <activity android:name=".m01_wechat_main.moment.WechatPromptEditActivity"/>
     </application>
 
 </manifest>
