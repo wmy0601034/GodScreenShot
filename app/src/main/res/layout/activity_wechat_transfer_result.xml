@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/statusBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
+    <ImageView
+        android:layout_marginTop="48dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/app_views_pages_wechat_common_images_iconsuccess" />
+
+    <TextView
+        android:id="@+id/tvStatus"
+        android:textSize="18sp"
+        android:text="支付成功"
+        android:layout_marginTop="@dimen/common_margin_up_down"
+        android:textColor="@color/wechat_theme_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="72dp">
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:layout_marginTop="4dp"
+            android:textSize="36sp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_toRightOf="@id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="88.00"
+            android:layout_marginLeft="4dp"
+            android:textSize="48sp"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tvReceiver"
+        android:layout_marginTop="64dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="收款人"
+        android:textColor="@color/gray"/>
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:src="@mipmap/app_images_role_10099"
+        android:layout_marginTop="@dimen/common_margin_up_down_long_little"/>
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_marginTop="@dimen/common_margin_up_down"
+        android:layout_width="wrap_content"
+        android:text="杨钢（*钢）"
+        android:textSize="22sp"
+        android:textColor="@color/mifpay_black_important"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tvFinish"
+        android:layout_width="196dp"
+        android:layout_height="40dp"
+        android:text="完成"
+        android:gravity="center"
+        android:layout_marginBottom="72dp"
+        android:textColor="@color/wechat_theme_green"
+        android:background="@drawable/common_wechat_stroke_conner_bg"/>
+</LinearLayout>

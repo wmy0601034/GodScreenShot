@@ -41,6 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public View statusBar;
 
     public ArrowView arrowBack;
+    public ArrowView arrow;
     public ImageButton imgBack;
     public TextView tvToolbarTitle;
     public ImageButton btnRight;
@@ -148,12 +149,21 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void initWechatTopBar(){
         arrowBack = (ArrowView)findViewById(R.id.arrowBack);
+        arrow = (ArrowView)findViewById(R.id.arrow);
         imgBack = (ImageButton)findViewById(R.id.imgBack);
         tvToolbarTitle = (TextView)findViewById(R.id.tvToolbarTitle);
         btnRight = (ImageButton)findViewById(R.id.btnRight);
         btnOption = (Button)findViewById(R.id.btnOption);
         if(arrowBack!=null){
             arrowBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        }
+        if(arrow!=null){
+            arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     finish();

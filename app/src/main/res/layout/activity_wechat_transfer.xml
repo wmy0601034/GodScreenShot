@@ -60,9 +60,10 @@
 
             <ImageView
                 android:id="@+id/imgAvatar"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_marginTop="24dp" />
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="24dp"
+                android:src="@mipmap/app_images_defaultface"/>
 
             <TextView
                 android:id="@+id/tvName"
@@ -89,25 +90,28 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="56dp"
+                    android:layout_height="68dp"
                     android:layout_marginTop="16dp"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="64dp"
                         android:text="¥"
                         android:textColor="@color/black"
-                        android:textSize="40sp"
+                        android:textSize="36sp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@+id/edMoney"
-                        android:layout_marginLeft="8dp"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@color/transparent" />
+                        android:layout_height="56dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_marginTop="12dp"
+                        android:background="@color/transparent"
+                        android:text="88.88"
+                        android:digits="0123456789."
+                        android:textSize="48sp" />
                 </LinearLayout>
 
                 <View
@@ -115,21 +119,39 @@
                     android:layout_height="0.1dp"
                     android:layout_marginTop="8dp"
                     android:background="@color/tab_layout_top_divider" />
-
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="16dp">
                 <TextView
                     android:id="@+id/tvDescription"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="添加转账说明"
                     android:textColor="@color/mifpay_blue_selected" />
+                    <TextView
+                        android:id="@+id/tvDes"
+                        android:visibility="gone"
+                        android:textColor="@color/gray"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:id="@+id/tvEditDes"
+                        android:text="修改"
+                        android:visibility="gone"
+                        android:textColor="@color/color_aqi_201_300"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
                 
             </LinearLayout>
-            <Button
+            <TextView
                 android:id="@+id/btnSubmit"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:text="转账"
+                android:gravity="center"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:background="@drawable/common_wechat_conner_bg"

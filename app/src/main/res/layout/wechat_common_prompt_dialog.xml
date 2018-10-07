@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="304dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="@dimen/common_margin_two_side_long_little">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="零钱支付已超过法律规定的每年20万元上限。请换用银行卡支付，零钱资金可提现或明年使用"
+        android:textSize="18sp"
+        android:textColor="@color/mifpay_black_important"/>
+
+
+    <LinearLayout
+        android:layout_marginTop="56dp"
+        android:layout_width="match_parent"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/btnCancel"
+            android:text="确定"
+            android:textColor="@color/wechat_theme_green"
+            android:textSize="18sp"
+            android:layout_marginRight="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/btnOk"
+            android:text="查看解决方法"
+            android:textSize="18sp"
+            android:layout_marginRight="8dp"
+            android:textColor="@color/wechat_theme_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

@@ -45,6 +45,12 @@ public class WechatMomentActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     protected void initEvent() {
         llRight.setOnClickListener(this);
     }
@@ -54,12 +60,20 @@ public class WechatMomentActivity extends BaseActivity implements View.OnClickLi
         WechatMomentItem topItem = new WechatMomentItem(0,"",WechatMomentAdapter.TOP_MOMENT_TYPE);
         WechatMomentItem textItem = new WechatMomentItem(R.mipmap.app_images_role_10001,"吴MoonMoon",WechatMomentAdapter
                 .TEXT_MOMENT_TYPE);
+        textItem.setTextContent("测试，这是一个文字朋友圈");
         WechatMomentItem videoItem = new WechatMomentItem(R.mipmap.app_images_role_10002,"吴MoonMoon",
                 WechatMomentAdapter.VEDIO_MOMENT_TYPE);
+        videoItem.setVideoRes(R.mipmap.app_images_role_10052);
+        videoItem.setTextContent("测试，这是一个小视频朋友圈");
         WechatMomentItem linkItem = new WechatMomentItem(R.mipmap.app_images_role_10003,"吴MoonMoon",
                 WechatMomentAdapter.LINK_MOMENT_TYPE);
+        linkItem.setTextContent("测试，这是一个文章朋友圈");
+        linkItem.setLinkFrom("今日头条");
+        linkItem.setLinkIcon(R.mipmap.app_images_role_10007);
+        linkItem.setLinkContent("因为关注底层，我上了中国人民大学的“黑名单”");
         WechatMomentItem picItem = new WechatMomentItem(R.mipmap.app_images_role_10004,"吴MoonMoon",
                 WechatMomentAdapter.PICTURE_MOMENT_TYPE);
+        picItem.setTextContent("测试，这是一个图片朋友圈");
         WechatMomentItems.getInstance().add(topItem);
         WechatMomentItems.getInstance().add(textItem);
         WechatMomentItems.getInstance().add(videoItem);

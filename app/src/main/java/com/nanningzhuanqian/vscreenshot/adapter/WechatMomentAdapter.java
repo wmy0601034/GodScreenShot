@@ -58,8 +58,8 @@ public class WechatMomentAdapter extends RecyclerView.Adapter {
             return momentTopViewHolder;
         } else {
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_wechat_moment_common_item, parent, false);
-            MomentTopViewHolder momentTopViewHolder = new MomentTopViewHolder(v);
-            return momentTopViewHolder;
+            MomentCommonViewHolder momentCommonViewHolder = new MomentCommonViewHolder(v);
+            return momentCommonViewHolder;
         }
     }
 
@@ -126,6 +126,7 @@ public class WechatMomentAdapter extends RecyclerView.Adapter {
                 commonViewHolder.imgLinkIcon.setImageResource(item.getLinkIcon());
                 commonViewHolder.tvLink.setText(item.getLinkContent());
                 commonViewHolder.tvFrom.setText(item.getLinkFrom());
+                commonViewHolder.tvFrom.setVisibility(View.VISIBLE);
             }
 
         }

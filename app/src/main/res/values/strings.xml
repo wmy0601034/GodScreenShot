@@ -1,6 +1,6 @@
 <resources>
     <!-- Main-->
-    <string name="app_name">微信</string>
+    <string name="app_name">神截图</string>
     <string name="app_main">微信</string>
     <string name="contacts">通讯录</string>
     <string name="me">我</string>

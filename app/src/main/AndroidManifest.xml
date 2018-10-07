@@ -72,6 +72,15 @@
         <activity android:name=".m01_wechat_main.moment.WechatPromptEditActivity" />
         <activity android:name=".m01_wechat_main.WechatWithdrawDetailActivity" />
         <activity android:name=".m01_wechat_main.change.WechatChangeEditActivity"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity1"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity2"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity3"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity4"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity5"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity6"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity7"/>
+        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity8"/>
     </application>
 
 </manifest>

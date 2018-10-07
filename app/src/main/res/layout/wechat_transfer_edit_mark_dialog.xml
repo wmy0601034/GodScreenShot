@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="@dimen/common_margin_two_side_long_little">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="添加转账说明"
+        android:textSize="18sp"
+        android:textColor="@color/mifpay_black_secondary"/>
+    <EditText
+        android:id="@+id/edMark"
+        android:layout_marginTop="8dp"
+        android:layout_width="240dp"
+        android:layout_height="32dp"
+        android:background="@color/transparent"/>
+    <View
+        android:layout_width="240dp"
+        android:layout_height="0.2dp"
+        android:background="@color/wechat_theme_green"/>
+    <TextView
+        android:layout_marginTop="@dimen/common_margin_up_down_short"
+        android:layout_width="wrap_content"
+        android:text="最多输入10个字"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="240dp"
+        android:gravity="right"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/btnCancel"
+            android:text="取消"
+            android:textSize="16sp"
+            android:layout_marginRight="24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/btnOk"
+            android:text="确定"
+            android:textSize="16sp"
+            android:layout_marginRight="16dp"
+            android:textColor="@color/wechat_theme_green"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

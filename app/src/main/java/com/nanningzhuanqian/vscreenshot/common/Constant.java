@@ -19,6 +19,8 @@ public class Constant {
     public static final String KEY_PROFILE_AVATAR = "profile_avatar";
     public static final String KEY_PROFILE_NAME = "profile_name";
     public static final String KEY_PROFILE_ACCOUNT = "profile_account";
+    public static final String KEY_TRANSFER_AVATAR  = "transfer_avatar";
+    public static final String KEY_TRANSFER_NAME = "tranfer_name";
 
     public static final String KEY_BANK = "bank";
     public static final String KEY_BANK_CARD_NO = "bank_card_no";
