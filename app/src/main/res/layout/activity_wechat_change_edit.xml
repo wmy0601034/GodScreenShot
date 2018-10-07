@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common_default_activity_color"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/statusBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/mifpay_blue"
+        android:visibility="gone"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/mifpay_blue"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvBack"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="返回"
+            android:textColor="@color/mifu_white" />
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text=""
+            android:textColor="@color/mifu_white" />
+
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="@dimen/common_margin_two_side_long_little"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/common_margin_two_side"
+        android:paddingRight="@dimen/common_margin_two_side">
+
+
+        <LinearLayout
+            android:id="@+id/llBank"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="银行卡" />
+
+            <EditText
+                android:id="@+id/edBank"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/common_margin_two_side"
+                android:layout_weight="1"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:minWidth="16dp"
+                android:textSize="14sp"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="银行卡尾号" />
+
+            <EditText
+                android:id="@+id/edBankCardNo"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/common_margin_two_side"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:minWidth="16dp"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/llTime"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现到账时间" />
+
+            <EditText
+                android:id="@+id/edTime"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/common_margin_two_side"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:minWidth="16dp"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/llChange"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="零钱余额" />
+
+            <EditText
+                android:id="@+id/edChange"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/common_margin_two_side"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:minWidth="16dp"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+        <LinearLayout
+            android:id="@+id/llFee"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="提现费率(%)" />
+
+            <EditText
+                android:id="@+id/edFee"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginRight="@dimen/common_margin_two_side"
+                android:layout_weight="1"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                android:gravity="center_vertical|right"
+                android:minWidth="16dp"
+                android:textColor="@color/gray" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/app_views_pages_alipay_common_images_alipaytransferqricon3" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/common_margin_two_side"
+        android:layout_marginRight="@dimen/common_margin_two_side"
+        android:layout_marginTop="@dimen/common_margin_two_side_long_little"
+        android:orientation="horizontal">
+
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/common_conner_button_bg_blue_dark"
+            android:text="保存"
+            android:textColor="@color/white" />
+    </LinearLayout>
+</LinearLayout>

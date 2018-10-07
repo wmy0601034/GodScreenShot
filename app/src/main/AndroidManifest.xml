@@ -59,17 +59,19 @@
         <activity android:name=".m01_wechat_main.WechatPayActivity" />
         <activity android:name=".m01_wechat_main.WechatChooseSingleChatActivity" />
         <activity android:name=".m01_wechat_main.WechatCustomNewFriendActivity" />
-        <activity android:name=".m01_wechat_main.WechatGlobalSettingActivity"/>
-        <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity"/>
-        <activity android:name=".m01_wechat_main.WechatConversationSettingActivity"/>
-        <activity android:name=".m01_wechat_main.ChatBgSelectActivity"/>
-        <activity android:name=".m01_wechat_main.moment.AddTextMomentActivity"/>
-        <activity android:name=".m01_wechat_main.moment.AddImageMomentActivity"/>
-        <activity android:name=".m01_wechat_main.moment.AddVideoMomentActivity"/>
-        <activity android:name=".m01_wechat_main.moment.AddLinkMomentActivity"/>
-        <activity android:name=".m01_wechat_main.moment.WechatLocationEditActivity"/>
-        <activity android:name=".m01_wechat_main.moment.WechatPermissionEditActivity"/>
-        <activity android:name=".m01_wechat_main.moment.WechatPromptEditActivity"/>
+        <activity android:name=".m01_wechat_main.WechatGlobalSettingActivity" />
+        <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity" />
+        <activity android:name=".m01_wechat_main.WechatConversationSettingActivity" />
+        <activity android:name=".m01_wechat_main.ChatBgSelectActivity" />
+        <activity android:name=".m01_wechat_main.moment.AddTextMomentActivity" />
+        <activity android:name=".m01_wechat_main.moment.AddImageMomentActivity" />
+        <activity android:name=".m01_wechat_main.moment.AddVideoMomentActivity" />
+        <activity android:name=".m01_wechat_main.moment.AddLinkMomentActivity" />
+        <activity android:name=".m01_wechat_main.moment.WechatLocationEditActivity" />
+        <activity android:name=".m01_wechat_main.moment.WechatPermissionEditActivity" />
+        <activity android:name=".m01_wechat_main.moment.WechatPromptEditActivity" />
+        <activity android:name=".m01_wechat_main.WechatWithdrawDetailActivity" />
+        <activity android:name=".m01_wechat_main.change.WechatChangeEditActivity"/>
     </application>
 
 </manifest>

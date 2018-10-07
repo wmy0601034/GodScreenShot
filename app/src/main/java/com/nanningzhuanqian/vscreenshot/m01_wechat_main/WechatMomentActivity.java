@@ -4,14 +4,18 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.nanningzhuanqian.vscreenshot.MainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.adapter.WechatMomentAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatMomentItem;
+import com.nanningzhuanqian.vscreenshot.item.WechatMomentItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.moment.AddImageMomentActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.moment.AddTextMomentActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.moment.AddVideoMomentActivity;
@@ -24,6 +28,7 @@ import org.litepal.LitePal;
 public class WechatMomentActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llRight;
     private RecyclerView rcvMoment;
+    private WechatMomentAdapter wechatMomentAdapter;
     @Override
     protected int getLayoutId() {
         return R.layout.activity_wechat_moment;
@@ -34,6 +39,9 @@ public class WechatMomentActivity extends BaseActivity implements View.OnClickLi
         initWechatTopBar();
         llRight = (LinearLayout)findViewById(R.id.llRight);
         rcvMoment = (RecyclerView)findViewById(R.id.rcvMoment);
+        wechatMomentAdapter = new WechatMomentAdapter(getThis());
+        rcvMoment.setLayoutManager(new LinearLayoutManager(getThis()));
+        rcvMoment.setAdapter(wechatMomentAdapter);
     }
 
     @Override
@@ -43,7 +51,21 @@ public class WechatMomentActivity extends BaseActivity implements View.OnClickLi
 
     @Override
     protected void initData() {
-
+        WechatMomentItem topItem = new WechatMomentItem(0,"",WechatMomentAdapter.TOP_MOMENT_TYPE);
+        WechatMomentItem textItem = new WechatMomentItem(R.mipmap.app_images_role_10001,"吴MoonMoon",WechatMomentAdapter
+                .TEXT_MOMENT_TYPE);
+        WechatMomentItem videoItem = new WechatMomentItem(R.mipmap.app_images_role_10002,"吴MoonMoon",
+                WechatMomentAdapter.VEDIO_MOMENT_TYPE);
+        WechatMomentItem linkItem = new WechatMomentItem(R.mipmap.app_images_role_10003,"吴MoonMoon",
+                WechatMomentAdapter.LINK_MOMENT_TYPE);
+        WechatMomentItem picItem = new WechatMomentItem(R.mipmap.app_images_role_10004,"吴MoonMoon",
+                WechatMomentAdapter.PICTURE_MOMENT_TYPE);
+        WechatMomentItems.getInstance().add(topItem);
+        WechatMomentItems.getInstance().add(textItem);
+        WechatMomentItems.getInstance().add(videoItem);
+        WechatMomentItems.getInstance().add(linkItem);
+        WechatMomentItems.getInstance().add(picItem);
+        wechatMomentAdapter.notifyDataSetChanged();
     }
 
     @Override

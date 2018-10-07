@@ -157,4 +157,7 @@
 \n\n5.2 本《协议》的解释、效力及纠纷的解决，适用于中华人民共和国法律。若用户和截图宝之间发生任何纠纷或争议，首先应友好协商解决，协商不成的，用户在此完全同意将纠纷或争议提交截图宝所在地法院管辖。
 
 \n\n本《协议》的一切解释权与修改权归截图宝</string>
+
+    <string name="wechat_change_withdraw_balance">当前零钱余额%s元。</string>
+    <string name="wechat_change_bank_card_no">%s</string>
 </resources>

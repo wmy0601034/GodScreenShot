@@ -15,9 +15,16 @@ public class Constant {
     public static final String KEY_DISCOVERY_UNREAD_COUNT = "discovery_unread_count";
     public static final String KEY_MOMENT_UNREAD_COUNT = "moment_unread_count";
     public static final String KEY_MOMENT_AVATAR = "moment_avatar";
+    public static final String KEY_MOMENT_BG = "moment_bg";
     public static final String KEY_PROFILE_AVATAR = "profile_avatar";
     public static final String KEY_PROFILE_NAME = "profile_name";
     public static final String KEY_PROFILE_ACCOUNT = "profile_account";
+
+    public static final String KEY_BANK = "bank";
+    public static final String KEY_BANK_CARD_NO = "bank_card_no";
+    public static final String KEY_BANK_TIME = "bank_time";
+    public static final String KEY_CHANGE = "bank_change";
+    public static final String KEY_WITHDRAW_FEE = "bank_withdraw_change";
 
     public static final String KEY_LOCATION = "wechat_moment_location";
     public static final String KEY_PERMISSION = "wechat_moment_permission";
@@ -35,12 +42,16 @@ public class Constant {
 
     public static final String INTENT_KEY_TYPE = "intent_key_type";
     public static final String INTENT_KEY_POSITION = "intent_key_position";
+    public static final String INTENT_KEY_AMOUNT = "intent_key_amout";
+    public static final String INTENT_KEY_WITHDRAW_RESULT = "intent_key_withdraw_result";
 
     public static final String INTENT_VALUE_EDIT = "intent_value_edit";
     public static final String INTENT_VALUE_ADD = "intent_value_add";
 
     public static final String INTENT_VALUE_MOMENT_AVATAR = "intent_value_moment_avatar";
     public static final String INTENT_VALUE_PROFILE_AVATAR = "intent_value_profile_avatar";
+    public static final String INTENT_VALUE_WITHDRAW_FINISH = "intent_value_withdraw_finish";
+    public static final String INTENT_VALUE_WITHDRAW_WAIT = "intent_value_withdraw_wait";
 
     public static final int REQUEST_CODE_LOCATION_EDIT = 1010;
     public static final int REQUEST_CODE_PERMISSION_EDIT = 1011;
