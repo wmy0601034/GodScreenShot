@@ -109,6 +109,18 @@ public class Util {
         return res;
     }
 
+    /*
+ * 将时间戳转换为时间
+ */
+    public static String stampToTransferTime(long timeMillis) {
+        String res;
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date date = new Date(timeMillis);
+        res = simpleDateFormat.format(date);
+        return res;
+    }
+
+
     public static int getWeekDayPos(String time) {
         String[] weekDays = {"周日", "周一", "周二", "周三", "周四", "周五", "周六"};
         Calendar cal = Calendar.getInstance();

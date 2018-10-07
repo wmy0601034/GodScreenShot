@@ -2,6 +2,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
@@ -25,9 +26,14 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
     public static final int RESULT_SELF_RETURN = 7; //我已退还
     public static final int RESULT_OTHER_RETURN = 8;    //对方已退还
 
-    private int avatarRes;
-    private String name;
-    private String amount;
+    private TextView tvAmount;
+    private ImageView imgAvatar;
+    public int avatarRes;
+    public String name;
+    public String amount;
+    private TextView tvReceiver;
+    private TextView tvTime;
+    private TextView tvTime1;
 
     private TextView tvFinish;
 
@@ -50,10 +56,47 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
         }else{
             avatarRes = Integer.valueOf(avatar);
         }
+        imgAvatar = findViewById(R.id.imgAvatar);
+        if(imgAvatar!=null){
+            imgAvatar.setImageResource(avatarRes);
+        }
     }
 
     public void initName(){
         name = (String)SPUtils.get(getThis(),Constant.KEY_TRANSFER_NAME,"");
+    }
+
+    public void initAmount(){
+        tvAmount = findViewById(R.id.tvAmount);
+        amount = getIntent().getStringExtra(Constant.INTENT_KEY_AMOUNT);
+        if(tvAmount!=null){
+            tvAmount.setText(amount);
+        }
+    }
+
+    public void setName(String name){
+        tvReceiver.setText(name);
+    }
+
+    public void initReceiver(){
+        tvReceiver = findViewById(R.id.tvReceiver);
+        if (tvReceiver!=null){
+            tvReceiver.setText(name);
+        }
+    }
+
+    public void setTime(String time){
+        tvTime = findViewById(R.id.tvTime);
+        if(tvTime!=null){
+            tvTime.setText(time);
+        }
+    }
+
+    public void setTime1(String time1){
+        tvTime1 = findViewById(R.id.tvTime1);
+        if(tvTime1!=null){
+            tvTime1.setText(time1);
+        }
     }
 
 }

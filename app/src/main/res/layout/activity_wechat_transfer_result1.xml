@@ -19,7 +19,7 @@
         android:layout_marginTop="48dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/app_views_pages_wechat_common_images_iconsuccess" />
+        android:src="@mipmap/app_views_pages_wechat_common_images_iconsuccess3" />
 
     <TextView
         android:id="@+id/tvStatus"
@@ -28,6 +28,14 @@
         android:layout_marginTop="@dimen/common_margin_up_down"
         android:textColor="@color/wechat_theme_green"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_marginTop="72dp"
+        android:layout_width="wrap_content"
+        android:text="杨钢（*钢）"
+        android:textSize="22sp"
+        android:textColor="@color/mifpay_black_important"
         android:layout_height="wrap_content" />
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -52,27 +60,6 @@
 
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/tvReceiver"
-        android:layout_marginTop="64dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="收款人"
-        android:textColor="@color/gray"/>
-    <ImageView
-        android:id="@+id/imgAvatar"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        android:src="@mipmap/app_images_role_10099"
-        android:layout_marginTop="@dimen/common_margin_up_down_long_little"/>
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_marginTop="@dimen/common_margin_up_down"
-        android:layout_width="wrap_content"
-        android:text="杨钢（*钢）"
-        android:textSize="22sp"
-        android:textColor="@color/mifpay_black_important"
-        android:layout_height="wrap_content" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="0dp"

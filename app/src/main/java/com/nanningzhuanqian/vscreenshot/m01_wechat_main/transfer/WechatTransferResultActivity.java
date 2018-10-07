@@ -3,6 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
+ * 扫码转账成功 个人
  * Created by lenovo on 2018/10/7.
  */
 
@@ -14,7 +15,7 @@ public class WechatTransferResultActivity extends WechatTransferResultBaseActivi
 
     @Override
     protected void initView() {
-
+        initFinishButton();
     }
 
     @Override
@@ -24,6 +25,9 @@ public class WechatTransferResultActivity extends WechatTransferResultBaseActivi
 
     @Override
     protected void initData() {
-
+        initAvatarRes();
+        initName();
+        initAmount();
+        setName(name);
     }
 }

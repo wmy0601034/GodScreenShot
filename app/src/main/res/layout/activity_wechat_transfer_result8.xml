@@ -1,6 +1,118 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+    <View
+        android:id="@+id/statusBar"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/colorPrimary">
 
+        <com.nanningzhuanqian.vscreenshot.widget.ArrowView
+            android:id="@+id/arrowBack"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="15dp"
+            app:arrowColor="@color/white"
+            app:arrowDirection="left"
+            app:arrowWidth="1.5dp"/>
+
+        <TextView
+            android:id="@+id/tvToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:layout_toRightOf="@id/arrowBack"
+            android:gravity="center"
+            android:text="交易详情"
+            android:textColor="@color/white"
+            android:textSize="16sp"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"></LinearLayout>
+    <ImageView
+        android:layout_marginTop="48dp"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
+        android:src="@mipmap/app_views_pages_wechat_common_images_aiconback" />
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_marginTop="@dimen/common_margin_up_down"
+        android:layout_width="wrap_content"
+        android:text="@string/wechat_transfer_othoer_return"
+        android:textSize="22sp"
+        android:textColor="@color/mifpay_black_important"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="72dp">
+        <TextView
+            android:id="@+id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="¥"
+            android:layout_marginTop="4dp"
+            android:textSize="36sp"
+            android:textColor="@color/black"/>
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_toRightOf="@id/tvUnit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="88.00"
+            android:layout_marginLeft="4dp"
+            android:textSize="48sp"
+            android:textColor="@color/black"/>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_horizontal">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="已退款到零钱。"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="查看详情"
+            android:textColor="@color/mifpay_black_secondary"/>
+    </LinearLayout>
+    <TextView
+
+        android:gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+    <TextView
+        android:id="@+id/tvTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wechat_transfer_time"
+        android:gravity="center"
+        android:layout_marginBottom="8dp"
+        android:textColor="@color/gray" />
+    <TextView
+        android:id="@+id/tvTime1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/wechat_transfer_time1"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:textColor="@color/gray" />
 </LinearLayout>
