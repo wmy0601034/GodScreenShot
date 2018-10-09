@@ -2,6 +2,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.nfc.tech.NfcA;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +15,14 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity1;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity2;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity3;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity4;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity5;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity6;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity7;
+import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferResultActivity8;
 import com.nanningzhuanqian.vscreenshot.m02_add_conversation.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.widget.CommonContentEditDialog;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
@@ -82,10 +91,16 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
             case R.id.btnSubmit:
                 // TODO: 2018/9/18 点击转账后 弹出选择转账成功还是 待收取的页面
                 String amount = edMoney.getText().toString();
+                String transferName = tvName.getText().toString();
                 if(TextUtils.isEmpty(amount)){
                     toast("请输入金额");
                     return;
                 }
+                if(TextUtils.isEmpty(transferName)){
+                    toast("请输入收款人");
+                    return;
+                }
+                SPUtils.put(getThis(),Constant.KEY_TRANSFER_NAME, transferName);
                 showJumpSheetDialog(amount);
                 break;
             case R.id.tvEditDes:
@@ -257,7 +272,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity1.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_SCAN_MERCHAIN);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -287,7 +302,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity2.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_PAY_SUCCESS);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -298,7 +313,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity3.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_WAIT_OTHER);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -309,7 +324,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity4.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_OTHER_RECEIVED);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -320,7 +335,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity5.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_WAIT_SELF);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -331,7 +346,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity6.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_SELF_RECEIVED);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -342,7 +357,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity7.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_SELF_RETURN);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);
@@ -353,7 +368,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(getThis(),WechatTransferResultActivity.class);
+                Intent intent = new Intent(getThis(),WechatTransferResultActivity8.class);
                 intent.putExtra(Constant.INTENT_KEY_TYPE,WechatTransferResultActivity.RESULT_OTHER_RETURN);
                 intent.putExtra(Constant.INTENT_KEY_AMOUNT,amount);
                 startActivity(intent);

@@ -32,6 +32,7 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
     public String name;
     public String amount;
     private TextView tvReceiver;
+    private TextView tvName;
     private TextView tvTime;
     private TextView tvTime1;
 
@@ -75,13 +76,16 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
     }
 
     public void setName(String name){
-        tvReceiver.setText(name);
+        tvName = findViewById(R.id.tvName);
+        if (tvName!=null){
+            tvName.setText(name);
+        }
     }
 
     public void initReceiver(){
-        tvReceiver = findViewById(R.id.tvReceiver);
-        if (tvReceiver!=null){
-            tvReceiver.setText(name);
+        tvName = findViewById(R.id.tvName);
+        if (tvName!=null){
+            tvName.setText(name);
         }
     }
 

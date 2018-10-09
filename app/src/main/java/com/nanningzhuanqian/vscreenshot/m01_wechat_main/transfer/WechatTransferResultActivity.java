@@ -28,6 +28,6 @@ public class WechatTransferResultActivity extends WechatTransferResultBaseActivi
         initAvatarRes();
         initName();
         initAmount();
-        setName(name);
+        initReceiver();
     }
 }
