@@ -65,6 +65,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"/>
     <TextView
+        android:id="@+id/tvFinish"
         android:layout_width="196dp"
         android:layout_height="40dp"
         android:text="完成"

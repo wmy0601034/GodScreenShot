@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+import android.net.Uri;
+import android.widget.ImageView;
+
 import com.nanningzhuanqian.vscreenshot.model.WechatChatLite;
 
 public class WechatChatItem {
@@ -8,9 +11,12 @@ public class WechatChatItem {
     private String name;
     private int imgRes;
     private String content;
-    private int imgType;
+    private String imgType;
+    private Uri avatarUri;
     private String imgUrl;
     private String pointToName;
+    private String time;
+    private long timeMillis;
     private boolean showTime;
 
     public int getType() {
@@ -45,11 +51,11 @@ public class WechatChatItem {
         this.content = content;
     }
 
-    public int getImgType() {
+    public String getImgType() {
         return imgType;
     }
 
-    public void setImgType(int imgType) {
+    public void setImgType(String imgType) {
         this.imgType = imgType;
     }
 
@@ -69,6 +75,38 @@ public class WechatChatItem {
         this.pointToName = pointToName;
     }
 
+    public long getTimeMillis() {
+        return timeMillis;
+    }
+
+    public void setTimeMillis(long timeMillis) {
+        this.timeMillis = timeMillis;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public Uri getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
+    }
+
+    public boolean isShowTime() {
+        return showTime;
+    }
+
+    public void setShowTime(boolean showTime) {
+        this.showTime = showTime;
+    }
+
     public WechatChatItem(int type, String name, int imgRes, String content, String pointToName) {
         this.type = type;
         this.name = name;
@@ -79,6 +117,10 @@ public class WechatChatItem {
 
     public WechatChatLite convertToWechatChatLite(){
         return new WechatChatLite(type,name,imgRes,content,pointToName);
+    }
+
+    public void setAvatar(ImageView imageView){
+
     }
 
 }

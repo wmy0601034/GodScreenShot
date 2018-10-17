@@ -1,5 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+import android.net.Uri;
+
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 
@@ -10,7 +12,8 @@ public class ContractItem{
     private String name;
     private int imgRes;
     private String imgUrl;
-    private int imgType;    // 0 本地图片 1 来自网络
+    private Uri avatarUri;
+    private String imgType;    // 0 本地图片 1 来自网络
     private String letters;//显示拼音的首字母
     private String realName;    //真名
     private String pointToUser; //指向某个用户的手机
@@ -23,7 +26,7 @@ public class ContractItem{
         this.letters = letters;
     }
 
-    public ContractItem(int type, String name, int imgRes, String imgUrl, int imgType) {
+    public ContractItem(int type, String name, int imgRes, String imgUrl, String imgType) {
         this.type = type;
         this.name = name;
         this.imgRes = imgRes;
@@ -95,12 +98,28 @@ public class ContractItem{
         this.imgUrl = imgUrl;
     }
 
-    public int getImgType() {
+    public String getImgType() {
         return imgType;
     }
 
-    public void setImgType(int imgType) {
+    public void setImgType(String imgType) {
         this.imgType = imgType;
+    }
+
+    public Uri getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public ContractLite convertToLite(){

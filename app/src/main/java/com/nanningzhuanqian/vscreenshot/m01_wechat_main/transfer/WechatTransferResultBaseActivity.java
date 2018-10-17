@@ -1,7 +1,12 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer;
 
+import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +34,7 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
     private TextView tvAmount;
     private ImageView imgAvatar;
     public int avatarRes;
+    public Uri avatarUri;
     public String name;
     public String amount;
     private TextView tvReceiver;
@@ -37,6 +43,11 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
     private TextView tvTime1;
 
     private TextView tvFinish;
+
+    @Override
+    protected boolean needNavigationBartransparent() {
+        return true;
+    }
 
     public void initFinishButton(){
         tvFinish = findViewById(R.id.tvFinish);
@@ -50,16 +61,49 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
         }
     }
 
-    public void initAvatarRes(){
-        String avatar = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_AVATAR,"");
-        if(TextUtils.isEmpty(avatar)){
-            avatarRes = R.mipmap.app_images_defaultface;
-        }else{
-            avatarRes = Integer.valueOf(avatar);
+    public void transparentNavigationBar(int color){
+//        mImmersionBar.transparentNavigationBar();
+//        Log.i(TAG,"transparentNavigationBar");
+//        mImmersionBar.navigationBarColor(color); //导航栏颜色，不写默认黑色
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+                //底部导航栏
+                window.setNavigationBarColor(getResources().getColor(R.color.white));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+    }
+
+    public void initAvatarRes(){
         imgAvatar = findViewById(R.id.imgAvatar);
-        if(imgAvatar!=null){
-            imgAvatar.setImageResource(avatarRes);
+        String type = (String) SPUtils.get(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,"");
+        String avatar = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_AVATAR,"");
+        if(TextUtils.isEmpty(type)||Constant.VALUE_WECHAT_AVATAR_RES.equals(type)){
+            if(TextUtils.isEmpty(avatar)){
+                avatarRes = R.mipmap.app_images_defaultface;
+            }else{
+                avatarRes = Integer.valueOf(avatar);
+            }
+
+            if(imgAvatar!=null){
+                imgAvatar.setImageResource(avatarRes);
+            }
+        }else if(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(type)){
+            if(TextUtils.isEmpty(avatar)){
+                avatarRes = R.mipmap.app_images_defaultface;
+                if(imgAvatar!=null){
+                    imgAvatar.setImageResource(avatarRes);
+                }
+            }else{
+                avatarUri = Uri.parse(avatar);
+                if(imgAvatar!=null){
+                    imgAvatar.setImageURI(avatarUri);
+                }
+            }
+
         }
     }
 

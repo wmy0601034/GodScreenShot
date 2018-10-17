@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+import android.net.Uri;
 import android.support.annotation.NonNull;
 
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -16,6 +17,8 @@ public class ConversationItem implements Comparable{
     private int imgRes;
     private String imgUrl;
     private String name;
+    private String avatarType;
+    private Uri avatarUri;
     private int badgeCount;
     private long updateTime;
     private String content;
@@ -119,6 +122,22 @@ public class ConversationItem implements Comparable{
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public String getAvatarType() {
+        return avatarType;
+    }
+
+    public void setAvatarType(String avatarType) {
+        this.avatarType = avatarType;
+    }
+
+    public Uri getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
     }
 
     public ConversationLite convertToLite(){

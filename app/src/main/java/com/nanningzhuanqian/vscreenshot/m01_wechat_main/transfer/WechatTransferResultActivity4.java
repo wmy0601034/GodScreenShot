@@ -16,6 +16,8 @@ public class WechatTransferResultActivity4 extends WechatTransferResultBaseActiv
 
     @Override
     protected void initView() {
+        transparentNavigationBar(R.color.white);
+        initWechatTopBar();
         initFinishButton();
     }
 
@@ -35,6 +37,6 @@ public class WechatTransferResultActivity4 extends WechatTransferResultBaseActiv
         setTime(getString(R.string.wechat_transfer_time,time));
         long timeMillis1 = System.currentTimeMillis();
         String time1 = Util.stampToTransferTime(timeMillis1);
-        setTime1(time1);
+        setTime1(getString(R.string.wechat_transfer_time1,time1));
     }
 }

@@ -130,4 +130,6 @@
     <color name="wechat_red_packet_red">#D85940</color>
     <color name="wechat_theme_green">#1AAD19</color>
     <color name="wechat_red_packet_gold">#ffe2b1</color>
+    <color name="wechat_gray_like_red_packet">#f1f1f1</color>
+    <color name="wechat_red_packet_avatar_stroke_gold">#ebcd99</color>
 </resources>

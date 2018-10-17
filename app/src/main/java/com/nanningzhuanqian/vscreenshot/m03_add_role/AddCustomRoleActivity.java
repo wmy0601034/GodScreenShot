@@ -3,6 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m03_add_role;
 import android.app.Dialog;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
+import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
@@ -52,6 +54,9 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
     private TextView tvLevel;
     private Button btnRandom;
     private Button btnSubmit;
+
+    private String avatarType = "";
+    private Uri avatarUri;
 
 
     @Override
@@ -113,6 +118,7 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
         }
     }
 
+    ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomRoleActivity.this);
 
@@ -134,8 +140,22 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //随机添加1个对话
-                toast("暂未开放");
+                //相册
+                imagePicker.setTitle("设置头像");
+                // 设置是否裁剪图片
+                imagePicker.setCropImage(true);
+                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
+                    // 选择图片回调
+                    @Override public void onPickImage(Uri imageUri) {
+
+                    }
+                    // 裁剪图片回调
+                    @Override public void onCropImage(Uri imageUri) {
+                        avatarType = Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC;
+                        avatarUri = imageUri;
+                        imgIcon.setImageURI(imageUri);
+                    }
+                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -175,7 +195,10 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
+            avatarType =  Constant.VALUE_WECHAT_AVATAR_RES;
             imgIcon.setImageResource(imgRes);
+        }else{
+            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 
@@ -201,6 +224,8 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
         item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
         item.setPointToUser(mobile);
+        item.setImgType(avatarType);
+        item.setAvatarUri(avatarUri);
         ContractItems.getInstance().addFirst(item);
         //保存到本地
         ContractLite contractLite = item.convertToLite();

@@ -2,6 +2,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.MainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
@@ -172,6 +174,7 @@ public class WechatDiscoverySettingFragment extends BaseFragment {
         }
     }
 
+    ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(getActivity());
 
@@ -193,8 +196,22 @@ public class WechatDiscoverySettingFragment extends BaseFragment {
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //随机添加1个对话
-                toast("暂未开放");
+                //相册
+                imagePicker.setTitle("设置头像");
+                // 设置是否裁剪图片
+                imagePicker.setCropImage(true);
+                imagePicker.startChooser(getActivity(), new ImagePicker.Callback() {
+                    // 选择图片回调
+                    @Override public void onPickImage(Uri imageUri) {
+
+                    }
+                    // 裁剪图片回调
+                    @Override public void onCropImage(Uri imageUri) {
+                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,imageUri.toString());
+                        imgAvatar.setImageURI(imageUri);
+                    }
+                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog

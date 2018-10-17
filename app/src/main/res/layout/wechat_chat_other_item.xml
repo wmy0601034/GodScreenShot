@@ -17,10 +17,13 @@
         android:layout_height="wrap_content"
         android:minHeight="40dp"
         android:minWidth="48dp"
+        android:textSize="16sp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         android:layout_toRightOf="@id/imgAvatar"
-        android:singleLine="false"
         android:layout_marginRight="48dp"
-        android:gravity="center_vertical"/>
+        android:gravity="center_vertical"
+        android:singleLine="false"
+        android:background="@drawable/aeq"
+        android:textColor="@color/black" />
 </RelativeLayout>

@@ -17,6 +17,8 @@ public class Constant {
     public static final String KEY_MOMENT_AVATAR = "moment_avatar";
     public static final String KEY_MOMENT_BG = "moment_bg";
     public static final String KEY_PROFILE_AVATAR = "profile_avatar";
+    public static final String KEY_PROFILE_AVATAR_URI = "profile_avatar";
+    public static final String KEY_PROFILE_AVATAR_TYPE = "profile_avatar_type";
     public static final String KEY_PROFILE_NAME = "profile_name";
     public static final String KEY_PROFILE_ACCOUNT = "profile_account";
     public static final String KEY_TRANSFER_AVATAR  = "transfer_avatar";
@@ -32,6 +34,12 @@ public class Constant {
     public static final String KEY_PERMISSION = "wechat_moment_permission";
     public static final String KEY_PROMPT = "wechat_moment_prompt";
     public static final String KEY_PUBLISHER = "wechat_moment_publisher";
+    public static final String KEY_WECHAT_TRANSFER_AVATAR_TYPE = "wechat_transfer_avatar_type";
+    public static final String KEY_WECHAT_AVATAR_TYPE = "wechat_avatar_type";
+
+    public static final String VALUE_WECHAT_AVATAR_RES = "wechat_avatar_res";
+    public static final String VALUE_WECHAT_AVATAR_LOCAL_PIC = "wechat_avatar_local_pic";
+    public static final String VALUE_WECHAT_AVATAR_NET_PIC = "wechat_avatar_net_pic";
 
 
     public static final String KEY_SHOW_KANYIKAN = "show_kanyikan";

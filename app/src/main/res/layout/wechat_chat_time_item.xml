@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center">
+        <TextView
+            android:layout_marginTop="8dp"
+            android:id="@+id/tvTime"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:text="周二：00:22"
+            android:background="@drawable/wechat_chat_time_conner_bg"
+            android:padding="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+</LinearLayout>

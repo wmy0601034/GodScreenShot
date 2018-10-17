@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
@@ -21,6 +23,7 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 
 public class ProfileFragment extends Fragment implements View.OnClickListener {
     private View rootView;
+    private RelativeLayout rlMoment;
     private ImageView imgAvatar;
     private TextView tvName;
     private TextView tvAccount;
@@ -48,6 +51,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initView() {
+        rlMoment = (RelativeLayout)rootView.findViewById(R.id.rlMoment);
         imgAvatar = (ImageView) rootView.findViewById(R.id.imgAvatar);
         tvName = (TextView) rootView.findViewById(R.id.tvName);
         tvAccount = (TextView) rootView.findViewById(R.id.tvAccount);
@@ -61,6 +65,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initEvent() {
+        rlMoment.setOnClickListener(this);
         llWallet.setOnClickListener(this);
         llCollect.setOnClickListener(this);
         llPictrue.setOnClickListener(this);
@@ -84,8 +89,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         imgAvatar.setImageResource(imgRes);
         String name = (String) SPUtils.get(getActivity(),Constant.KEY_PROFILE_NAME,"");
         String account = (String)SPUtils.get(getActivity(),Constant.KEY_PROFILE_ACCOUNT,"");
-        tvName.setText(name);
-        tvAccount.setText("微信号："+account);
+        if(!TextUtils.isEmpty(name)) {
+            tvName.setText(name);
+        }
+        if(!TextUtils.isEmpty(account)) {
+            tvAccount.setText("微信号：" + account);
+        }
     }
 
     @Override

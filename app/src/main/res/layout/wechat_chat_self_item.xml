@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
     android:id="@+id/rootView"
-android:orientation="vertical">
-<ImageView
-    android:layout_margin="8dp"
-    android:id="@+id/imgAvatar"
-    android:layout_width="40dp"
-    android:layout_alignParentRight="true"
-    android:layout_height="40dp" />
-
-<TextView
-    android:id="@+id/tvContent"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="40dp"
-    android:minWidth="48dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginBottom="8dp"
-    android:textColor="@color/black"
-    android:layout_toLeftOf="@id/imgAvatar"
-    android:singleLine="false"
-    android:layout_marginLeft="48dp"
-    android:gravity="center_vertical"/>
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/imgAvatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@mipmap/app_images_role_10001"
+        android:layout_alignParentRight="true"
+        android:layout_margin="8dp" />
+
+    <TextView
+        android:id="@+id/tvContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="48dp"
+        android:layout_marginTop="8dp"
+        android:layout_toLeftOf="@id/imgAvatar"
+        android:gravity="center_vertical"
+        android:minWidth="48dp"
+        android:textSize="16sp"
+        android:minHeight="40dp"
+        android:text="hehe"
+        android:singleLine="false"
+        android:background="@drawable/aei"
+        android:textColor="@color/black" />
 </RelativeLayout>

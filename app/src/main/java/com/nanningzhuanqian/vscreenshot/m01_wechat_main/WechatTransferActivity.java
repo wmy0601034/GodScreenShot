@@ -2,7 +2,9 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.nfc.tech.NfcA;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -39,6 +43,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
     private TextView tvEditDes;
     private TextView btnSubmit;
     private int imgRes;
+    public Uri avatarUri;
     private String name;
 
     @Override
@@ -70,12 +75,33 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
 
     @Override
     protected void initData() {
+        String avatarType = (String)SPUtils.get(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,"");
         String avatar = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_AVATAR, "");
-        name = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_NAME, "");
-        if (!TextUtils.isEmpty(avatar)) {
-            imgRes = Integer.valueOf(avatar);
-            imgAvatar.setImageResource(imgRes);
+        if(TextUtils.isEmpty(avatarType)||Constant.VALUE_WECHAT_AVATAR_RES.equals(avatarType)){
+            if(TextUtils.isEmpty(avatar)){
+                imgRes = R.mipmap.app_images_defaultface;
+            }else{
+                imgRes = Integer.valueOf(avatar);
+            }
+
+            if(imgAvatar!=null){
+                imgAvatar.setImageResource(imgRes);
+            }
+        }else if(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(avatarType)){
+            if(TextUtils.isEmpty(avatar)){
+                imgRes = R.mipmap.app_images_defaultface;
+                if(imgAvatar!=null){
+                    imgAvatar.setImageResource(imgRes);
+                }
+            }else{
+                avatarUri = Uri.parse(avatar);
+                if(imgAvatar!=null){
+                    imgAvatar.setImageURI(avatarUri);
+                }
+            }
+
         }
+        name = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_NAME, "");
         if (!TextUtils.isEmpty(name)) {
             tvName.setText(name);
         }
@@ -117,6 +143,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
         }
     }
 
+    ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatTransferActivity.this);
 
@@ -138,8 +165,22 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //随机添加1个对话
-                toast("暂未开放");
+                //相册
+                imagePicker.setTitle("设置头像");
+                // 设置是否裁剪图片
+                imagePicker.setCropImage(true);
+                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
+                    // 选择图片回调
+                    @Override public void onPickImage(Uri imageUri) {
+
+                    }
+                    // 裁剪图片回调
+                    @Override public void onCropImage(Uri imageUri) {
+                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,imageUri.toString());
+                        imgAvatar.setImageURI(imageUri);
+                    }
+                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -166,6 +207,13 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
         dialog.show();
     }
 
+
+    @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                                     @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        imagePicker.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+    }
+
     private boolean selectAvatarFinish(int requestCode, int resultCode) {
         return requestCode==999&&resultCode ==999;
     }
@@ -175,8 +223,11 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
+            SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_RES);
             SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,String.valueOf(imgRes));
             imgAvatar.setImageResource(imgRes);
+        }else{
+            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 

@@ -182,60 +182,46 @@ public class MainFragment extends BaseFragment {
                             Intent intent;
                             switch (item.getType()) {
                                 case 0:
-                                    intent = new Intent(getThis(), MainActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),MainActivity.class);
                                     break;
                                 case 1:
-                                    intent = new Intent(getThis(), WechatChooseSingleChatActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatChooseSingleChatActivity.class);
                                     break;
                                 case 2:
-                                    intent = new Intent(getThis(), WechatGroupChatActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatGroupChatActivity.class);
                                     break;
                                 case 3:
-                                    intent = new Intent(getThis(), WechatTransferActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatTransferActivity.class);
                                     break;
                                 case 4:
-                                    intent = new Intent(getThis(), WechatWalletActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatWalletActivity.class);
                                     break;
                                 case 5:
-                                    intent = new Intent(getThis(), WechatNewFriendActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatNewFriendActivity.class);
                                     break;
                                 case 6:
-                                    intent = new Intent(getThis(), WechatRedPacketActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatRedPacketActivity.class);
                                     break;
                                 case 7:
-                                    intent = new Intent(getThis(), WechatChangeActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatChangeActivity.class);
                                     break;
                                 case 8:
-                                    intent = new Intent(getThis(), WechatChangeDetailActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatChangeDetailActivity.class);
                                     break;
                                 case 9:
-                                    intent = new Intent(getThis(), WechatChangeWithdrawActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatChangeWithdrawActivity.class);
                                     break;
                                 case 10:
-                                    intent = new Intent(getThis(), WechatMomentActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatMomentActivity.class);
                                     break;
                                 case 11:
-                                    intent = new Intent(getThis(), WechatBillActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatBillActivity.class);
                                     break;
                                 case 12:
-                                    intent = new Intent(getThis(), WechatPayActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatPayActivity.class);
                                     break;
                                 case 13:
-                                    intent = new Intent(getThis(), WechatGlobalSettingActivity.class);
-                                    startActivity(intent);
+                                    LoginUtils.goLogin(getActivity(),WechatGlobalSettingActivity.class);
                                     break;
                             }
 

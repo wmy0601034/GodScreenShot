@@ -16,6 +16,8 @@ public class WechatTransferResultActivity5 extends WechatTransferResultBaseActiv
 
     @Override
     protected void initView() {
+        transparentNavigationBar(R.color.white);
+        initWechatTopBar();
         initFinishButton();
     }
 

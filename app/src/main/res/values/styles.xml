@@ -14,6 +14,9 @@
         <item name="android:windowContentOverlay">@null</item>
         <!--<item name="android:windowAnimationStyle">@style/AnimFade2</item>-->
     </style>
+    <style name="WechatTransferTheme" parent="AppTheme">
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
 
 
     <!-- 自定义仿IOS的ActionSheet底部Dialog的样式 ，有模糊效果 -->
