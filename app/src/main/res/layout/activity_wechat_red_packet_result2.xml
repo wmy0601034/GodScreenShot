@@ -54,16 +54,15 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true">
 
-
                 <TextView
                     android:id="@+id/btnRight"
-                    android:layout_marginRight="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="红包记录"
+                    android:layout_marginRight="16dp"
+                    android:background="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:textColor="@color/wechat_red_packet_gold"
-                    android:background="?attr/selectableItemBackground" />
+                    android:text="红包记录"
+                    android:textColor="@color/wechat_red_packet_gold" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -96,36 +95,85 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:textSize="16sp"
         android:layout_centerHorizontal="true"
-        android:text="恭喜发财，大吉大利" />
+        android:text="恭喜发财，大吉大利"
+        android:textSize="16sp" />
+
     <ImageView
-        android:layout_marginTop="24dp"
         android:id="@+id/grayBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvMark"
+        android:layout_marginTop="24dp"
         android:scaleType="fitXY"
         android:src="@mipmap/wechat_redpacket_gray_bottom" />
+
     <LinearLayout
-        android:layout_below="@id/grayBottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/grayBottom"
+        android:background="@color/white"
         android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/white">
+        android:padding="16dp">
+
         <TextView
             android:id="@+id/tvDescription"
-            android:textSize="14sp"
-            android:text="该红包已过期。已领取0/1个，共0.00/17.00元"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:textSize="15sp"
-            android:layout_marginTop="32dp"
-            android:text="未领取的红包过期后会退回零钱"
-            android:gravity="center_horizontal"
+            android:layout_height="wrap_content"
+            android:text="1个红包共17.00元"
+            android:textSize="14sp" />
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="40dp"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imgOtherAvatar"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@mipmap/app_images_role_10001"
+                app:riv_corner_radius="4dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvOtherName"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="丶LeonHardt"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="17.00元"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:typeface="serif" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10月17日 12:31" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -165,4 +165,6 @@
     <string name="wechat_transfer_othoer_return">%s已退还</string>
     <string name="wechat_transfer_time">转账时间：%s</string>
     <string name="wechat_transfer_time1">收钱时间：%s</string>
+    <string name="wechat_red_packet_time_out">该红包已过期。已领取0/1个，共0.00/%s元</string>
+    <string name="wechat_red_packet_other_not_received">红包金额%s元，等待对方领取</string>
 </resources>

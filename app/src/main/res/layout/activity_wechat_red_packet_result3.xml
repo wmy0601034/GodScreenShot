@@ -57,13 +57,13 @@
 
                 <TextView
                     android:id="@+id/btnRight"
-                    android:layout_marginRight="16dp"
                     android:layout_width="wrap_content"
                     android:layout_height="48dp"
-                    android:text="红包记录"
+                    android:layout_marginRight="16dp"
+                    android:background="?attr/selectableItemBackground"
                     android:gravity="center"
-                    android:textColor="@color/wechat_red_packet_gold"
-                    android:background="?attr/selectableItemBackground" />
+                    android:text="红包记录"
+                    android:textColor="@color/wechat_red_packet_gold" />
             </RelativeLayout>
         </RelativeLayout>
 
@@ -89,43 +89,86 @@
         android:layout_marginTop="8dp"
         android:text="吴MoonMoon"
         android:textColor="@color/black"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvMark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvName"
-        android:textSize="16sp"
         android:layout_centerHorizontal="true"
-        android:text="恭喜发财，大吉大利" />
+        android:text="恭喜发财，大吉大利"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/llAmount"
+        android:layout_marginTop="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvMark"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1.00"
+            android:textColor="@color/black"
+            android:textSize="48sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="2dp"
+            android:text="元"
+            android:layout_marginTop="6dp"
+            android:textColor="@color/black"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvWithdraw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/llAmount"
+        android:layout_centerHorizontal="true"
+        android:text="已存入零钱，可直接提现"
+        android:textColor="@color/blue"
+        android:textSize="10sp" />
+
     <ImageView
-        android:layout_marginTop="24dp"
         android:id="@+id/grayBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tvMark"
+        android:layout_below="@id/tvWithdraw"
+        android:layout_marginTop="24dp"
         android:scaleType="fitXY"
         android:src="@mipmap/wechat_redpacket_gray_bottom" />
+
+
     <LinearLayout
-        android:layout_below="@id/grayBottom"
+
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:background="@color/white">
-        <TextView
-            android:id="@+id/tvDescription"
-            android:textSize="14sp"
-            android:text="该红包已过期。已领取0/1个，共0.00/17.00元"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:textSize="15sp"
-            android:layout_marginTop="32dp"
-            android:text="未领取的红包过期后会退回零钱"
-            android:gravity="center_horizontal"
+        android:layout_below="@id/grayBottom"
+        android:background="@color/white"
+        android:orientation="vertical">
+        <View
+            android:id="@+id/divider"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="0.1dp"
+            android:layout_marginTop="2dp"
+            android:layout_below="@id/grayBottom"
+            android:background="@color/tab_layout_top_divider" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:text="留言"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
     </LinearLayout>
 </RelativeLayout>

@@ -52,8 +52,6 @@
         <activity
             android:name=".m01_wechat_main.WechatRedPacketActivity"
             android:theme="@style/TranslucentTheme" />
-        <activity android:name=".m01_wechat_main.WechatRedPacketResultActivity"
-            android:theme="@style/WechatTransferTheme"/>
         <activity android:name=".m01_wechat_main.WechatChangeActivity" />
         <activity android:name=".m01_wechat_main.WechatChangeDetailActivity" />
         <activity android:name=".m01_wechat_main.WechatChangeWithdrawActivity" />
@@ -86,6 +84,10 @@
         <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity8"/>
         <activity android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
+        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResultActivity"/>
+        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult1Activity"/>
+        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult2Activity"/>
+        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult3Activity"/>
     </application>
 
 </manifest>

@@ -54,7 +54,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true">
 
-
                 <TextView
                     android:id="@+id/btnRight"
                     android:layout_marginRight="16dp"
@@ -117,13 +116,13 @@
         <TextView
             android:id="@+id/tvDescription"
             android:textSize="14sp"
-            android:text="该红包已过期。已领取0/1个，共0.00/17.00元"
+            android:text="红包金额5.20元，等待对方领取"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
             android:textSize="15sp"
             android:layout_marginTop="32dp"
-            android:text="未领取的红包过期后会退回零钱"
+            android:text="未领取的红包，将于24小时后发起退款"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

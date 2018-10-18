@@ -24,6 +24,9 @@ public class Constant {
     public static final String KEY_TRANSFER_AVATAR  = "transfer_avatar";
     public static final String KEY_TRANSFER_NAME = "tranfer_name";
 
+    public static final String KEY_REDPACKET_AVATAR =  "redpacket_avatar";
+    public static final String KEY_REDPACKET_NAME = "redpacket_name";
+
     public static final String KEY_BANK = "bank";
     public static final String KEY_BANK_CARD_NO = "bank_card_no";
     public static final String KEY_BANK_TIME = "bank_time";
@@ -36,6 +39,7 @@ public class Constant {
     public static final String KEY_PUBLISHER = "wechat_moment_publisher";
     public static final String KEY_WECHAT_TRANSFER_AVATAR_TYPE = "wechat_transfer_avatar_type";
     public static final String KEY_WECHAT_AVATAR_TYPE = "wechat_avatar_type";
+    public static final String KEY_WECHAT_RED_PACKET_AVATAR_TYPE = "wechat_redpacket_avatar_type";
 
     public static final String VALUE_WECHAT_AVATAR_RES = "wechat_avatar_res";
     public static final String VALUE_WECHAT_AVATAR_LOCAL_PIC = "wechat_avatar_local_pic";
@@ -50,7 +54,9 @@ public class Constant {
     public static final String KEY_BOTTOM_STATUS_BAR_HEIGHT ="bottom_status_bar_height";
     public static final String KEY_SOFT_INPUT_KEYBORAD_HEIGHT = "soft_input_keyborad_height";
 
+    public static final String INTENT_KEY_NAME = "intent_key_name";
     public static final String INTENT_KEY_TYPE = "intent_key_type";
+    public static final String INTENT_KEY_MARK = "intent_key_mark";
     public static final String INTENT_KEY_POSITION = "intent_key_position";
     public static final String INTENT_KEY_AMOUNT = "intent_key_amout";
     public static final String INTENT_KEY_WITHDRAW_RESULT = "intent_key_withdraw_result";
