@@ -82,8 +82,8 @@
     <string name="sheet_item_clear_conversation">清空对话内容</string>
 
     <string name="sheet_item_add_custom_role">添加自定义角色</string>
-    <string name="sheet_item_add_1_role">随机添加1个对话</string>
-    <string name="sheet_item_add_20_role">随机添加20个对话</string>
+    <string name="sheet_item_add_1_role">随机添加1个角色</string>
+    <string name="sheet_item_add_20_role">随机添加20个角色</string>
     <string name="sheet_item_clear_role">清空所有角色</string>
     <string name="user_protocol"><u>用户协议</u></string>
     <string name="jump_in">跳过(%s)</string>

@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat_main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,8 +74,13 @@ public class ContactListFragment extends BaseFragment {
     private void initEvent() {
         contractAdapter.setOnItemClickListener(new ContractAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(ContractItem item) {
-                toast(item.getName());
+            public void onItemClick(int position,ContractItem item) {
+                if(position==0){
+                    Intent intent = new Intent(getActivity(),WechatNewFriendActivity.class);
+                    startActivity(intent);
+                }else {
+                    toast(item.getName());
+                }
             }
         });
     }
@@ -113,15 +120,13 @@ public class ContactListFragment extends BaseFragment {
         Collections.sort(items, pinyinComparator);
         ContractItems.getInstance().add(items);
 
-        ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "公众号", R.mipmap.app_views_pages_wechat_home_images_contacticon4));
+        ContractItems.getInstance().initTop();
 
-        ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "标签", R.mipmap.app_views_pages_wechat_home_images_contacticon3));
-        ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "群聊", R.mipmap.app_views_pages_wechat_home_images_contacticon2));
-        if(WechatNewFriendItems.getInstance().size()==0) {
-            ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_COMMON_TYPE, "新的朋友", R.mipmap.app_views_pages_wechat_home_images_contacticon1));
-        }else{
-            ContractItems.getInstance().addFirst(new ContractItem(ContractAdapter.ITEM_NEW_FRIEND, "新的朋友", R.mipmap.app_views_pages_wechat_home_images_contacticon1));
-        }
+        contractAdapter.notifyDataSetChanged();
+    }
+
+    public void notifyDataSetChanged(){
+        Log.i(TAG,"ContractItems = "+ContractItems.getInstance().size());
         contractAdapter.notifyDataSetChanged();
     }
 

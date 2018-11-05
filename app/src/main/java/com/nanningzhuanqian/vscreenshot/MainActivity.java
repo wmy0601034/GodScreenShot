@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.event.RefreshUnReadCountEvent;
@@ -15,8 +17,12 @@ import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.item.ContractItem;
+import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
+import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItem;
+import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ContactListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ConversationListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.DiscoverFragment;
@@ -24,9 +30,11 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ProfileFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatGlobalSettingActivity;
 import com.nanningzhuanqian.vscreenshot.m02_add_conversation.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m03_add_role.AddCustomRoleActivity;
+import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.model.RandomManager;
+import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabButton;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabHost;
 import com.nanningzhuanqian.vscreenshot.widget.MFViewPager;
@@ -35,6 +43,8 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
@@ -243,7 +253,8 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //随机添加1个对话
+                //随机添加1个角色
+                randomSingleNewFriend();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_20_role), NewActionSheetDialog
@@ -251,7 +262,8 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //随机添加20个对话
+                //随机添加20个角色
+                random20NewFriend();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_clear_role), NewActionSheetDialog
@@ -259,7 +271,9 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //清空对话内容
+                //清空所有角色
+                ContractItems.getInstance().clear();
+                conversationListFragment.notifyDataSetChanged();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_page_setting), NewActionSheetDialog
@@ -282,6 +296,43 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
         if(requestCode==999&&resultCode==999){
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void randomSingleNewFriend(){
+        generateRandomNewFriend(1);
+    }
+
+    private void random20NewFriend(){
+        generateRandomNewFriend(20);
+    }
+
+    private void generateRandomNewFriend(int count){
+        List<ContractItem> cacheList ;
+        cacheList = ContractItems.getInstance().getWithOutTop();
+        if(cacheList==null){
+            cacheList = new ArrayList<>();
+        }
+        Log.i(TAG,"generateRandomNewFriend count = "+count);
+        ContractItems.getInstance().clear();
+        for(int i = 0;i<count;i++){
+            String name = RandomManager.getInstance().getRandomName();
+            int imgRes =RandomManager.getInstance().getAvatarRes();
+            String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
+            ContractItem item = new ContractItem();
+            item.setName(name);
+            item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
+            item.setImgRes(imgRes);
+            item.setPointToUser(mobile);
+            cacheList.add(item);
+            //保存到本地
+            ContractLite contractLite = item.convertToLite();
+            contractLite.save();
+        }
+        ContractItems.getInstance().add(cacheList);
+        Log.i(TAG,"ContractItems add = "+ContractItems.getInstance().size()+" "+cacheList.size());
+        ContractItems.getInstance().initTop();
+        Log.i(TAG,"ContractItems initTop = "+ContractItems.getInstance().size());
+        contactListFragment.notifyDataSetChanged();
     }
 
     private void randomSingleConversation(){

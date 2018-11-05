@@ -36,7 +36,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(ContractItem item);
+        void onItemClick(int position,ContractItem item);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         if(holder instanceof CommonViewHolder) {
             CommonViewHolder viewHolder = (CommonViewHolder) holder;
             int section = getSectionForPosition(position);
@@ -80,7 +80,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        listener.onItemClick(item);
+                        listener.onItemClick(position,item);
                     }
                 }
             });
@@ -90,15 +90,28 @@ public class ContractAdapter extends RecyclerView.Adapter {
             viewHolder.unread_count.setText(String.valueOf(contractUnReadCount));
             int size = WechatNewFriendItems.getInstance().size();
             if(size>=1){
+                viewHolder.imgAvatar.setVisibility(View.VISIBLE);
                 viewHolder.imgAvatar.setImageResource(WechatNewFriendItems.getInstance().get(0).getImgRes());
+            }else{
+                viewHolder.imgAvatar1.setVisibility(View.GONE);
+                viewHolder.imgAvatar2.setVisibility(View.GONE);
+                viewHolder.imgAvatar3.setVisibility(View.GONE);
             }
             if(size>=2){
+                viewHolder.imgAvatar1.setVisibility(View.VISIBLE);
                 viewHolder.imgAvatar1.setImageResource(WechatNewFriendItems.getInstance().get(1).getImgRes());
+            }else {
+                viewHolder.imgAvatar2.setVisibility(View.GONE);
+                viewHolder.imgAvatar3.setVisibility(View.GONE);
             }
             if(size>=3){
+                viewHolder.imgAvatar2.setVisibility(View.VISIBLE);
                 viewHolder.imgAvatar2.setImageResource(WechatNewFriendItems.getInstance().get(2).getImgRes());
+            }else {
+                viewHolder.imgAvatar3.setVisibility(View.GONE);
             }
             if(size>=4){
+                viewHolder.imgAvatar3.setVisibility(View.VISIBLE);
                 viewHolder.imgAvatar3.setImageResource(WechatNewFriendItems.getInstance().get(3).getImgRes());
             }
         }

@@ -19,15 +19,15 @@ public class LoginUtils {
     }
 
     public static final void goLogin(Activity srcAct,String className) {
-        if(BmobUser.getCurrentUser()==null) {
-            Intent intent = new Intent(srcAct, LoginActivity.class);
-            intent.putExtra(LoginActivity.EXTRA_JUMP_TO, className);
-            srcAct.startActivity(intent);
-        }else {
+//        if(BmobUser.getCurrentUser()==null) {
+//            Intent intent = new Intent(srcAct, LoginActivity.class);
+//            intent.putExtra(LoginActivity.EXTRA_JUMP_TO, className);
+//            srcAct.startActivity(intent);
+//        }else {
             Intent intent = new Intent();
             intent.setClassName(srcAct,className);
             srcAct.startActivity(intent);
-        }
+//        }
     }
 
     public static final void goLogin(Activity srcAct,Class<? extends Activity> cls) {

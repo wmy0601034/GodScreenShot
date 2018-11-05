@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,11 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.util.LoginUtils;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.bank_card.BankCardManagerActivity;
 import com.nanningzhuanqian.vscreenshot.m06_setting.FeedbackActivity;
+import com.nanningzhuanqian.vscreenshot.model.Config;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
@@ -30,6 +35,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private LinearLayout llRight;
     private TextView btnQuit;
     private String qq;
+    private TextView tvBankCard;
+    private TextView tvVersion;
 
     @Nullable
     @Override
@@ -55,13 +62,24 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     private void initData() {
         qq = Util.getContractQQ(getThis());
+        String versionName = Config.getInstance().getVersionName();
         tvQQ.setText(qq);
+        tvVersion.setText(versionName);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        String bankCard  = (String) SPUtils.get(getThis(), Constant.KEY_BANK,"");
+        String bankCardNo = (String)SPUtils.get(getThis(),Constant.KEY_BANK_CARD_NO,"");
+        tvBankCard.setText(bankCard+ (TextUtils.isEmpty(bankCardNo)?"":(" "+bankCardNo.substring(bankCardNo.length()
+                -4,bankCardNo.length()))));
     }
 
     private void initView() {
         llFeedback = (LinearLayout) rootView.findViewById(R.id.llFeedback);
         llQQ = (LinearLayout) rootView.findViewById(R.id.llQQ);
-        tvQQ = (TextView)rootView.findViewById(R.id.tvQQ);
+        tvQQ = (TextView) rootView.findViewById(R.id.tvQQ);
         llRoleManager = (LinearLayout) rootView.findViewById(R.id.llRoleManager);
         llBankCarkManager = (LinearLayout) rootView.findViewById(R.id.llBankCarkManager);
         llReset = (LinearLayout) rootView.findViewById(R.id.llReset);
@@ -69,6 +87,8 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         llVersion = (LinearLayout) rootView.findViewById(R.id.llVersion);
         llRight = (LinearLayout) rootView.findViewById(R.id.llRight);
         btnQuit = (TextView) rootView.findViewById(R.id.btnQuit);
+        tvVersion = (TextView) rootView.findViewById(R.id.tvVersion);
+        tvBankCard = rootView.findViewById(R.id.tvBankCard);
     }
 
     @Override
@@ -76,11 +96,11 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.llFeedback:
                 // TODO: 2018/9/16 跳转去QQ 236690125
-                if(isLogin()){
+                if (isLogin()) {
                     Intent intent = new Intent(getThis(), FeedbackActivity.class);
                     startActivity(intent);
-                }else{
-                    LoginUtils.goLogin(getActivity(),FeedbackActivity.class);
+                } else {
+                    LoginUtils.goLogin(getActivity(), FeedbackActivity.class);
                 }
                 break;
             case R.id.llQQ:
@@ -97,16 +117,24 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 //                Intent intent = new Intent(getActivity(),);
                 break;
             case R.id.llBankCarkManager:
-
+                Intent bankCardIntent = new Intent(getThis(),BankCardManagerActivity.class);
+                startActivity(bankCardIntent);
                 break;
             case R.id.llReset:
 
                 break;
             case R.id.llProtocol:
-
+                Intent intent = new Intent(getThis(), ProtocolActivitity.class);
+                startActivity(intent);
                 break;
             case R.id.llVersion:
+                int localVersionCode = Util.getLocalVersion(getThis());
+                int latestVersionCode = Config.getInstance().getVersionCode();
+                if (latestVersionCode > localVersionCode) {
 
+                } else {
+                    toast("当前已是最新版本");
+                }
                 break;
             case R.id.llRight:
 

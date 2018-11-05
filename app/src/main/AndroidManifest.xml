@@ -88,6 +88,8 @@
         <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult1Activity"/>
         <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult2Activity"/>
         <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult3Activity"/>
+        <activity android:name=".m00_launcher.bank_card.BankCardManagerActivity"/>
+        <activity android:name=".m00_launcher.bank_card.EditBankCardActivity"/>
     </application>
 
 </manifest>
