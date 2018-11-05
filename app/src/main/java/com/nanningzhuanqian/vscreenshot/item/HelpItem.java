@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 帮助列表
+ */
 public class HelpItem {
 
     private int imgRes;

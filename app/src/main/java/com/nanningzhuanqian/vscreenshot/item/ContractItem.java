@@ -5,6 +5,9 @@ import android.net.Uri;
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 
+/**
+ * 联系人列表
+ */
 public class ContractItem{
 
     private int type;   // 根据ContractAdapter里面的来

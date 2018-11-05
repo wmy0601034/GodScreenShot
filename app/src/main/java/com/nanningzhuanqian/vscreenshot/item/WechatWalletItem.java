@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信钱包的item
+ */
 public class WechatWalletItem {
 
     private Integer type;

@@ -9,6 +9,7 @@ import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 
 /**
+ * 聊天列表
  * Created by WMY on 2018/9/14.
  */
 

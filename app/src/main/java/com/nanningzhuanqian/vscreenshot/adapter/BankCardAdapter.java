@@ -51,11 +51,11 @@ public class BankCardAdapter  extends BaseAdapter {
             viewHolder = (ViewHolder) convertView.getTag();
         }
         BankCardItem item = BankCardItems.getInstance().get(position);
-        if(TextUtils.isEmpty(item.getIconType())|| Constant.VALUE_WECHAT_AVATAR_RES.equals(item.getIconType())){
+        if(TextUtils.isEmpty(item.getIconType())|| Constant.VALUE_PIC_RES.equals(item.getIconType())){
             viewHolder.imgIcon.setImageResource(item.getIconRes());
-        }else if(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(item.getIconType())){
+        }else if(Constant.VALUE_PIC_LOCAL.equals(item.getIconType())){
             viewHolder.imgIcon.setImageURI(item.getIconUri());
-        }else if(Constant.VALUE_WECHAT_AVATAR_NET_PIC.equals(item.getIconUrl())){
+        }else if(Constant.VALUE_PIC_NET.equals(item.getIconUrl())){
             Picasso.with(context).load(item.getIconUrl()).into(viewHolder.imgIcon);
         }
         viewHolder.tvName.setText(item.getName());

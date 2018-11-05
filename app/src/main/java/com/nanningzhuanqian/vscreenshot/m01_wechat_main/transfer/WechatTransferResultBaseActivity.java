@@ -81,7 +81,7 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
         imgAvatar = findViewById(R.id.imgAvatar);
         String type = (String) SPUtils.get(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,"");
         String avatar = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_AVATAR,"");
-        if(TextUtils.isEmpty(type)||Constant.VALUE_WECHAT_AVATAR_RES.equals(type)){
+        if(TextUtils.isEmpty(type)||Constant.VALUE_PIC_RES.equals(type)){
             if(TextUtils.isEmpty(avatar)){
                 avatarRes = R.mipmap.app_images_defaultface;
             }else{
@@ -91,7 +91,7 @@ public abstract class WechatTransferResultBaseActivity extends BaseActivity {
             if(imgAvatar!=null){
                 imgAvatar.setImageResource(avatarRes);
             }
-        }else if(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(type)){
+        }else if(Constant.VALUE_PIC_LOCAL.equals(type)){
             if(TextUtils.isEmpty(avatar)){
                 avatarRes = R.mipmap.app_images_defaultface;
                 if(imgAvatar!=null){

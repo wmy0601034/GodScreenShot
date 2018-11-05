@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信聊天页面里的更多选项
+ */
 public class WechatSingleChatMoreItem {
 
     private String imgUrl;

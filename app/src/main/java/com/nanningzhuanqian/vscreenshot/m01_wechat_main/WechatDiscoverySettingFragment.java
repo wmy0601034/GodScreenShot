@@ -207,7 +207,7 @@ public class WechatDiscoverySettingFragment extends BaseFragment {
                     }
                     // 裁剪图片回调
                     @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
                         SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,imageUri.toString());
                         imgAvatar.setImageURI(imageUri);
                     }

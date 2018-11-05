@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信的功能
+ */
 public class WechatItem {
 
     private int imgRes;

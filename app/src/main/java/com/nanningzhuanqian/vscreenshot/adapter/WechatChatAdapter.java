@@ -114,7 +114,7 @@ public class WechatChatAdapter extends RecyclerView.Adapter {
     }
 
     private void setAvatar(ImageView imageView,WechatChatItem item){
-        if(TextUtils.isEmpty(item.getImgType())|| Constant.VALUE_WECHAT_AVATAR_RES.equals(item.getImgType())){
+        if(TextUtils.isEmpty(item.getImgType())|| Constant.VALUE_PIC_RES.equals(item.getImgType())){
             imageView.setImageResource(item.getImgRes());
         }else{
             imageView.setImageURI(item.getAvatarUri());

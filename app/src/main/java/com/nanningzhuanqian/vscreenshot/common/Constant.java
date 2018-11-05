@@ -41,9 +41,9 @@ public class Constant {
     public static final String KEY_WECHAT_AVATAR_TYPE = "wechat_avatar_type";
     public static final String KEY_WECHAT_RED_PACKET_AVATAR_TYPE = "wechat_redpacket_avatar_type";
 
-    public static final String VALUE_WECHAT_AVATAR_RES = "wechat_avatar_res";
-    public static final String VALUE_WECHAT_AVATAR_LOCAL_PIC = "wechat_avatar_local_pic";
-    public static final String VALUE_WECHAT_AVATAR_NET_PIC = "wechat_avatar_net_pic";
+    public static final String VALUE_PIC_RES = "wechat_pic_res";
+    public static final String VALUE_PIC_LOCAL = "wechat_pic_local";
+    public static final String VALUE_PIC_NET = "wechat_pic_net";
 
 
     public static final String KEY_SHOW_KANYIKAN = "show_kanyikan";

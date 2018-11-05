@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信功能
+ */
 public class WeixinCallItem {
 
     private int imgRes;

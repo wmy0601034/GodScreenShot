@@ -5,6 +5,9 @@ import android.widget.ImageView;
 
 import com.nanningzhuanqian.vscreenshot.model.WechatChatLite;
 
+/**
+ * 微信聊天窗口的每条消息
+ */
 public class WechatChatItem {
 
     private int type;

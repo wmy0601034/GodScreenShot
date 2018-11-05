@@ -77,7 +77,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
     protected void initData() {
         String avatarType = (String)SPUtils.get(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,"");
         String avatar = (String) SPUtils.get(getThis(), Constant.KEY_TRANSFER_AVATAR, "");
-        if(TextUtils.isEmpty(avatarType)||Constant.VALUE_WECHAT_AVATAR_RES.equals(avatarType)){
+        if(TextUtils.isEmpty(avatarType)||Constant.VALUE_PIC_RES.equals(avatarType)){
             if(TextUtils.isEmpty(avatar)){
                 imgRes = R.mipmap.app_images_defaultface;
             }else{
@@ -87,7 +87,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
             if(imgAvatar!=null){
                 imgAvatar.setImageResource(imgRes);
             }
-        }else if(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(avatarType)){
+        }else if(Constant.VALUE_PIC_LOCAL.equals(avatarType)){
             if(TextUtils.isEmpty(avatar)){
                 imgRes = R.mipmap.app_images_defaultface;
                 if(imgAvatar!=null){
@@ -176,7 +176,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
                     }
                     // 裁剪图片回调
                     @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
                         SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,imageUri.toString());
                         imgAvatar.setImageURI(imageUri);
                     }
@@ -223,7 +223,7 @@ public class WechatTransferActivity extends BaseActivity implements View.OnClick
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
-            SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_RES);
+            SPUtils.put(getThis(),Constant.KEY_WECHAT_TRANSFER_AVATAR_TYPE,Constant.VALUE_PIC_RES);
             SPUtils.put(getThis(),Constant.KEY_TRANSFER_AVATAR,String.valueOf(imgRes));
             imgAvatar.setImageResource(imgRes);
         }else{

@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信的每个表情
+ */
 public class WechatFaceItem {
 
     private int id;

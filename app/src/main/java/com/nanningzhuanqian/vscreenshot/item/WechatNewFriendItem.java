@@ -2,6 +2,9 @@ package com.nanningzhuanqian.vscreenshot.item;
 
 import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 
+/**
+ * 微信的好友申请
+ */
 public class WechatNewFriendItem {
 
     private int imgRes;

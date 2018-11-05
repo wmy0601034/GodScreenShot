@@ -1,6 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
 /**
+ * 微信账单
  * Created by WMY on 2018/9/18.
  */
 

@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 发现列表
+ */
 public class DiscoveryItem {
 
     private String name;

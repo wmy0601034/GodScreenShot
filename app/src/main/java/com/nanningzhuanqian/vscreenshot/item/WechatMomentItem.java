@@ -5,6 +5,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 微信每条朋友圈
+ */
 public class WechatMomentItem {
 
     private int publisherImgRes;

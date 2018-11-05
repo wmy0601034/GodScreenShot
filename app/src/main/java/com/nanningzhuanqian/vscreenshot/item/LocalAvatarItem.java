@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 本地头像
+ */
 public class LocalAvatarItem {
 
     public LocalAvatarItem(int imgRes) {

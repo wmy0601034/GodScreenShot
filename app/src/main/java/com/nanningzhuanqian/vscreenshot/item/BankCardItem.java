@@ -2,6 +2,9 @@ package com.nanningzhuanqian.vscreenshot.item;
 
 import android.net.Uri;
 
+/**
+ * 银行卡列表
+ */
 public class BankCardItem {
 
     private String name;

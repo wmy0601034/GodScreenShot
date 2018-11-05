@@ -151,7 +151,7 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
                     }
                     // 裁剪图片回调
                     @Override public void onCropImage(Uri imageUri) {
-                        avatarType = Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC;
+                        avatarType = Constant.VALUE_PIC_LOCAL;
                         avatarUri = imageUri;
                         imgIcon.setImageURI(imageUri);
                     }
@@ -195,7 +195,7 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
-            avatarType =  Constant.VALUE_WECHAT_AVATAR_RES;
+            avatarType =  Constant.VALUE_PIC_RES;
             imgIcon.setImageResource(imgRes);
         }else{
             imagePicker.onActivityResult(this, requestCode, resultCode, intent);

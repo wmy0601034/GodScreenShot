@@ -6,6 +6,7 @@ import com.nanningzhuanqian.vscreenshot.adapter.ChangeDetailAdapter;
 import com.nanningzhuanqian.vscreenshot.model.ChangeDetail;
 
 /**
+ * 零钱明细
  * Created by WMY on 2018/9/18.
  */
 

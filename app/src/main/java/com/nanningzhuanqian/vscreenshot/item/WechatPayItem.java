@@ -1,5 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.item;
 
+/**
+ * 微信支付记录
+ */
 public class WechatPayItem {
 
     private String amout;

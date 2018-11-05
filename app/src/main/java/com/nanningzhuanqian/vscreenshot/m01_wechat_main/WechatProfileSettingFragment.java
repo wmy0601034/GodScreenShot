@@ -157,7 +157,7 @@ public class WechatProfileSettingFragment extends BaseFragment {
                     }
                     // 裁剪图片回调
                     @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
                         SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,imageUri.toString());
                         imgAvatar.setImageURI(imageUri);
                     }
@@ -194,7 +194,7 @@ public class WechatProfileSettingFragment extends BaseFragment {
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             wechatUserAvatarRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
-            SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_RES);
+            SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_PIC_RES);
             SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,String.valueOf(wechatUserAvatarRes));
             imgAvatar.setImageResource(wechatUserAvatarRes);
         }else{

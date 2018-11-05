@@ -47,7 +47,7 @@ public class EditBankCardActivity extends BaseActivity {
                     return;
                 }
                 BankCardItem bankCardItem= new BankCardItem(name,0);
-                bankCardItem.setIconType(Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                bankCardItem.setIconType(Constant.VALUE_PIC_LOCAL);
                 bankCardItem.setIconUri(iconUri);
                 BankCardItems.getInstance().add(bankCardItem);
                 finish();

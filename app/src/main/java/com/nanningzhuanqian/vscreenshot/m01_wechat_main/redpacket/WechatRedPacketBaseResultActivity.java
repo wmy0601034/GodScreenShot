@@ -36,14 +36,14 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
         String type = (String)SPUtils.get(getThis(),Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,"");
         String avatar = (String)SPUtils.get(getThis(),Constant.KEY_REDPACKET_AVATAR,"");
         if(imgAvatar!=null) {
-            if (TextUtils.isEmpty(type) || Constant.VALUE_WECHAT_AVATAR_RES.equals(type)) {
+            if (TextUtils.isEmpty(type) || Constant.VALUE_PIC_RES.equals(type)) {
                 if (!TextUtils.isEmpty(avatar)) {
                     imgRes = Integer.valueOf(avatar);
                     imgAvatar.setImageResource(imgRes);
                 } else {
                     imgAvatar.setImageResource(R.mipmap.app_images_defaultface);
                 }
-            } else if (Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC.equals(type)) {
+            } else if (Constant.VALUE_PIC_LOCAL.equals(type)) {
                 Uri avatarUri = Uri.parse(avatar);
                 imgAvatar.setImageURI(avatarUri);
             } else {
@@ -142,7 +142,7 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
                     }
                     // 裁剪图片回调
                     @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(), Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_LOCAL_PIC);
+                        SPUtils.put(getThis(), Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
                         SPUtils.put(getThis(),Constant.KEY_REDPACKET_AVATAR,imageUri.toString());
                         imgAvatar.setImageURI(imageUri);
                     }
@@ -188,7 +188,7 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, intent);
         if(selectAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes", R.mipmap.app_images_defaultface);
-            SPUtils.put(getThis(),Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_WECHAT_AVATAR_RES);
+            SPUtils.put(getThis(),Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_PIC_RES);
             SPUtils.put(getThis(),Constant.KEY_REDPACKET_AVATAR,String.valueOf(imgRes));
             imgAvatar.setImageResource(imgRes);
         }else{
