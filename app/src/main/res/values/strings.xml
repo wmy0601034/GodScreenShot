@@ -353,7 +353,7 @@
     <string name="dl">已添加</string>
     <string name="dm">朋友推荐</string>
     <string name="dn">等待验证</string>
-    <string name="do">新的朋友</string>
+    <string name="do111">新的朋友</string>
     <string name="dp">暂无群聊可选</string>
     <string name="dq">选择一个群</string>
     <string name="dr">从群里导入</string>
@@ -530,7 +530,7 @@
     <string name="ic">知道了</string>
     <string name="id">微信手机号授权功能说明</string>
     <string name="ie">确认授权</string>
-    <string name="if">微信手机号授权</string>
+    <string name="if111">微信手机号授权</string>
     <string name="ig">微信帐号绑定手机号后才可使用手机号快速填写功能</string>
     <string name="ih">微信帐号还没有绑定手机号</string>
     <string name="ii">收不到验证码，</string>
@@ -679,7 +679,7 @@
     <string name="mb">开发版小程序二维码已失效</string>
     <string name="mc">暂无体验权限</string>
     <string name="md">微信没有读取联系人权限，请到系统设置或手机管理软件中开启该权限。</string>
-    <string name="me">sound/app_brand_pull_recent_vew_down_sound.mp3</string>
+    <string name="me11111">sound/app_brand_pull_recent_vew_down_sound.mp3</string>
     <string name="mf">最近</string>
     <string name="mg">我的小程序</string>
     <string name="mh">最近使用</string>
@@ -9120,7 +9120,7 @@ https://weixin.qq.com
     <string name="foo">验证手机号</string>
     <string name="fop">验证身份信息</string>
     <string name="foq">支付失败，请在手机上支付。</string>
-    <string name="for">账户被冻结，请在手机上解冻。</string>
+    <string name="for1111111">账户被冻结，请在手机上解冻。</string>
     <string name="fos">已付款  %s</string>
     <string name="fot">剩余%s</string>
     <string name="fou">微信安全支付</string>
