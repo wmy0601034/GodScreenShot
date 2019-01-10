@@ -31,7 +31,7 @@
         <activity android:name=".m02_add_conversation.AddCustomConversationActivity" />
         <activity android:name=".m02_add_conversation.LocalAvatarSelectActivity" />
         <activity android:name=".m03_add_role.AddCustomRoleActivity" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".WechatMainActivity" />
         <activity android:name=".m00_launcher.LoginActivity" />
         <activity android:name=".m00_launcher.RegisterActivity" />
         <activity android:name=".m00_launcher.ProtocolActivitity" />

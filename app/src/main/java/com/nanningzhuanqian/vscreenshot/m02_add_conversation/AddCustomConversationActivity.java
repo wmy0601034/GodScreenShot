@@ -18,7 +18,7 @@ import android.widget.TextView;
 import com.borax12.materialdaterangepicker.date.DatePickerDialog;
 import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
-import com.nanningzhuanqian.vscreenshot.MainActivity;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;

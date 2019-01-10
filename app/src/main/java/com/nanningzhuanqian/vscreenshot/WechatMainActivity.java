@@ -3,8 +3,6 @@ package com.nanningzhuanqian.vscreenshot;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -13,16 +11,12 @@ import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.event.RefreshUnReadCountEvent;
-import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
-import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
-import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItem;
-import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ContactListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ConversationListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.DiscoverFragment;
@@ -31,10 +25,8 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatGlobalSettingActiv
 import com.nanningzhuanqian.vscreenshot.m02_add_conversation.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m03_add_role.AddCustomRoleActivity;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
-import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.model.RandomManager;
-import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabButton;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabHost;
 import com.nanningzhuanqian.vscreenshot.widget.MFViewPager;
@@ -47,7 +39,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager.OnPageChangeListener {
+public class WechatMainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager
+        .OnPageChangeListener {
 
     private DMTabHost tab_host;
     private MFViewPager viewpager;
@@ -66,7 +59,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_main;
+        return R.layout.activity_wechat_main;
     }
 
     @Override
@@ -123,7 +116,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     }
 
     private void initUnReadCount(){
-        int conversationUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
+        int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         int contractUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
         int discoveryUnReadCount = (int)SPUtils.get(getThis(),Constant.KEY_DISCOVERY_UNREAD_COUNT,0);
         rdoWechat.setUnreadCount(conversationUnReadCount);
@@ -171,7 +164,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     }
 
     private void showConversationOptionDialog(){
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(MainActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatMainActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -183,7 +176,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //添加自定义对话
-                Intent intent = new Intent(MainActivity.this,AddCustomConversationActivity.class);
+                Intent intent = new Intent(WechatMainActivity.this,AddCustomConversationActivity.class);
                 startActivityForResult(intent,999);
             }
         });
@@ -232,7 +225,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
     }
 
     private void showRoleOptionDialog(){
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(MainActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatMainActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -244,7 +237,7 @@ public class MainActivity extends BaseActivity implements DMTabHost.OnCheckedCha
             @Override
             public void onClick(int which) {
                 //添加自定义对话
-                Intent intent = new Intent(MainActivity.this,AddCustomRoleActivity.class);
+                Intent intent = new Intent(WechatMainActivity.this,AddCustomRoleActivity.class);
                 startActivityForResult(intent,999);
             }
         });

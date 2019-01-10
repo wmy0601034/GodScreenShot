@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.linchaolong.android.imagepicker.ImagePicker;
-import com.nanningzhuanqian.vscreenshot.MainActivity;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;

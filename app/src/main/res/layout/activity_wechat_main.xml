@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.nanningzhuanqian.vscreenshot.MainActivity">
+    tools:context="com.nanningzhuanqian.vscreenshot.WechatMainActivity">
 
     <View
         android:id="@+id/statusBar"
@@ -32,7 +32,7 @@
                 android:layout_marginLeft="15dp"
                 android:gravity="center"
                 android:text="微信(47)"
-                android:textColor="@color/white"
+                android:textColor="@color/theme_text_color"
                 android:textSize="16sp" />
 
             <ImageButton

@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.nanningzhuanqian.vscreenshot.MainActivity;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatNewFriendListAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;

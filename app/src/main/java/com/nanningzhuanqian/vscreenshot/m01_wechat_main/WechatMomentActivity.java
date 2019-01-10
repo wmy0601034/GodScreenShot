@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.nanningzhuanqian.vscreenshot.MainActivity;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatMomentAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;

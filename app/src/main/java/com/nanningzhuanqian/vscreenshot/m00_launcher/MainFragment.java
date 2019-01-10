@@ -20,7 +20,7 @@ import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.nanningzhuanqian.vscreenshot.MainActivity;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseDelegateAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseViewHolder;
@@ -182,7 +182,7 @@ public class MainFragment extends BaseFragment {
                             Intent intent;
                             switch (item.getType()) {
                                 case 0:
-                                    LoginUtils.goLogin(getActivity(),MainActivity.class);
+                                    LoginUtils.goLogin(getActivity(),WechatMainActivity.class);
                                     break;
                                 case 1:
                                     LoginUtils.goLogin(getActivity(),WechatChooseSingleChatActivity.class);
