@@ -9,6 +9,8 @@ public class Constant {
     public static final String KEY_CONTRACT_QQ = "contractQQ";
     public static final String KEY_AD_URL = "adUrl";
     public static final String KEY_BALANCE = "balance";
+    public static final String KEY_UPGRADE_MESSAGE = "upgradeMessage";
+    public static final String KEY_APK_DOWNLOAD_URL = "apkDownloadUrl";
 
     public static final String KEY_CONVERSATION_UNREAD_COUNT = "conversation_unread_count";
     public static final String KEY_CONTRACT_UNREAD_COUNT = "contract_unread_count";

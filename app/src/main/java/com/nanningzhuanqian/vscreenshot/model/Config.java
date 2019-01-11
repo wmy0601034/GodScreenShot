@@ -11,6 +11,8 @@ public class Config extends BmobObject{
     private int versionCode;
     private String contractQQ;
     private String adUrl;
+    private String apkDownloadUrl;
+    private String upgradeMessage;
 
     private static Config mThis;
 
@@ -66,5 +68,21 @@ public class Config extends BmobObject{
 
     public void setAdUrl(String adUrl) {
         this.adUrl = adUrl;
+    }
+
+    public String getApkDownloadUrl() {
+        return apkDownloadUrl;
+    }
+
+    public void setApkDownloadUrl(String apkDownloadUrl) {
+        this.apkDownloadUrl = apkDownloadUrl;
+    }
+
+    public String getUpgradeMessage() {
+        return upgradeMessage;
+    }
+
+    public void setUpgradeMessage(String upgradeMessage) {
+        this.upgradeMessage = upgradeMessage;
     }
 }

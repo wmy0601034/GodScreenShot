@@ -10,6 +10,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Space;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
@@ -25,6 +26,9 @@ import java.lang.reflect.Field;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * 欢迎页 这个是启动页
+ */
 public class WelcomeActivity extends BaseActivity {
 
     private ImageView imgAd;
@@ -63,7 +67,7 @@ public class WelcomeActivity extends BaseActivity {
         tvSkin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getThis(),LauncherActivity.class);
+                Intent intent = new Intent(getThis(),MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -124,7 +128,7 @@ public class WelcomeActivity extends BaseActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Intent intent = new Intent(getThis(), LauncherActivity.class);
+                            Intent intent = new Intent(getThis(), MainActivity.class);
                             startActivity(intent);
                             finish();
                         }
@@ -177,6 +181,8 @@ public class WelcomeActivity extends BaseActivity {
                 SPUtils.put(getThis(), Constant.KEY_CONTRACT_QQ, config.getContractQQ());
                 SPUtils.put(getThis(), Constant.KEY_VERSION_CODE, config.getVersionCode());
                 SPUtils.put(getThis(), Constant.KEY_VERSION_NAME, config.getVersionName());
+                SPUtils.put(getThis(),Constant.KEY_APK_DOWNLOAD_URL,config.getApkDownloadUrl());
+                SPUtils.put(getThis(),Constant.KEY_UPGRADE_MESSAGE,config.getUpgradeMessage());
                 SPUtils.put(getThis(), Constant.KEY_RIGHT, config.getRight());
                 SPUtils.put(getThis(), Constant.KEY_AD_URL, config.getAdUrl());
                 Log.i(TAG,config.getContractQQ()+" "+config.getVersionCode()+" "+config.getVersionName()+" "+config.getRight()+" "+config.getAdUrl());

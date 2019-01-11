@@ -23,6 +23,9 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 
 import java.lang.reflect.Field;
 
+/**
+ * 登录界面
+ */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     static public final String EXTRA_JUMP_TO = "extra.JUMP_TO";

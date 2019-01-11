@@ -20,9 +20,13 @@ public class ChatRecord {
     public static final int TYPE_LINK = 5;
     //小程序
     public static final int TYPE_MINI_PROGRAM = 6;
+    //红包
+    public static final int TYPE_RED_PACKAGE = 7;
+    //转账
+    public static final int TYPE_TRANSFER = 8;
     //数据库id
     private String id;
-    //该条聊天记录的类型 0 文字 1 文字+表情 2表情 3图片 4 小视频 5链接 6小程序
+    //该条聊天记录的类型 0 文字 1 文字+表情 2表情 3图片 4 小视频 5链接 6小程序 7红包 8转账
     private int type;
     //该条聊天记录关联的发送人
     private Contact sender;
