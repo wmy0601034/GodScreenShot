@@ -3,6 +3,9 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.moment;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 微信朋友圈定位编辑界面
+ */
 public class WechatLocationEditActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {

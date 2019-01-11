@@ -7,7 +7,7 @@ import com.makeramen.roundedimageview.RoundedImageView;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
- * 对方已领取
+ * 微信发红包对方已领取状态的界面
  */
 public class WechatRedPacketResult2Activity extends WechatRedPacketBaseResultActivity {
 

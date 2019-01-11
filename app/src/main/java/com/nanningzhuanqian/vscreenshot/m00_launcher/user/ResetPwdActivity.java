@@ -3,6 +3,9 @@ package com.nanningzhuanqian.vscreenshot.m00_launcher.user;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 充值密码界面
+ */
 public class ResetPwdActivity extends BaseActivity {
 
     @Override

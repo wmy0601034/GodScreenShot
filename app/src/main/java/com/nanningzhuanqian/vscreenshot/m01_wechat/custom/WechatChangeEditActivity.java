@@ -11,6 +11,9 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
+/**
+ * 编辑零钱信息界面
+ */
 public class WechatChangeEditActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llBank;
     private EditText edBank;

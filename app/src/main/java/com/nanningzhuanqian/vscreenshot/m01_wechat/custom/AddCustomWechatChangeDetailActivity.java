@@ -24,6 +24,9 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import java.util.Calendar;
 import java.util.Random;
 
+/**
+ * 添加自定义零钱明细界面
+ */
 public class AddCustomWechatChangeDetailActivity extends BaseActivity {
 
     private LinearLayout llType;

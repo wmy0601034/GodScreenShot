@@ -16,7 +16,8 @@ import com.nanningzhuanqian.vscreenshot.item.LocalAvatarItem;
 import com.nanningzhuanqian.vscreenshot.item.LocalAvatarItems;
 
 /**
- * 头像选择库
+ * 头像选择页面
+ * 根据传入的type 分辨类型 选择完毕后保存到不同的字段中
  */
 public class LocalAvatarSelectActivity extends BaseActivity {
 

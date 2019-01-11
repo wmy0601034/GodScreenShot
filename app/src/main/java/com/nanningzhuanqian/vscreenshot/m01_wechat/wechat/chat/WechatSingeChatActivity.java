@@ -48,8 +48,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
-
+/**
+ * 微信单聊界面
  */
 public class WechatSingeChatActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnRight;

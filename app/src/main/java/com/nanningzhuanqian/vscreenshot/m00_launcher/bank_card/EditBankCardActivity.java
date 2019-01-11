@@ -19,6 +19,9 @@ import com.nanningzhuanqian.vscreenshot.item.BankCardItems;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
+/**
+ * 编辑银行卡界面
+ */
 public class EditBankCardActivity extends BaseActivity {
     private EditText edBank;
     private LinearLayout llBankCarkLogo;

@@ -3,7 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.transfer;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
- * 付款成功页面
+ * 微信转账付款成功界面
  * Created by lenovo on 2018/10/7.
  */
 

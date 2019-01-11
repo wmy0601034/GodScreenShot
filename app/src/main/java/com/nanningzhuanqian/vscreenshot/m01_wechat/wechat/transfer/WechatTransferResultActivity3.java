@@ -4,7 +4,7 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 
 /**
- * 待对方确认收款
+ * 微信转账待对方确认收款界面
  * Created by lenovo on 2018/10/7.
  */
 

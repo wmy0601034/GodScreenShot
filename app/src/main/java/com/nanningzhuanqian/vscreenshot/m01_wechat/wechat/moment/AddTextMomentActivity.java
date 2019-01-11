@@ -20,6 +20,9 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import java.util.Calendar;
 
+/**
+ * 发表文字朋友圈界面
+ */
 public class AddTextMomentActivity extends BaseActivity implements View.OnClickListener {
     private EditText edContent;
     private LinearLayout llLocation;

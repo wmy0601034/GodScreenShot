@@ -15,6 +15,9 @@ import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 
+/**
+ * 注册界面
+ */
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tvBack;

@@ -26,7 +26,10 @@ import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
-public class AddCustomRoleActivity extends BaseActivity implements View.OnClickListener{
+/**
+ * 添加自定义联系人界面
+ */
+public class AddCustomContactActivity extends BaseActivity implements View.OnClickListener{
     private TextView tvBack;
     private TextView tvTitle;
     private TextView tvSubmit;
@@ -107,7 +110,7 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
 
     ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomRoleActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomContactActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -150,7 +153,7 @@ public class AddCustomRoleActivity extends BaseActivity implements View.OnClickL
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(AddCustomRoleActivity.this,LocalAvatarSelectActivity.class);
+                Intent intent = new Intent(AddCustomContactActivity.this,LocalAvatarSelectActivity.class);
                 startActivityForResult(intent,999);
             }
         });

@@ -18,8 +18,8 @@ import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
 import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
-import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomRoleActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WechatGlobalSettingActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ContactListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ConversationListFragment;
@@ -241,7 +241,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //添加自定义对话
-                Intent intent = new Intent(WechatMainActivity.this,AddCustomRoleActivity.class);
+                Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivity.class);
                 startActivityForResult(intent,999);
             }
         });

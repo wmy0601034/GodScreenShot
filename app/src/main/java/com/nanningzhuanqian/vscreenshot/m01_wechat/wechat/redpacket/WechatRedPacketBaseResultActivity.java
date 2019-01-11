@@ -17,6 +17,9 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
+/**
+ * 微信发红包结果界面 基类
+ */
 public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
 
     public RoundedImageView imgAvatar;

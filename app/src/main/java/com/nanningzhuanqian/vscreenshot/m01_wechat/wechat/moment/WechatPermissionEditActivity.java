@@ -3,6 +3,9 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.moment;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 微信朋友圈不给谁看编辑界面
+ */
 public class WechatPermissionEditActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {

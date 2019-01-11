@@ -6,6 +6,9 @@ import android.widget.TextView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 用户协议界面
+ */
 public class ProtocolActivitity extends BaseActivity {
     private TextView tvBack;
     private TextView tvTitle;

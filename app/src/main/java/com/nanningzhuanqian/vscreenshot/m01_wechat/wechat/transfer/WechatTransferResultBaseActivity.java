@@ -15,6 +15,7 @@ import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
 /**
+ * 微信转账结果状态 基类
  * Created by lenovo on 2018/10/7.
  */
 

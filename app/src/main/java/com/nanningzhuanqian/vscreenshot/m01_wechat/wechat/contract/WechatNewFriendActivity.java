@@ -25,7 +25,7 @@ import org.litepal.LitePal;
 import java.util.List;
 
 /**
- * 微信添加朋友界面
+ * 微信添加联系人界面
  */
 public class WechatNewFriendActivity extends BaseActivity {
 

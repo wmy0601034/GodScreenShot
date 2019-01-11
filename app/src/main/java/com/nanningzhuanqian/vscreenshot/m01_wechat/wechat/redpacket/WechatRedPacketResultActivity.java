@@ -3,7 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.redpacket;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
- * 红包已过期
+ * 微信红包的红包已过期状态的界面
  */
 public class WechatRedPacketResultActivity extends WechatRedPacketBaseResultActivity {
     @Override

@@ -16,6 +16,7 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.suke.widget.SwitchButton;
 
 /**
+ * 微信对话设置界面
  * Created by lenovo on 2018/9/28.
  */
 

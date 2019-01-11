@@ -3,7 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.redpacket;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
- * 我已领取
+ * 微信红包我已领取状态的界面
  */
 public class WechatRedPacketResult3Activity extends WechatRedPacketBaseResultActivity {
     @Override

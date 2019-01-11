@@ -14,7 +14,7 @@ import com.nanningzhuanqian.vscreenshot.item.BankCardItem;
 import com.nanningzhuanqian.vscreenshot.item.BankCardItems;
 
 /**
- * 银行卡管理
+ * 银行卡管理页面
  */
 public class BankCardManagerActivity extends BaseActivity {
 

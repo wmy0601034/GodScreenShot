@@ -29,6 +29,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * 微信自定义好友申请界面
+ */
 public class WechatCustomNewFriendActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tvSubmit;

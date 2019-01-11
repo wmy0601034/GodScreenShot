@@ -7,7 +7,7 @@ import android.view.WindowManager;
 import com.nanningzhuanqian.vscreenshot.R;
 
 /**
- * 扫码转账成功 商户
+ * 微信转账扫码转账成功界面 商户
  * Created by lenovo on 2018/10/7.
  */
 

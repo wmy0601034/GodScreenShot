@@ -8,6 +8,9 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
+/**
+ * 微信零钱提现状态详情界面
+ */
 public class WechatWithdrawDetailActivity extends BaseActivity implements View.OnClickListener {
 
     private TextView tvFinish;
