@@ -39,7 +39,7 @@
         <activity android:name=".m05_user.UserInfoActivity" />
         <activity android:name=".m04_recharge.RechargeActivity" />
         <activity
-            android:name=".m00_launcher.LauncherActivity"
+            android:name=".m00_launcher.main.MainActivity"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".m06_setting.FeedbackActivity" />
         <activity android:name=".m01_wechat_main.WechatSingeChatActivity" />

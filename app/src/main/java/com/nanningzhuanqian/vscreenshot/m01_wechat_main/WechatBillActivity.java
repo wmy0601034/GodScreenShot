@@ -17,6 +17,9 @@ import com.nanningzhuanqian.vscreenshot.item.WechatBillItems;
 import com.nanningzhuanqian.vscreenshot.widget.stickylistview.PowerfulStickyDecoration;
 import com.nanningzhuanqian.vscreenshot.widget.stickylistview.listener.PowerGroupListener;
 
+/**
+ * 微信账单界面
+ */
 public class WechatBillActivity extends BaseActivity {
 
     private RecyclerView rcvBill;

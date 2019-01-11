@@ -25,6 +25,10 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat_main.transfer.WechatTransferR
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 // TODO: 2018/10/5 加入本页面的逻辑代码 实现其功能
+
+/**
+ * 发微信红包界面
+ */
 public class WechatRedPacketActivity extends BaseActivity {
 
     private EditText edMoney;

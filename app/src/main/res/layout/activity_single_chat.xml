@@ -22,10 +22,10 @@
         <com.nanningzhuanqian.vscreenshot.widget.ArrowView
             android:id="@+id/arrowBack"
             android:layout_width="16dp"
-            android:layout_height="16dp"
+            android:layout_height="15dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
-            app:arrowColor="@color/white"
+            app:arrowColor="@color/black2"
             app:arrowDirection="left" />
 
         <TextView

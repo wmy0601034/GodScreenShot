@@ -5,6 +5,9 @@ import android.view.View;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 微信群聊界面
+ */
 public class WechatGroupChatActivity extends BaseActivity {
 
     @Override

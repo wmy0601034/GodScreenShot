@@ -1,6 +1,9 @@
 package com.nanningzhuanqian.vscreenshot.m00_launcher;
 
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.main.MainFragment;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.main.SettingFragment;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.main.UserFragment;
 
 import java.util.HashMap;
 

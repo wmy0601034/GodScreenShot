@@ -21,6 +21,9 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import org.litepal.LitePal;
 
+/**
+ * 微信零钱提现界面
+ */
 public class WechatChangeWithdrawActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnRight;
     private TextView tvBankCard;

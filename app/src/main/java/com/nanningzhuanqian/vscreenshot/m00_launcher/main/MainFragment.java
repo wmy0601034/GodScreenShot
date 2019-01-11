@@ -1,4 +1,4 @@
-package com.nanningzhuanqian.vscreenshot.m00_launcher;
+package com.nanningzhuanqian.vscreenshot.m00_launcher.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,18 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.alibaba.android.vlayout.DelegateAdapter;
-import com.alibaba.android.vlayout.LayoutHelper;
-import com.alibaba.android.vlayout.VirtualLayoutAdapter;
 import com.alibaba.android.vlayout.VirtualLayoutManager;
 import com.alibaba.android.vlayout.layout.GridLayoutHelper;
 import com.alibaba.android.vlayout.layout.LinearLayoutHelper;
-import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseDelegateAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.BaseViewHolder;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
@@ -46,7 +43,6 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatMomentActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatNewFriendActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatPayActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatRedPacketActivity;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatSingeChatActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatTransferActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatWalletActivity;
 import com.squareup.picasso.Picasso;
@@ -182,45 +178,59 @@ public class MainFragment extends BaseFragment {
                             Intent intent;
                             switch (item.getType()) {
                                 case 0:
+                                    //跳转到微信首页
                                     LoginUtils.goLogin(getActivity(),WechatMainActivity.class);
                                     break;
                                 case 1:
+                                    //选择微信对话的用户
                                     LoginUtils.goLogin(getActivity(),WechatChooseSingleChatActivity.class);
                                     break;
                                 case 2:
+                                    //选择微信群聊
                                     LoginUtils.goLogin(getActivity(),WechatGroupChatActivity.class);
                                     break;
                                 case 3:
+                                    //微信转账界面
                                     LoginUtils.goLogin(getActivity(),WechatTransferActivity.class);
                                     break;
                                 case 4:
+                                    //微信钱包页面
                                     LoginUtils.goLogin(getActivity(),WechatWalletActivity.class);
                                     break;
                                 case 5:
+                                    //微信添加朋友申请界面
                                     LoginUtils.goLogin(getActivity(),WechatNewFriendActivity.class);
                                     break;
                                 case 6:
+                                    //微信红包界面
                                     LoginUtils.goLogin(getActivity(),WechatRedPacketActivity.class);
                                     break;
                                 case 7:
+                                    //微信零钱界面
                                     LoginUtils.goLogin(getActivity(),WechatChangeActivity.class);
                                     break;
                                 case 8:
+                                    //微信零钱明细界面
                                     LoginUtils.goLogin(getActivity(),WechatChangeDetailActivity.class);
                                     break;
                                 case 9:
+                                    //微信零钱提现界面
                                     LoginUtils.goLogin(getActivity(),WechatChangeWithdrawActivity.class);
                                     break;
                                 case 10:
+                                    //微信朋友圈界面
                                     LoginUtils.goLogin(getActivity(),WechatMomentActivity.class);
                                     break;
                                 case 11:
+                                    //微信账单界面
                                     LoginUtils.goLogin(getActivity(),WechatBillActivity.class);
                                     break;
                                 case 12:
+                                    //微信支付界面
                                     LoginUtils.goLogin(getActivity(),WechatPayActivity.class);
                                     break;
                                 case 13:
+                                    //微信全局设置界面
                                     LoginUtils.goLogin(getActivity(),WechatGlobalSettingActivity.class);
                                     break;
                             }

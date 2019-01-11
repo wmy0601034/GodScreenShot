@@ -19,6 +19,7 @@ import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.main.MainActivity;
 import com.nanningzhuanqian.vscreenshot.model.Config;
 import com.squareup.picasso.Picasso;
 

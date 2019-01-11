@@ -31,6 +31,9 @@ import org.litepal.LitePal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 微信零钱明细界面
+ */
 public class WechatChangeDetailActivity extends BaseActivity {
 
     private CustomListview lvChangeDetail;

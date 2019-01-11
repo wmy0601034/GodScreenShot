@@ -34,7 +34,9 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-
+/**
+ * 微信钱包页面
+ */
 public class WechatWalletActivity extends BaseActivity {
 
     private RecyclerView rcvWallet;

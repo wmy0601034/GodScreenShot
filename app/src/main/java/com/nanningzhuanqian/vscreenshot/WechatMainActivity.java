@@ -39,6 +39,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 微信首页
+ */
 public class WechatMainActivity extends BaseActivity implements DMTabHost.OnCheckedChangeListener, ViewPager
         .OnPageChangeListener {
 

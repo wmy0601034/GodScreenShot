@@ -8,6 +8,9 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.item.WechatPayItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatPayItems;
 
+/**
+ * 微信支付界面
+ */
 public class WechatPayActivity extends BaseActivity {
 
     private ListView lvPay;

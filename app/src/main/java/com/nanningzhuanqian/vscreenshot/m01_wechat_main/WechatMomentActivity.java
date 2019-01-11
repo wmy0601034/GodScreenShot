@@ -25,6 +25,9 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import org.litepal.LitePal;
 
+/**
+ * 微信朋友圈界面
+ */
 public class WechatMomentActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout llRight;
     private RecyclerView rcvMoment;

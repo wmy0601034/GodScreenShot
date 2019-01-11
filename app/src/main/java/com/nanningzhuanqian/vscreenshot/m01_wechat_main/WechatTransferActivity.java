@@ -33,6 +33,9 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.nanningzhuanqian.vscreenshot.widget.WechatPromptDialog;
 import com.nanningzhuanqian.vscreenshot.widget.WechatTransferMarkDialog;
 
+/**
+ * 微信转账界面
+ */
 public class WechatTransferActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView imgAvatar;

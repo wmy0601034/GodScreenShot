@@ -1,14 +1,12 @@
-package com.nanningzhuanqian.vscreenshot.m00_launcher;
+package com.nanningzhuanqian.vscreenshot.m00_launcher.main;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,25 +16,17 @@ import android.support.v4.content.FileProvider;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.MainFragmentAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ContactListFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ConversationListFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.DiscoverFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.ProfileFragment;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 /**
  * 主页 这个界面管理所有功能业务的入口 不单只微信

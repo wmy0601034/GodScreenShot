@@ -7,6 +7,9 @@ import com.gyf.barlibrary.ImmersionBar;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 
+/**
+ * 微信零钱界面
+ */
 public class WechatChangeActivity extends BaseActivity {
     @Override
     protected int getLayoutId() {

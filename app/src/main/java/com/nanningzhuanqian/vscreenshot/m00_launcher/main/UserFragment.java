@@ -1,4 +1,4 @@
-package com.nanningzhuanqian.vscreenshot.m00_launcher;
+package com.nanningzhuanqian.vscreenshot.m00_launcher.main;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -14,6 +14,7 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.LoginActivity;
 import com.nanningzhuanqian.vscreenshot.m04_recharge.RechargeActivity;
 import com.nanningzhuanqian.vscreenshot.m05_user.UserInfoActivity;
 

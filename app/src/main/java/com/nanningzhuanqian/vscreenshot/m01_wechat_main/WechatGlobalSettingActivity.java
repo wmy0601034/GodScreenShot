@@ -13,6 +13,9 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 微信全局设置界面
+ */
 public class WechatGlobalSettingActivity extends BaseActivity {
 
     private TabLayout tabLayout;

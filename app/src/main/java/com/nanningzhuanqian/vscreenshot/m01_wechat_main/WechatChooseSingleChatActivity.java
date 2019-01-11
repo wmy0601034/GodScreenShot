@@ -20,6 +20,9 @@ import org.litepal.LitePal;
 
 import java.util.List;
 
+/**
+ * 选择微信对话用户的界面
+ */
 public class WechatChooseSingleChatActivity extends BaseActivity {
 
     private ListView lvConservation;
