@@ -28,66 +28,77 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".m02_add_conversation.AddCustomConversationActivity" />
-        <activity android:name=".m02_add_conversation.LocalAvatarSelectActivity" />
-        <activity android:name=".m03_add_role.AddCustomRoleActivity" />
-        <activity android:name=".WechatMainActivity" />
-        <activity android:name=".m00_launcher.LoginActivity" />
-        <activity android:name=".m00_launcher.RegisterActivity" />
-        <activity android:name=".m00_launcher.ProtocolActivitity" />
-        <activity android:name=".m00_launcher.ResetPwdActivity" />
+        <activity android:name=".m00_launcher.user.LoginActivity"/>
+        <activity android:name=".m00_launcher.user.ProtocolActivitity"/>
+        <activity android:name=".m00_launcher.user.RegisterActivity"/>
+        <activity android:name=".m00_launcher.user.ResetPwdActivity"/>
+
+        <activity android:name=".m00_base.LocalAvatarSelectActivity" />
+
+        <activity android:name=".m01_wechat.wechat.main.WechatMainActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.bill.WechatBillActivity"/>
+        
+        <activity android:name=".m01_wechat.wechat.change.WechatChangeActivity"/>
+        <activity android:name=".m01_wechat.wechat.change.WechatChangeDetailActivity"/>
+        <activity android:name=".m01_wechat.wechat.change.WechatChangeWithdrawActivity"/>
+        <activity android:name=".m01_wechat.wechat.change.WechatSingleChangeDetailActivity"/>
+        <activity android:name=".m01_wechat.wechat.change.WechatWithdrawDetailActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.chat.WechatGroupChatActivity"/>
+        <activity android:name=".m01_wechat.wechat.chat.WechatSingeChatActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.contract.WechatNewFriendActivity"/>
+        
+        <activity android:name=".m01_wechat.wechat.moment.AddTextMomentActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.AddImageMomentActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.AddVideoMomentActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.AddLinkMomentActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.WechatLocationEditActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.WechatPermissionEditActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.WechatPromptEditActivity" />
+        <activity android:name=".m01_wechat.wechat.moment.WechatMomentActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.pay.WechatPayActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.redpacket.WechatRedPacketActivity"/>
+        <activity android:name=".m01_wechat.wechat.redpacket.WechatRedPacketResultActivity"/>
+        <activity android:name=".m01_wechat.wechat.redpacket.WechatRedPacketResult1Activity"/>
+        <activity android:name=".m01_wechat.wechat.redpacket.WechatRedPacketResult2Activity"/>
+        <activity android:name=".m01_wechat.wechat.redpacket.WechatRedPacketResult3Activity"/>
+
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferActivity"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity" />
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity1"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity2"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity3"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity4"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity5"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity6"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity7"/>
+        <activity android:name=".m01_wechat.wechat.transfer.WechatTransferResultActivity8"/>
+
+        <activity android:name=".m01_wechat.wechat.wallet.WechatWalletActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.background.WeChatBgSelectActivity"/>
+
+        <activity android:name=".m01_wechat.custom.AddCustomConversationActivity"/>
+        <activity android:name=".m01_wechat.custom.AddCustomRoleActivity" />
+        <activity android:name=".m01_wechat.custom.WechatChangeEditActivity"/>
+        <activity android:name=".m01_wechat.custom.AddCustomWechatChangeDetailActivity"/>
+        <activity android:name=".m01_wechat.custom.WechatChooseSingleChatActivity"/>
+        <activity android:name=".m01_wechat.custom.WechatConversationSettingActivity"/>
+        <activity android:name=".m01_wechat.custom.WechatCustomNewFriendActivity"/>
+        <activity android:name=".m01_wechat.custom.WechatGlobalSettingActivity"/>
+
         <activity android:name=".m05_user.UserInfoActivity" />
         <activity android:name=".m04_recharge.RechargeActivity" />
         <activity
             android:name=".m00_launcher.main.MainActivity"
             android:theme="@style/TranslucentTheme" />
         <activity android:name=".m06_setting.FeedbackActivity" />
-        <activity android:name=".m01_wechat_main.WechatSingeChatActivity" />
-        <activity android:name=".m01_wechat_main.WechatGroupChatActivity" />
-        <activity android:name=".m01_wechat_main.WechatTransferActivity" />
-        <activity
-            android:name=".m01_wechat_main.WechatWalletActivity"
-            android:theme="@style/TranslucentTheme" />
-        <activity android:name=".m01_wechat_main.WechatNewFriendActivity" />
-        <activity
-            android:name=".m01_wechat_main.WechatRedPacketActivity"
-            android:theme="@style/TranslucentTheme" />
-        <activity android:name=".m01_wechat_main.WechatChangeActivity" />
-        <activity android:name=".m01_wechat_main.WechatChangeDetailActivity" />
-        <activity android:name=".m01_wechat_main.WechatChangeWithdrawActivity" />
-        <activity android:name=".m01_wechat_main.WechatMomentActivity" />
-        <activity android:name=".m01_wechat_main.WechatBillActivity" />
-        <activity android:name=".m01_wechat_main.WechatPayActivity" />
-        <activity android:name=".m01_wechat_main.WechatChooseSingleChatActivity" />
-        <activity android:name=".m01_wechat_main.WechatCustomNewFriendActivity" />
-        <activity android:name=".m01_wechat_main.WechatGlobalSettingActivity" />
-        <activity android:name=".m01_wechat_main.AddCustomWechatChangeDetailActivity" />
-        <activity android:name=".m01_wechat_main.WechatConversationSettingActivity" />
-        <activity android:name=".m01_wechat_main.ChatBgSelectActivity" />
-        <activity android:name=".m01_wechat_main.moment.AddTextMomentActivity" />
-        <activity android:name=".m01_wechat_main.moment.AddImageMomentActivity" />
-        <activity android:name=".m01_wechat_main.moment.AddVideoMomentActivity" />
-        <activity android:name=".m01_wechat_main.moment.AddLinkMomentActivity" />
-        <activity android:name=".m01_wechat_main.moment.WechatLocationEditActivity" />
-        <activity android:name=".m01_wechat_main.moment.WechatPermissionEditActivity" />
-        <activity android:name=".m01_wechat_main.moment.WechatPromptEditActivity" />
-        <activity android:name=".m01_wechat_main.WechatWithdrawDetailActivity" />
-        <activity android:name=".m01_wechat_main.change.WechatChangeEditActivity"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity" />
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity1"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity2"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity3"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity4"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity5"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity6"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity7"/>
-        <activity android:name=".m01_wechat_main.transfer.WechatTransferResultActivity8"/>
         <activity android:name="com.linchaolong.android.imagepicker.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"/>
-        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResultActivity"/>
-        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult1Activity"/>
-        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult2Activity"/>
-        <activity android:name=".m01_wechat_main.redpacket.WechatRedPacketResult3Activity"/>
         <activity android:name=".m00_launcher.bank_card.BankCardManagerActivity"/>
         <activity android:name=".m00_launcher.bank_card.EditBankCardActivity"/>
     </application>

@@ -17,8 +17,8 @@ import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.util.LoginUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.m00_launcher.ProtocolActivitity;
 import com.nanningzhuanqian.vscreenshot.m00_launcher.bank_card.BankCardManagerActivity;
+import com.nanningzhuanqian.vscreenshot.m00_launcher.user.ProtocolActivitity;
 import com.nanningzhuanqian.vscreenshot.m06_setting.FeedbackActivity;
 import com.nanningzhuanqian.vscreenshot.model.Config;
 

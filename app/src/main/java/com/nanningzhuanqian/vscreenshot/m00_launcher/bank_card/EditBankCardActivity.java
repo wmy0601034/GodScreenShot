@@ -16,7 +16,7 @@ import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.BankCardItem;
 import com.nanningzhuanqian.vscreenshot.item.BankCardItems;
-import com.nanningzhuanqian.vscreenshot.m02_add_conversation.LocalAvatarSelectActivity;
+import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 public class EditBankCardActivity extends BaseActivity {

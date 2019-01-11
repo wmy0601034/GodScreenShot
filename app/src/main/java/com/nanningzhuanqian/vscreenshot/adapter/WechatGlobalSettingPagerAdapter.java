@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatContractSettingFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatDiscoverySettingFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatGlobalSettingFragment;
-import com.nanningzhuanqian.vscreenshot.m01_wechat_main.WechatProfileSettingFragment;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.fragment.WechatContractSettingFragment;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.fragment.WechatDiscoverySettingFragment;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.fragment.WechatGlobalSettingFragment;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.fragment.WechatProfileSettingFragment;
 
 import java.util.ArrayList;
 import java.util.List;

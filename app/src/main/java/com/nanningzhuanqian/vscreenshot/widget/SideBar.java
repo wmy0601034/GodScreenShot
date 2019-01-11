@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.Util;
-import com.nanningzhuanqian.vscreenshot.m02_add_conversation.LocalAvatarSelectActivity;
+import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 
 public class SideBar extends View {
     // 触摸事件
