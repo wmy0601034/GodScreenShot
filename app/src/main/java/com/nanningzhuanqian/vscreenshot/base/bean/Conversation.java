@@ -1,20 +1,15 @@
 package com.nanningzhuanqian.vscreenshot.base.bean;
 
-import android.net.Uri;
 import android.support.annotation.NonNull;
 
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
-import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
-
-import java.util.List;
+import org.litepal.crud.LitePalSupport;
 
 /**
  * 微信首页 对话
  * Created by lenovo on 2019/1/11.
  */
 
-public class Conversation implements Comparable {
+public class Conversation extends LitePalSupport implements Comparable {
 
     //单人聊天
     public static final int TYPE_SINGLE_CHAT = 0;
@@ -24,6 +19,8 @@ public class Conversation implements Comparable {
     public static final int TYPE_WECHAT_SERVICE = 2;
     //微信系统功能
     public static final int TYPE_WECHAT_SYSTEM = 3;
+    //订阅号
+    public static final int TYPE_WECHAT_SUBCRIBE = 4;
     //本地图片
     public static final int ICON_TYPE_RESOURCE = 0;
     //网络图片
@@ -31,7 +28,7 @@ public class Conversation implements Comparable {
     //数据库id
     private String id;
     //图标类型 0 本地 1 网络
-    private String iconType;
+    private int iconType;
     //本地图片资源ID
     private int iconRes;
     //网络图片url
@@ -53,9 +50,18 @@ public class Conversation implements Comparable {
     //关联的群组
     private Group group;
 
+    private int type;
 
     public Conversation() {
 
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getId() {
@@ -66,11 +72,11 @@ public class Conversation implements Comparable {
         this.id = id;
     }
 
-    public String getIconType() {
+    public int getIconType() {
         return iconType;
     }
 
-    public void setIconType(String iconType) {
+    public void setIconType(int iconType) {
         this.iconType = iconType;
     }
 
@@ -156,7 +162,7 @@ public class Conversation implements Comparable {
 
     @Override
     public int compareTo(@NonNull Object o) {
-        ConversationItem item = (ConversationItem) o;
+        Conversation item = (Conversation) o;
         return (int) item.getUpdateTime() - (int) this.updateTime;
     }
 }

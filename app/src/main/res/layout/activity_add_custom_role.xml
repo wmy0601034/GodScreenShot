@@ -97,10 +97,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="昵称" />
+                android:text="微信昵称" />
 
             <EditText
-                android:id="@+id/edName"
+                android:id="@+id/edWXNickname"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginRight="@dimen/common_margin_two_side"

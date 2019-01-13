@@ -2,9 +2,9 @@ package com.nanningzhuanqian.vscreenshot.base.net;
 
 import android.util.Log;
 
+import com.nanningzhuanqian.vscreenshot.item.NetworkAvatar;
 import com.nanningzhuanqian.vscreenshot.model.Config;
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
-import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 import com.nanningzhuanqian.vscreenshot.model.User;
 import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfig;
@@ -128,15 +128,15 @@ public class BmobApi implements API {
         });
     }
 
-    @Override
-    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener) {
-        conversationBmob.save(new SaveListener<String>() {
-            @Override
-            public void done(String s, BmobException e) {
-
-            }
-        });
-    }
+//    @Override
+//    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener) {
+//        conversationBmob.save(new SaveListener<String>() {
+//            @Override
+//            public void done(String s, BmobException e) {
+//
+//            }
+//        });
+//    }
 
     @Override
     public void getWechatWalletContent(final CallbackListener callbackListener) {
@@ -144,6 +144,21 @@ public class BmobApi implements API {
         query.findObjects(new FindListener<WechatWalletConfig>() {
             @Override
             public void done(List<WechatWalletConfig> list, BmobException e) {
+                if(e==null){
+                    callbackListener.onGetSuccess(list);
+                }else{
+                    callbackListener.onFailure(e.toString());
+                }
+            }
+        });
+    }
+
+    @Override
+    public void getNetworkAvatars(final CallbackListener callbackListener) {
+        BmobQuery<NetworkAvatar> query = new BmobQuery<>();
+        query.findObjects(new FindListener<NetworkAvatar>() {
+            @Override
+            public void done(List<NetworkAvatar> list, BmobException e) {
                 if(e==null){
                     callbackListener.onGetSuccess(list);
                 }else{

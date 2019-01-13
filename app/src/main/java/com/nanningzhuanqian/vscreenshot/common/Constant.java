@@ -75,6 +75,8 @@ public class Constant {
     public static final int REQUEST_CODE_PERMISSION_EDIT = 1011;
     public static final int REQUEST_CODE_PROMPT_EDIT = 1012;
     public static final int REQUEST_CODE_PUBLISHER_EDIT = 1013;
+    public static final int REQUEST_CODE_SELECT_LOCAL_AVATAR = 1014;
+    public static final int REQUEST_CODE_SELECT_NETWORK_AVATAR = 1015;
 
     public static final int RESULT_CODE_SUCCESS = 1000;
     public static final int RESULT_CODE_CANCEL = 2000;

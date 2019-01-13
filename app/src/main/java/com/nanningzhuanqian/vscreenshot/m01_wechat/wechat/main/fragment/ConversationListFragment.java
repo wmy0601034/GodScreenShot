@@ -14,12 +14,11 @@ import android.widget.ListView;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ConversationAdapter;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
-import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import org.litepal.LitePal;
@@ -82,16 +81,20 @@ public class ConversationListFragment extends Fragment {
     }
 
     private void initData() {
-        ConversationItems.getInstance().clear();
+        Conversations.getInstance().clear();
         String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
-//        List<ConversationLite> conversationLites = LitePal.where("pointToUser", mobile).find
-//                (ConversationLite.class);
-        List<ConversationLite> conversationLites = LitePal.findAll(ConversationLite.class);
-        for (int i = 0; i < conversationLites.size(); i++) {
-            ConversationItem item = conversationLites.get(i).convertToConversationItem();
-            ConversationItems.getInstance().add(item);
-        }
-        ConversationItems.getInstance().sort();
+        List<Conversation> conversations = LitePal.where("pointToUser", mobile).find
+                (Conversation.class);
+        Conversations.getInstance().add(conversations);
+        Conversation conversation = new Conversation();
+        conversation.setType(Conversation.TYPE_WECHAT_SUBCRIBE);
+        conversation.setIconType(Conversation.ICON_TYPE_RESOURCE);
+        conversation.setIconRes(R.mipmap.app_views_pages_wechat_home_images_contacticon4);
+        conversation.setName("订阅号");
+        conversation.setDisplayContent("鸟哥笔记：马云新开的HHB酒吧怎么样...");
+        conversation.setUpdateTime(System.currentTimeMillis()-10*60*1000);
+        Conversations.getInstance().add(conversation);
+        Conversations.getInstance().sort();
         conversationAdapter.notifyDataSetChanged();
     }
 
@@ -122,10 +125,10 @@ public class ConversationListFragment extends Fragment {
             @Override
             public void onClick(int which) {
                 //删除
-                ConversationItem conversationItem =ConversationItems.getInstance().get(position);
-                ConversationItems.getInstance().remove(position);
-                LitePal.deleteAll(ConversationLite.class,"name=?and content = ?",conversationItem.getName(),
-                        conversationItem.getContent());
+                Conversation conversation =Conversations.getInstance().get(position);
+                Conversations.getInstance().remove(position);
+                LitePal.deleteAll(Conversation.class,"name=?and content = ?",conversation.getName(),
+                        conversation.getDisplayContent());
                 conversationAdapter.notifyDataSetChanged();
             }
         });

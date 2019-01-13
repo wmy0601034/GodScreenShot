@@ -8,11 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.borax12.materialdaterangepicker.Utils;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.Util;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 
 /**
  * Created by WMY on 2018/9/14.
@@ -28,12 +27,12 @@ public class ConversationAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return ConversationItems.getInstance().size();
+        return Conversations.getInstance().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return ConversationItems.getInstance().get(position);
+        return Conversations.getInstance().get(position);
     }
 
     @Override
@@ -59,10 +58,10 @@ public class ConversationAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ConversationItem item = ConversationItems.getInstance().get(position);
-        viewHolder.imgIcon.setImageResource(item.getImgRes());
+        Conversation item = Conversations.getInstance().get(position);
+        viewHolder.imgIcon.setImageResource(item.getIconRes());
         viewHolder.tvName.setText(item.getName());
-        viewHolder.tvDescription.setText(item.getContent());
+        viewHolder.tvDescription.setText(item.getDisplayContent());
         if(item.isIgnore()){
             viewHolder.imgIgnore.setVisibility(View.VISIBLE);
             viewHolder.tvBadge.setVisibility(View.GONE);

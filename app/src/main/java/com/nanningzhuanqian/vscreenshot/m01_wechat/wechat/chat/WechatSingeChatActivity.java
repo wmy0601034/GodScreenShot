@@ -31,10 +31,10 @@ import com.nanningzhuanqian.vscreenshot.adapter.WechatChatAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatSingleChatMoreAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatSingleChatMoreViewPagerAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatFaceItem;
@@ -338,11 +338,11 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initData() {
         int position = getIntent().getIntExtra("position",0);
-        ConversationItem conversationItem = ConversationItems.getInstance().get(position);
-        otherName = conversationItem.getName();
-        wechatOtherAvatarType = conversationItem.getAvatarType();
-        wechatOtherAvatarUri = conversationItem.getAvatarUri();
-        wechatOtherAvatarRes = conversationItem.getImgRes();
+        Conversation conversation = Conversations.getInstance().get(position);
+        otherName = conversation.getName();
+        wechatOtherAvatarType = conversation.getAvatarType();
+        wechatOtherAvatarUri = conversation.getAvatarUri();
+        wechatOtherAvatarRes = conversation.getImgRes();
         bottomStatusBarHeight = SPUtils.getBottomStatusBarHeight(getThis());
         softInputKeyboradHeight = SPUtils.getSoftInputKeyboardHeight(getThis());
         WechatChatItem item = new WechatChatItem(WechatChatAdapter.TYPE_TIME,"",0,"",mobile);

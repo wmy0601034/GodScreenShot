@@ -11,13 +11,13 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.event.RefreshUnReadCountEvent;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WechatGlobalSettingActivity;
@@ -26,7 +26,6 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.Conversa
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.DiscoverFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ProfileFragment;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
-import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabButton;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabHost;
@@ -137,7 +136,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         viewpager.setOffscreenPageLimit(4);
         conversationListFragment = new ConversationListFragment();
         contactListFragment = new ContactListFragment();
-        adapter.addFragment(conversationListFragment, getString(R.string.app_name));
+        adapter.addFragment(conversationListFragment, getString(R.string.app_main));
         adapter.addFragment(contactListFragment, getString(R.string.contacts));
         adapter.addFragment(new DiscoverFragment(), getString(R.string.discover));
         adapter.addFragment(new ProfileFragment(), getString(R.string.me));
@@ -218,8 +217,8 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //清空对话内容
-                ConversationItems.getInstance().clear();
-                LitePal.deleteAll(ConversationLite.class);
+                Conversations.getInstance().clear();
+                LitePal.deleteAll(Conversation.class);
                 conversationListFragment.notifyDataSetChanged();
             }
         });
@@ -352,30 +351,29 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             long timeMillis = RandomManager.getRandomTime();
             int imgRes =RandomManager.getInstance().getAvatarRes();
             String content = RandomManager.getInstance().getRandomContent();
-            ConversationItem item = new ConversationItem();
+            Conversation item = new Conversation();
             item.setBadgeCount(badge);
             item.setName(name);
-            item.setContent(content);
+            item.setDisplayContent(content);
             item.setUpdateTime(timeMillis);
-            item.setImgRes(imgRes);
+            item.setIconRes(imgRes);
             item.setIgnore(isIgnore);
-            item.setBadge(isBadge);
-            item.setPublic(isPublic);
+//            item.S(isBadge);
+//            item.setPublic(isPublic);
             if(!isIgnore){
                 unReadCount+=badge;
             }
             String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
-            item.setPointToUser(mobile);
-            ConversationItems.getInstance().addFirst(item);
+//            item.setPointToUser(mobile);
+            Conversations.getInstance().addFirst(item);
 
             //保存到本地
-            ConversationLite conversationLite = item.convertToLite();
-            conversationLite.save();
+            item.save();
         }
         int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         unReadCount +=lastUnreadCount;
         SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
-        ConversationItems.getInstance().sort();
+        Conversations.getInstance().sort();
         conversationListFragment.notifyDataSetChanged();
         rdoWechat.setUnreadCount(unReadCount);
     }

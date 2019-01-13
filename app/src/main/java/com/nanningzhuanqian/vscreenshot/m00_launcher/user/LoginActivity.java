@@ -152,7 +152,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         HttpUtil.getInstance().login(mobile, password, new CallbackListener() {
             @Override
             public void onSuccess() {
-                SPUtils.put(getThis(),"mobile",mobile);
+                SPUtils.put(getThis(),Constant.KEY_MOBILE,mobile);
                 hideLoadingDialog();
                 if(jumpIntent!=null)startActivity(jumpIntent);
                 finish();
@@ -178,9 +178,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     }
 
     private void resetPwd() {
-//        Intent intent = new Intent(getThis(),ResetPwdActivity.class);
-//        intent.putExtra(EXTRA_JUMP_TO,cls);
-//        startActivity(intent);
-        toast("暂不支持，请联系客服申请重置密码");
+        Intent intent = new Intent(getThis(),ResetPwdActivity.class);
+        intent.putExtra(EXTRA_JUMP_TO,cls);
+        startActivity(intent);
     }
 }

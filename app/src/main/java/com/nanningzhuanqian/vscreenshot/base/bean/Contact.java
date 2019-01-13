@@ -1,5 +1,9 @@
 package com.nanningzhuanqian.vscreenshot.base.bean;
 
+import android.net.Uri;
+
+import org.litepal.crud.LitePalSupport;
+
 import java.util.List;
 
 /**
@@ -7,7 +11,7 @@ import java.util.List;
  * Created by lenovo on 2019/1/11.
  */
 
-public class Contact {
+public class Contact extends LitePalSupport{
 
     //本地图片
     public static final int ICON_TYPE_RESOURCE = 0;
@@ -16,7 +20,7 @@ public class Contact {
     //数据库id
     private String id;
     //图标类型 0 本地 1 网络
-    private String iconType;
+    private int iconType;
     //本地图片资源ID
     private int iconRes;
     //网络图片url
@@ -72,6 +76,26 @@ public class Contact {
     //朋友圈背景图网络图片url
     private int momentBackgroundUrl;
 
+    private String pointToUser;
+
+    private Uri avatarUri;
+
+    public String getPointToUser() {
+        return pointToUser;
+    }
+
+    public void setPointToUser(String pointToUser) {
+        this.pointToUser = pointToUser;
+    }
+
+    public Uri getAvatarUri() {
+        return avatarUri;
+    }
+
+    public void setAvatarUri(Uri avatarUri) {
+        this.avatarUri = avatarUri;
+    }
+
     public String getId() {
         return id;
     }
@@ -89,11 +113,11 @@ public class Contact {
         this.chatRecordList = chatRecordList;
     }
 
-    public String getIconType() {
+    public int getIconType() {
         return iconType;
     }
 
-    public void setIconType(String iconType) {
+    public void setIconType(int iconType) {
         this.iconType = iconType;
     }
 

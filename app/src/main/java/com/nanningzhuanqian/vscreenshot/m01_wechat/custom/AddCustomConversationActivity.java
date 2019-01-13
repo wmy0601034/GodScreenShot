@@ -16,15 +16,13 @@ import com.borax12.materialdaterangepicker.time.RadialPickerLayout;
 import com.borax12.materialdaterangepicker.time.TimePickerDialog;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
-import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
-import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.suke.widget.SwitchButton;
 
@@ -43,6 +41,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     private TextView tvBack;
     private TextView tvTitle;
     private TextView tvSubmit;
+    private LinearLayout llType;
     private LinearLayout llAvatar;
     private ImageView imgIcon;
     private EditText edName;
@@ -55,6 +54,8 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     private TextView tvTime;
     private Button btnRandom;
     private Button btnSubmit;
+    private TextView tvType;
+    private int type = Conversation.TYPE_SINGLE_CHAT;
 
     @Override
     protected int getLayoutId() {
@@ -65,6 +66,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         tvBack = (TextView) findViewById(R.id.tvBack);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvSubmit = (TextView) findViewById(R.id.tvSubmit);
+        llType = (LinearLayout) findViewById(R.id.llType);
         llAvatar = (LinearLayout) findViewById(R.id.llAvatar);
         imgIcon = (ImageView) findViewById(R.id.imgIcon);
         edName = (EditText) findViewById(R.id.edName);
@@ -82,6 +84,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     protected void initEvent() {
         tvBack.setOnClickListener(this);
         tvSubmit.setOnClickListener(this);
+        llType.setOnClickListener(this);
         llAvatar.setOnClickListener(this);
         llTime.setOnClickListener(this);
         btnRandom.setOnClickListener(this);
@@ -119,6 +122,9 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             case R.id.tvSubmit:
                 save();
                 break;
+            case R.id.llType:
+                showTypeSelectionDialog();
+                break;
             case R.id.llAvatar:
                 showAvatarSheetDialog();
                 break;
@@ -132,6 +138,46 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
                 save();
                 break;
         }
+    }
+
+    private void showTypeSelectionDialog(){
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomConversationActivity.this);
+        builder.setCancelable(false);
+        builder.setCancelButtonVisiable(true);
+        builder.setCanceledOnTouchOutside(true);
+        builder.addSheetItem("单人聊天", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //选择单人聊天
+                type = Conversation.TYPE_SINGLE_CHAT;
+                tvType.setText("单人聊天");
+            }
+        });
+        builder.addSheetItem("群聊", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //选择群聊
+                type = Conversation.TYPE_GROUP_CHAT;
+                tvType.setText("群聊");
+            }
+        });
+        builder.addSheetItem("服务号", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //服务号
+                type = Conversation.TYPE_WECHAT_SERVICE;
+                tvType.setText("服务号");
+            }
+        });
+        builder.addSheetItem("微信系统功能", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //微信系统功能
+                type = Conversation.TYPE_WECHAT_SYSTEM;
+                tvType.setText("微信系统功能");
+
+            }
+        });
     }
 
     private void showAvatarSheetDialog() {
@@ -287,41 +333,22 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             timeMillis = getTimeMillis(time);
             Log.i(TAG,"timeMillis = "+timeMillis);
         }
-        ConversationItem item = new ConversationItem();
+        Conversation item = new Conversation();
         item.setBadgeCount(badge);
         item.setName(name);
-        item.setContent(content);
+        item.setDisplayContent(content);
         item.setUpdateTime(timeMillis);
-        item.setImgRes(imgRes);
+        item.setIconRes(imgRes);
         item.setIgnore(isIgnore);
-        item.setBadge(isBadge);
-        item.setPublic(isPublic);
+//        item.setBadge(isBadge);
+//        item.setPublic(isPublic);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
-        item.setPointToUser(mobile);
-        ConversationItems.getInstance().addFirst(item);
+//        item.setPointToUser(mobile);
+        Conversations.getInstance().addFirst(item);
 
         //保存到本地
-        ConversationLite conversationLite = item.convertToLite();
-        conversationLite.save();
+        item.save();
 
-        //保存到服务器
-        ConversationBmob contractBmob = item.convertToBmob();
-        HttpUtil.getInstance().saveConversation(contractBmob, new CallbackListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onGetSuccess(Object o) {
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
 
         toast("添加成功");
         setResult(999);

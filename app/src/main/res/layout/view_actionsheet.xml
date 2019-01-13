@@ -51,7 +51,6 @@
         android:gravity="center"
         android:text="取消"
         android:textSize="16sp"
-        android:textColor="@color/colorPrimary"
         android:background="@drawable/m08_actiondialog_button_selector"
         />
 

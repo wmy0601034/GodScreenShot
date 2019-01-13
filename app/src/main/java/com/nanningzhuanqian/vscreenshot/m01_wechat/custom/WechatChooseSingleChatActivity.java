@@ -8,12 +8,11 @@ import android.widget.ListView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ChooseConversationAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingeChatActivity;
-import com.nanningzhuanqian.vscreenshot.model.ConversationLite;
 
 import org.litepal.LitePal;
 
@@ -69,15 +68,12 @@ public class WechatChooseSingleChatActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        ConversationItems.getInstance().clear();
+        Conversations.getInstance().clear();
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
 //        List<ConversationLite> conversationLites = LitePal.where("pointToUser", mobile).find
 //                (ConversationLite.class);
-        List<ConversationLite> conversationLites = LitePal.findAll(ConversationLite.class);
-        for (int i = 0; i < conversationLites.size(); i++) {
-            ConversationItem item = conversationLites.get(i).convertToConversationItem();
-            ConversationItems.getInstance().add(item);
-        }
+        List<Conversation> conversations = LitePal.findAll(Conversation.class);
+        Conversations.getInstance().add(conversations);
         chooseConversationAdapter.notifyDataSetChanged();
     }
 }

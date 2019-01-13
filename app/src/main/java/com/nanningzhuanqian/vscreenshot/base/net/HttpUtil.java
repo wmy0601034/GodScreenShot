@@ -1,10 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.base.net;
 
 
-import android.telecom.Call;
-
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
-import com.nanningzhuanqian.vscreenshot.model.ConversationBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 
 /**
@@ -64,11 +61,15 @@ public class HttpUtil {
         api.saveContract(contractBmob,callbackListener);
     }
 
-    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener){
-        api.saveConversation(conversationBmob,callbackListener);
-    }
+//    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener){
+//        api.saveConversation(conversationBmob,callbackListener);
+//    }
 
     public void getWechatWalletContent(CallbackListener callbackListener){
         api.getWechatWalletContent(callbackListener);
+    }
+
+    public void getNetworkAvatars(CallbackListener callbackListener){
+        api.getNetworkAvatars(callbackListener);
     }
 }

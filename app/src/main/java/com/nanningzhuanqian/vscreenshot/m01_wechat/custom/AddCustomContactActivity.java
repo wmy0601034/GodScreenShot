@@ -15,6 +15,7 @@ import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -22,9 +23,11 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
+import com.nanningzhuanqian.vscreenshot.m00_base.NetworkAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
+import com.squareup.picasso.Picasso;
 
 /**
  * 添加自定义联系人界面
@@ -35,7 +38,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
     private TextView tvSubmit;
     private LinearLayout llAvatar;
     private ImageView imgIcon;
-    private EditText edName;
+    private EditText edWXNickname;
     private EditText edRealName;
     private EditText edWechatAccount;
     private EditText edAliPayAccount;
@@ -47,6 +50,8 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
 
     private String avatarType = "";
     private Uri avatarUri;
+    private String imgUrl = "";
+    private int iconType = Contact.ICON_TYPE_RESOURCE;
 
 
     @Override
@@ -60,7 +65,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
         tvSubmit = (TextView) findViewById(R.id.tvSubmit);
         llAvatar = (LinearLayout) findViewById(R.id.llAvatar);
         imgIcon = (ImageView) findViewById(R.id.imgIcon);
-        edName = (EditText) findViewById(R.id.edName);
+        edWXNickname = (EditText) findViewById(R.id.edWXNickname);
         edRealName = (EditText) findViewById(R.id.edRealName);
         edWechatAccount = (EditText) findViewById(R.id.edWechatAccount);
         edAliPayAccount = (EditText) findViewById(R.id.edAliPayAccount);
@@ -81,7 +86,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
     }
 
     protected void initData() {
-        tvTitle.setText("添加自定义对话");
+        tvTitle.setText("添加自定义联系人");
     }
 
     @Override
@@ -116,15 +121,15 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
         builder.setCancelButtonVisiable(true);
         builder.setCanceledOnTouchOutside(true);
         builder.setTitle("选择头像");
-        builder.addSheetItem("拍照", NewActionSheetDialog
-                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
-                .OnSheetItemClickListener() {
-            @Override
-            public void onClick(int which) {
-                //拍照
-                toast("暂未开放");
-            }
-        });
+//        builder.addSheetItem("拍照", NewActionSheetDialog
+//                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+//                .OnSheetItemClickListener() {
+//            @Override
+//            public void onClick(int which) {
+//                //拍照
+//                toast("暂未开放");
+//            }
+//        });
         builder.addSheetItem("相册", NewActionSheetDialog
                 .SheetItemColor.Blue, new NewActionSheetDialog.Builder
                 .OnSheetItemClickListener() {
@@ -154,7 +159,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
             @Override
             public void onClick(int which) {
                 Intent intent = new Intent(AddCustomContactActivity.this,LocalAvatarSelectActivity.class);
-                startActivityForResult(intent,999);
+                startActivityForResult(intent,Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
             }
         });
         builder.addSheetItem("在线头像库", NewActionSheetDialog
@@ -162,8 +167,9 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //页面设置
-                toast("暂未开放");
+                //进入在线头像库
+                Intent intent = new Intent(AddCustomContactActivity.this,NetworkAvatarSelectActivity.class);
+                startActivityForResult(intent,Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR);
             }
         });
 
@@ -183,36 +189,58 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        if(selectAvatarFinish(requestCode,resultCode)){
+        if(selectLocalAvatarFinish(requestCode,resultCode)){
             imgRes = intent.getIntExtra("imgRes",R.mipmap.app_images_defaultface);
             avatarType =  Constant.VALUE_PIC_RES;
+            iconType = Contact.ICON_TYPE_RESOURCE;
             imgIcon.setImageResource(imgRes);
+        }else if(selectNetworkAvatarFinish(requestCode, resultCode)){
+            imgUrl = intent.getStringExtra("imgUrl");
+            Picasso.with(AddCustomContactActivity.this)
+                    .load(imgUrl)
+                    .into(imgIcon);
         }else{
             imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 
-    private boolean selectAvatarFinish(int requestCode, int resultCode) {
-        return requestCode==999&&resultCode ==999;
+    private boolean selectLocalAvatarFinish(int requestCode, int resultCode) {
+        return requestCode==Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR&&resultCode ==999;
+    }
+
+    private boolean selectNetworkAvatarFinish(int requestCode, int resultCode) {
+        return requestCode==Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR&&resultCode ==999;
     }
 
     private int imgRes;
-    private String name;
+    private String remarkName;
+    private String wxNickname;
     private String content;
     private int badge;
     private long timeMillis;
 
     private void save() {
-        name = edName.getText().toString();
-        if(TextUtils.isEmpty(name)){
-            toast("请输入昵称");
+        wxNickname = edWXNickname.getText().toString();
+        remarkName = edMark.getText().toString();
+        if(TextUtils.isEmpty(wxNickname)){
+            toast("请输入微信昵称");
             return;
         }
+        Contact contact = new Contact();
+        contact.setWechatNickName(wxNickname);
+        contact.setRemarkName(remarkName);
+        contact.setIconType(iconType);
+        contact.setIconRes(imgRes);
+        contact.setIconUrl(imgUrl);
+        String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
+        contact.setPointToUser(mobile);
+        contact.setAvatarUri(avatarUri);
+        contact.save();
+
         ContractItem item = new ContractItem();
-        item.setName(name);
+        item.setName(wxNickname);
         item.setImgRes(imgRes);
         item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
-        String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
         item.setPointToUser(mobile);
         item.setImgType(avatarType);
         item.setAvatarUri(avatarUri);

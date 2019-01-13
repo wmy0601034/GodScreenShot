@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItem;
-import com.nanningzhuanqian.vscreenshot.item.ConversationItems;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.squareup.picasso.Picasso;
 
 public class ChooseConversationAdapter extends BaseAdapter {
@@ -23,12 +23,12 @@ public class ChooseConversationAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return ConversationItems.getInstance().size();
+        return Conversations.getInstance().size();
     }
 
     @Override
     public Object getItem(int position) {
-        return ConversationItems.getInstance().get(position);
+        return Conversations.getInstance().get(position);
     }
 
     @Override
@@ -48,8 +48,8 @@ public class ChooseConversationAdapter extends BaseAdapter {
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        ConversationItem item = ConversationItems.getInstance().get(position);
-        Picasso.with(context).load(item.getImgRes()).into(viewHolder.imgAvatar);
+        Conversation item = Conversations.getInstance().get(position);
+        Picasso.with(context).load(item.getContact().getIconRes()).into(viewHolder.imgAvatar);
         viewHolder.tvName.setText(item.getName());
         return convertView;
     }
