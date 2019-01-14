@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;

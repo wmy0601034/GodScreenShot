@@ -160,8 +160,8 @@ public class WechatCustomNewFriendActivity extends BaseActivity implements View.
         item.setRead(isRead);
 
         //保存到本地
-        WechatNewFriendLite conversationLite = item.converToWechatNewFriendLite();
-        conversationLite.save();
+//        WechatNewFriendLite conversationLite = item.converToWechatNewFriendLite();
+//        conversationLite.save();
 
         toast("添加成功");
         setResult(999);

@@ -79,6 +79,46 @@ public class Contact extends LitePalSupport{
     private String pointToUser;
 
     private Uri avatarUri;
+    //共同好友个数
+    private int commonContact;
+    //来源
+    private int fromType;
+    //0 来自QQ好友
+    public static final int FROM_QQ = 0;
+    //1通过搜索手机号添加
+    public static final int FROM_MOBILE = 1;
+    //2通过群聊添加
+    public static final int FROM_GROUP = 2;
+    //3 通过手机通讯录添加
+    public static final int FROM_PHONE_CONTACT = 3;
+    //4 通过扫一扫添加
+    public static final int FROM_QRCODE = 4;
+    //5通过名片分享添加
+    public static final int FROM_CARD_SHARE = 5;
+    //6通过附近的人添加
+    public static final int FROM_NEAR = 6;
+    //7通过摇一摇添加
+    public static final int FROM_SHAKE = 7;
+    //8通过漂流瓶添加
+    public static final int FROM_DRIFT = 8;
+    //9 无
+    public static final int FROM_NONE = 9;
+
+    public int getCommonContact() {
+        return commonContact;
+    }
+
+    public void setCommonContact(int commonContact) {
+        this.commonContact = commonContact;
+    }
+
+    public int getFromType() {
+        return fromType;
+    }
+
+    public void setFromType(int fromType) {
+        this.fromType = fromType;
+    }
 
     public String getPointToUser() {
         return pointToUser;

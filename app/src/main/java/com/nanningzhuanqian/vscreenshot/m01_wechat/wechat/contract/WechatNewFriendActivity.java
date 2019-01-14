@@ -86,18 +86,18 @@ public class WechatNewFriendActivity extends BaseActivity {
     }
 
     private void getLocalNewFriendData() {
-        List<WechatNewFriendLite> newFriendLites = LitePal.findAll(WechatNewFriendLite.class);
-        WechatNewFriendItems.getInstance().clear();
-        for(int i = 0;i<newFriendLites.size();i++){
-            WechatNewFriendItem item = newFriendLites.get(i).convertToWechatNewFriendItem();
-            WechatNewFriendItems.getInstance().add(item);
-        }
-        if(WechatNewFriendItems.getInstance().size()==0){
-            tvDescription.setVisibility(View.GONE);
-        }else{
-            tvDescription.setVisibility(View.VISIBLE);
-        }
-        wechatNewFriendListAdapter.notifyDataSetChanged();
+//        List<WechatNewFriendLite> newFriendLites = LitePal.findAll(WechatNewFriendLite.class);
+//        WechatNewFriendItems.getInstance().clear();
+//        for(int i = 0;i<newFriendLites.size();i++){
+//            WechatNewFriendItem item = newFriendLites.get(i).convertToWechatNewFriendItem();
+//            WechatNewFriendItems.getInstance().add(item);
+//        }
+//        if(WechatNewFriendItems.getInstance().size()==0){
+//            tvDescription.setVisibility(View.GONE);
+//        }else{
+//            tvDescription.setVisibility(View.VISIBLE);
+//        }
+//        wechatNewFriendListAdapter.notifyDataSetChanged();
     }
 
     private void showNewFriendOptionSheetDialog() {

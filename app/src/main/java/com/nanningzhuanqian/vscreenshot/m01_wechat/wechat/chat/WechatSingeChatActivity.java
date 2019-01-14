@@ -31,6 +31,7 @@ import com.nanningzhuanqian.vscreenshot.adapter.WechatChatAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatSingleChatMoreAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.WechatSingleChatMoreViewPagerAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.ChatRecord;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -81,12 +82,14 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     private View myLayout;
 
     private String otherName = "";
-    private String wechatUserAvatarType = "";
-    private String wechatOtherAvatarType = "";
+    private int wechatUserAvatarType ;
+    private int wechatOtherAvatarType;
     private Uri wechatSelfAvatarUri;
-    private Uri wechatOtherAvatarUri;
+    private String wechatOtherAvatarUrl;
     private int wechatSelfAvatarRes;
     private int wechatOtherAvatarRes;
+
+    private Conversation currentConversation;
 
     /**
      * 总的页数
@@ -338,11 +341,17 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     @Override
     protected void initData() {
         int position = getIntent().getIntExtra("position",0);
-        Conversation conversation = Conversations.getInstance().get(position);
-        otherName = conversation.getName();
-        wechatOtherAvatarType = conversation.getAvatarType();
-        wechatOtherAvatarUri = conversation.getAvatarUri();
-        wechatOtherAvatarRes = conversation.getImgRes();
+        currentConversation = Conversations.getInstance().get(position);
+        otherName = currentConversation.getName();
+        wechatOtherAvatarType = currentConversation.getIconType();
+        switch (wechatOtherAvatarType){
+            case Conversation.ICON_TYPE_RESOURCE:
+                wechatOtherAvatarRes = currentConversation.getIconRes();
+                break;
+            case Conversation.ICON_TYPE_NETWORK:
+                wechatOtherAvatarUrl = currentConversation.getIconUrl();
+                break;
+        }
         bottomStatusBarHeight = SPUtils.getBottomStatusBarHeight(getThis());
         softInputKeyboradHeight = SPUtils.getSoftInputKeyboardHeight(getThis());
         WechatChatItem item = new WechatChatItem(WechatChatAdapter.TYPE_TIME,"",0,"",mobile);
@@ -642,7 +651,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
                 String content = edContent.getText().toString();
                 WechatChatItem item = new WechatChatItem(WechatChatAdapter.TYPE_SELF, wechatUserName,wechatSelfAvatarRes,
                         content, mobile);
-                item.setImgType(wechatUserAvatarType);
+//                item.setImgType(wechatUserAvatarType);
                 item.setAvatarUri(wechatSelfAvatarUri);
                 WechatChatItems.getInstance().add(item);
                 notifyWechatData();
@@ -655,11 +664,13 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
             @Override
             public void onClick(int which) {
                 String content = edContent.getText().toString();
-                WechatChatItem item = new WechatChatItem(WechatChatAdapter.TYPE_OTHER, otherName,wechatOtherAvatarRes,
-                        content, mobile);
-                item.setImgType(wechatOtherAvatarType);
-                item.setAvatarUri(wechatOtherAvatarUri);
-                WechatChatItems.getInstance().add(item);
+//                ChatRecord item = new WechatChatItem(WechatChatAdapter.TYPE_OTHER, otherName,wechatOtherAvatarRes,
+//                        content, mobile);
+//                ChatRecord chatRecord = new ChatRecord();
+//                chatRecord.setSender();
+//                item.setImgType(wechatOtherAvatarType);
+//                item.setAvatarUri(wechatOtherAvatarUri);
+//                WechatChatItems.getInstance().add(item);
                 notifyWechatData();
                 resetChatEditText();
             }

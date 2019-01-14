@@ -52,8 +52,19 @@ public class Conversation extends LitePalSupport implements Comparable {
 
     private int type;
 
+    private String pointToUser;
+
+
     public Conversation() {
 
+    }
+
+    public String getPointToUser() {
+        return pointToUser;
+    }
+
+    public void setPointToUser(String pointToUser) {
+        this.pointToUser = pointToUser;
     }
 
     public int getType() {

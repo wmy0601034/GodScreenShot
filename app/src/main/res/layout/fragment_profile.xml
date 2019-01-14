@@ -6,52 +6,85 @@
     android:orientation="vertical">
 
     <RelativeLayout
-        android:id="@+id/rlMoment"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="16dp"
-        android:background="@color/white"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/imgAvatar"
-            android:layout_width="64dp"
+        <TextView
+            android:id="@+id/tvTakeVideo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="40dp"
+            android:text="拍一个视频动态" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_below="@id/tvTakeVideo"
+            android:layout_marginTop="32dp"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/rlMoment"
+            android:layout_width="match_parent"
             android:layout_height="64dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:src="@mipmap/app_images_role_10010" />
+            android:layout_below="@id/tvTakeVideo"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="18dp"
-            android:layout_toRightOf="@id/imgAvatar"
-            android:text="吴MoonMoon"
-            android:textColor="@color/mifpay_black_secondary"
-            android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/imgAvatar"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:src="@mipmap/app_images_role_10010" />
 
-        <TextView
-            android:id="@+id/tvAccount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@id/tvName"
-            android:layout_below="@id/tvName"
-            android:layout_marginTop="4dp"
-            android:layout_toRightOf="@id/imgAvatar"
-            android:text="微信号：ngmoon"
-            android:textColor="@color/gray"
-            android:textSize="14sp" />
+            <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_toRightOf="@id/imgAvatar"
+                android:gravity="center_vertical"
+                android:text="吴MoonMoon"
+                android:textColor="@color/mifpay_black_secondary"
+                android:textSize="22sp" />
 
-        <ImageView
-            android:id="@+id/imgQrcode"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="24dp"
-            android:src="@mipmap/app_views_pages_wechat_home_images_meqricon" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="32dp"
+                android:layout_alignLeft="@id/tvName"
+                android:layout_below="@id/tvName"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvAccount"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_toRightOf="@id/imgAvatar"
+                    android:text="微信号：ngmoon"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/imgQrcode"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="24dp"
+                    android:src="@mipmap/app_views_pages_wechat_home_images_meqricon" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@mipmap/biq"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginRight="8dp"/>
+            </LinearLayout>
+        </RelativeLayout>
     </RelativeLayout>
 
     <LinearLayout
@@ -70,11 +103,16 @@
             android:src="@mipmap/app_views_pages_wechat_home_images_meicon1" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="wrap_content"
             android:layout_marginLeft="24dp"
             android:text="钱包"
             android:textColor="@color/mifpay_black_secondary" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/biq"/>
     </LinearLayout>
 
     <LinearLayout

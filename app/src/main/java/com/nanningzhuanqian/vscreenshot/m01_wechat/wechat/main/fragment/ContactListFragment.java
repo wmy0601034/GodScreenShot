@@ -102,22 +102,22 @@ public class ContactListFragment extends BaseFragment {
         pinyinComparator = new PinyinComparator();
 //        ContractItems.getInstance().add(new ContractItem(ContractAdapter.ITEM_CONTRACT_TYPE,"A0鹤鸣九州",R.mipmap.app_images_role_10000));
         String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
-        List<ContractLite> contractLites = LitePal.findAll(ContractLite.class);
-        for(int i = 0;i<contractLites.size();i++){
-            ContractItem item = contractLites.get(i).convertToContractItem();
-            contractItems.add(item);
-        }
-        List<WechatNewFriendLite> wechatNewFriendLites = LitePal.findAll(WechatNewFriendLite.class);
-        WechatNewFriendItems.getInstance().clear();
-        for(int i = 0;i<wechatNewFriendLites.size();i++){
-            WechatNewFriendItem item = wechatNewFriendLites.get(i).convertToWechatNewFriendItem();
-            WechatNewFriendItems.getInstance().add(item);
-        }
-        List<ContractItem> items = filledData(contractItems);
-        Collections.sort(items, pinyinComparator);
-        ContractItems.getInstance().add(items);
-
-        ContractItems.getInstance().initTop();
+//        List<ContractLite> contractLites = LitePal.findAll(ContractLite.class);
+//        for(int i = 0;i<contractLites.size();i++){
+//            ContractItem item = contractLites.get(i).convertToContractItem();
+//            contractItems.add(item);
+//        }
+//        List<WechatNewFriendLite> wechatNewFriendLites = LitePal.findAll(WechatNewFriendLite.class);
+//        WechatNewFriendItems.getInstance().clear();
+//        for(int i = 0;i<wechatNewFriendLites.size();i++){
+//            WechatNewFriendItem item = wechatNewFriendLites.get(i).convertToWechatNewFriendItem();
+//            WechatNewFriendItems.getInstance().add(item);
+//        }
+//        List<ContractItem> items = filledData(contractItems);
+//        Collections.sort(items, pinyinComparator);
+//        ContractItems.getInstance().add(items);
+//
+//        ContractItems.getInstance().initTop();
 
         contractAdapter.notifyDataSetChanged();
     }

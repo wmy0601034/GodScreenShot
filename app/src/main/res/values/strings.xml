@@ -33,6 +33,7 @@
     <string name="login_txt_qustion">登录遇到问题？</string>
     <string name="login_tip_tel_error">请输入正确的手机号！</string>
     <string name="login_tip_loginerror">登录失败</string>
+    <string name="reset_tip_sms_error">请输入正确的短信验证码！</string>
 
     <!-- profile-->
     <string name="profile_txt_album">相册</string>
@@ -1965,7 +1966,7 @@ All Rights Reserved."</string>
     <string name="ajm">投诉</string>
     <string name="ajn">收藏</string>
     <string name="ajo">QQ好友</string>
-    <string name="ajp">来自QQ好友</string>
+    <string name="from_qq">来自QQ好友</string>
     <string name="ajq">系统为你推荐QQ好友</string>
     <string name="ajr">QQ好友:</string>
     <string name="ajs">来自Google联系人</string>
@@ -2550,32 +2551,32 @@ All Rights Reserved."</string>
     <string name="azf">你正在离开腾讯网域，并进入由第三方（北京口袋时尚科技有限公司）运营的页面。在该页面上进行的信息交换、资金及交易安全问题等，将由第三方负责。请你谨慎识别相关风险。</string>
     <string name="azg">公众号</string>
     <string name="azh">通讯录好友推荐</string>
-    <string name="azi">通过漂流瓶添加</string>
+    <string name="from_drift">通过漂流瓶添加</string>
     <string name="azj">对方通过漂流瓶添加</string>
-    <string name="azk">通过名片分享添加</string>
+    <string name="from_card_share">通过名片分享添加</string>
     <string name="azl">通过“%s”分享的名片添加</string>
     <string name="azm">对方通过“%s”分享的名片添加</string>
     <string name="azn">对方通过名片分享添加</string>
-    <string name="azo">通过群聊添加</string>
+    <string name="from_group">通过群聊添加</string>
     <string name="azp">对方通过群聊添加</string>
     <string name="azq">通过群聊“%s”添加</string>
     <string name="azr">对方通过群聊“%s”添加</string>
-    <string name="azs">通过附近的人添加</string>
+    <string name="from_near">通过附近的人添加</string>
     <string name="azt">对方通过附近的人添加</string>
     <string name="azu">通过LinkedIn添加</string>
     <string name="azv">QQ好友推荐</string>
-    <string name="azw">通过扫一扫添加</string>
+    <string name="from_qrcode">通过扫一扫添加</string>
     <string name="azx">对方通过扫一扫添加</string>
     <string name="azy">雷达</string>
-    <string name="azz">通过搜索手机号添加</string>
+    <string name="from_mobile">通过搜索手机号添加</string>
     <string name="b00">对方通过搜索手机号添加</string>
     <string name="b01">通过搜索QQ号添加</string>
     <string name="b02">对方通过搜索QQ号添加</string>
     <string name="b03">通过搜索微信号添加</string>
     <string name="b04">对方通过搜索微信号添加</string>
-    <string name="b05">通过摇一摇添加</string>
+    <string name="from_shake">通过摇一摇添加</string>
     <string name="b06">对方通过摇一摇添加</string>
-    <string name="b07">通过手机通讯录添加</string>
+    <string name="from_phone_contact">通过手机通讯录添加</string>
     <string name="b08">对方通过手机通讯录添加</string>
     <string name="b09">查看QQ好友</string>
     <string name="b0_">来源</string>

@@ -72,4 +72,8 @@ public class HttpUtil {
     public void getNetworkAvatars(CallbackListener callbackListener){
         api.getNetworkAvatars(callbackListener);
     }
+
+    public void resetPwd(String mobile,String pwd,String sms,CallbackListener callbackListener){
+        api.resetPwd(mobile,pwd,sms,callbackListener);
+    }
 }

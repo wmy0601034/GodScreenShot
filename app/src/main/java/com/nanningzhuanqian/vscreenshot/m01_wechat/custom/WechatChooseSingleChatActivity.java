@@ -72,8 +72,8 @@ public class WechatChooseSingleChatActivity extends BaseActivity {
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
 //        List<ConversationLite> conversationLites = LitePal.where("pointToUser", mobile).find
 //                (ConversationLite.class);
-        List<Conversation> conversations = LitePal.findAll(Conversation.class);
-        Conversations.getInstance().add(conversations);
+//        List<Conversation> conversations = LitePal.findAll(Conversation.class);
+//        Conversations.getInstance().add(conversations);
         chooseConversationAdapter.notifyDataSetChanged();
     }
 }

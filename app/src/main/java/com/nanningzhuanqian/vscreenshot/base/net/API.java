@@ -51,4 +51,6 @@ public interface API {
     void getWechatWalletContent(CallbackListener callbackListener);
 
     void getNetworkAvatars(CallbackListener callbackListener);
+
+    void resetPwd(String mobile,String pwd,String sms,CallbackListener callbackListener);
 }

@@ -19,6 +19,7 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivityNew;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WechatGlobalSettingActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ContactListFragment;
@@ -239,8 +240,9 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                //添加自定义对话
-                Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivity.class);
+                //添加自定义角色
+//                Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivity.class);
+                Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivityNew.class);
                 startActivityForResult(intent,999);
             }
         });

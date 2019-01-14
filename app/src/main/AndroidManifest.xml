@@ -84,6 +84,7 @@
         <activity android:name=".m01_wechat.wechat.background.WeChatBgSelectActivity"/>
 
         <activity android:name=".m01_wechat.custom.AddCustomConversationActivity"/>
+        <activity android:name=".m01_wechat.custom.AddCustomContactActivityNew"/>
         <activity android:name=".m01_wechat.custom.AddCustomContactActivity" />
         <activity android:name=".m01_wechat.custom.WechatChangeEditActivity"/>
         <activity android:name=".m01_wechat.custom.AddCustomWechatChangeDetailActivity"/>

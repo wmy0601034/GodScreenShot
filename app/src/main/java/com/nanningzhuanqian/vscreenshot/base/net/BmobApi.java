@@ -167,4 +167,9 @@ public class BmobApi implements API {
             }
         });
     }
+
+    @Override
+    public void resetPwd(String mobile, String pwd, String sms, CallbackListener callbackListener) {
+
+    }
 }

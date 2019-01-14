@@ -82,20 +82,19 @@ public class ConversationListFragment extends Fragment {
 
     private void initData() {
         Conversations.getInstance().clear();
-        String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
-        List<Conversation> conversations = LitePal.where("pointToUser", mobile).find
-                (Conversation.class);
-        Conversations.getInstance().add(conversations);
-        Conversation conversation = new Conversation();
-        conversation.setType(Conversation.TYPE_WECHAT_SUBCRIBE);
-        conversation.setIconType(Conversation.ICON_TYPE_RESOURCE);
-        conversation.setIconRes(R.mipmap.app_views_pages_wechat_home_images_contacticon4);
-        conversation.setName("订阅号");
-        conversation.setDisplayContent("鸟哥笔记：马云新开的HHB酒吧怎么样...");
-        conversation.setUpdateTime(System.currentTimeMillis()-10*60*1000);
-        Conversations.getInstance().add(conversation);
-        Conversations.getInstance().sort();
-        conversationAdapter.notifyDataSetChanged();
+//        String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
+//        List<Conversation> conversations = LitePal.where("pointToUser", mobile).find(Conversation.class);
+//        Conversations.getInstance().add(conversations);
+//        Conversation conversation = new Conversation();
+//        conversation.setType(Conversation.TYPE_WECHAT_SUBCRIBE);
+//        conversation.setIconType(Conversation.ICON_TYPE_RESOURCE);
+//        conversation.setIconRes(R.mipmap.app_views_pages_wechat_home_images_contacticon4);
+//        conversation.setName("订阅号");
+//        conversation.setDisplayContent("鸟哥笔记：马云新开的HHB酒吧怎么样...");
+//        conversation.setUpdateTime(System.currentTimeMillis()-10*60*1000);
+//        Conversations.getInstance().add(conversation);
+//        Conversations.getInstance().sort();
+//        conversationAdapter.notifyDataSetChanged();
     }
 
     public void notifyDataSetChanged(){

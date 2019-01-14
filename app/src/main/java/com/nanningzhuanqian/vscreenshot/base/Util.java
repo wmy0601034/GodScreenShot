@@ -5,6 +5,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.nanningzhuanqian.vscreenshot.adapter.ChangeDetailAdapter;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -110,8 +111,8 @@ public class Util {
     }
 
     /*
- * 将时间戳转换为时间
- */
+     * 将时间戳转换为时间
+     */
     public static String stampToTransferTime(long timeMillis) {
         String res;
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm");
@@ -209,14 +210,14 @@ public class Util {
         return Integer.parseInt(second);
     }
 
-    public static long getTimeMillis(String time){
+    public static long getTimeMillis(String time) {
         SimpleDateFormat sdf = new SimpleDateFormat("yy-MM-dd HH:mm:ss");
         Date d;
-        try{
+        try {
             d = sdf.parse(time);
             long l = d.getTime();
             return l;
-        } catch(ParseException e){
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return System.currentTimeMillis();
@@ -242,6 +243,30 @@ public class Util {
             Matcher m = p.matcher(phone);
             return m.matches();
         }
+    }
+
+    public static boolean isSmsCode(String smsCode) {
+        if (TextUtils.isEmpty(smsCode)) {
+            return false;
+        }
+        if (smsCode.length() != 6) {
+            return false;
+        }
+
+        String sms = smsCode.replace("0", "")
+                            .replace("1", "")
+                            .replace("2", "")
+                            .replace("3", "")
+                            .replace("4", "")
+                            .replace("5", "")
+                            .replace("6", "")
+                            .replace("7", "")
+                            .replace("8", "")
+                            .replace("9", "");
+        if(TextUtils.isEmpty(sms)){
+            return true;
+        }
+        return false;
     }
 
     public static int getLocalVersion(Context ctx) {

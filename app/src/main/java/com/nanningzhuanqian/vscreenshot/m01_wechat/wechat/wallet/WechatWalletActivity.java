@@ -125,20 +125,20 @@ public class WechatWalletActivity extends BaseActivity {
     }
 
     private void getLocalConfig(){
-        List<WechatWalletConfigLite> configLites = LitePal.findAll(WechatWalletConfigLite.class);
-        tencentServiceItems.clear();
-        spreadItems.clear();
-        thirdServiceItems.clear();
-        for(int i = 0;i<configLites.size();i++){
-            WechatWalletItem item = configLites.get(i).coverToWechatWalletBaseItem();
-            if("00".equals(item.getConfigType())){
-                tencentServiceItems.add(item);
-            }else if("01".equals(item.getConfigType())){
-                spreadItems.add(item);
-            }else if("02".equals(item.getConfigType())){
-                thirdServiceItems.add(item);
-            }
-        }
+//        List<WechatWalletConfigLite> configLites = LitePal.findAll(WechatWalletConfigLite.class);
+//        tencentServiceItems.clear();
+//        spreadItems.clear();
+//        thirdServiceItems.clear();
+//        for(int i = 0;i<configLites.size();i++){
+//            WechatWalletItem item = configLites.get(i).coverToWechatWalletBaseItem();
+//            if("00".equals(item.getConfigType())){
+//                tencentServiceItems.add(item);
+//            }else if("01".equals(item.getConfigType())){
+//                spreadItems.add(item);
+//            }else if("02".equals(item.getConfigType())){
+//                thirdServiceItems.add(item);
+//            }
+//        }
     }
 
     private void initAdapter() {
