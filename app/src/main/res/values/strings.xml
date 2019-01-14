@@ -299,10 +299,11 @@
     <string name="c4">点击此处添加朋友</string>
     <string name="c5">通过手机号搜索企业微信用户</string>
     <string name="c6">企业微信联系人</string>
-    <string name="c7">标签名称已存在</string>
+    <string name="tag_name_not_empty">标签名称不能为空</string>
+    <string name="tag_name_exists">标签名称已存在</string>
     <string name="c8">添加标签失败</string>
-    <string name="c9">标签文案不支持,、、和;</string>
-    <string name="c_">标签最多支持%d个字</string>
+    <string name="tag_name_format_no_right">标签文案不支持,、、和;</string>
+    <string name="tag_name_length_limit">标签最多支持6个字</string>
     <string name="ca">添加标签</string>
     <string name="cb">添加群管理员失败</string>
     <string name="cc">添加朋友</string>
@@ -4354,7 +4355,7 @@ All Rights Reserved."</string>
     <string name="c_g">可能由于服务器故障，导致暂时无法发送/接收微信信息。</string>
     <string name="c_h">不显示位置</string>
     <string name="c_i">知道了</string>
-    <string name="c_j">隐藏</string>
+    <string name="hide">隐藏</string>
     <string name="c_k">当前电话号码匹配自手机通讯录，不可修改，但可以隐藏。</string>
     <string name="c_l">仅展示商品类型</string>
     <string name="c_m">添加亲属卡</string>
@@ -7152,8 +7153,8 @@ http://wechat.com/dl/ 然后扫描二维码加我好友。"</string>
     <string name="ea4">欢迎页</string>
     <string name="ea5">关于微信</string>
     <string name="ea6">清理微信存储空间</string>
-    <string name="ea7">女</string>
-    <string name="ea8">男</string>
+    <string name="female">女</string>
+    <string name="male">男</string>
     <string name="ea9" />
     <string name="ea_">领取失败，请重试</string>
     <string name="eaa">已添加至卡包</string>

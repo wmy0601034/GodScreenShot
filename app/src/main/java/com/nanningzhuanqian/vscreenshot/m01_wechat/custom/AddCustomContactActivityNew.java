@@ -16,6 +16,7 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.TagsCur;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -77,14 +78,14 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         edWechatAccount = (EditText) findViewById(R.id.edWechatAccount);
         tvGender = (TextView) findViewById(R.id.tvGender);
         edAddress = (EditText) findViewById(R.id.edAddress);
-        edMobile = (EditText)findViewById(R.id.edMobile);
-        tvFrom = (TextView)findViewById(R.id.tvFrom);
+        edMobile = (EditText) findViewById(R.id.edMobile);
+        tvFrom = (TextView) findViewById(R.id.tvFrom);
         edSignatrue = (EditText) findViewById(R.id.edSignatrue);
-        edCommon = (EditText)findViewById(R.id.edCommon);
-        tvTag = (TextView)findViewById(R.id.tvTag);
+        edCommon = (EditText) findViewById(R.id.edCommon);
+        tvTag = (TextView) findViewById(R.id.tvTag);
         llFrom = (LinearLayout) findViewById(R.id.llFrom);
         llGender = (LinearLayout) findViewById(R.id.llGender);
-        llTag = (LinearLayout)findViewById(R.id.llTag);
+        llTag = (LinearLayout) findViewById(R.id.llTag);
         btnRandom = (Button) findViewById(R.id.btnRandom);
         btnSubmit = (Button) findViewById(R.id.btnSubmit);
     }
@@ -96,8 +97,15 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         llFrom.setOnClickListener(this);
         llGender.setOnClickListener(this);
         llTag.setOnClickListener(this);
+        tvTag.setOnClickListener(this);
         btnRandom.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getTag();
     }
 
     protected void initData() {
@@ -122,6 +130,9 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             case R.id.llTag:
                 showTagSelection();
                 break;
+            case R.id.tvTag:
+                showTagSelection();
+                break;
             case R.id.llGender:
                 showGenderSelection();
                 break;
@@ -132,6 +143,15 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 save();
                 break;
         }
+    }
+
+
+    private void getTag() {
+        String tag = "";
+        for (int i = 0; i < TagsCur.getInstance().size(); i++) {
+            tag += TagsCur.getInstance().get(i).getName() + " ";
+        }
+        tvTag.setText(tag);
     }
 
     ImagePicker imagePicker = new ImagePicker();
@@ -197,8 +217,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR);
             }
         });
-
-
         Dialog dialog = builder.create();
         dialog.show();
     }
@@ -305,12 +323,30 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         dialog.show();
     }
 
-    private void showTagSelection(){
-
+    private void showTagSelection() {
+        Intent intent = new Intent(getThis(), WxContactTagSelectionActivity.class);
+        startActivity(intent);
     }
 
-    private void showGenderSelection(){
-
+    private void showGenderSelection() {
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomContactActivityNew.this);
+        builder.setTitle("选择性别");
+        builder.setCanceledOnTouchOutside(true);
+        builder.setCancelButtonVisiable(true);
+        builder.addSheetItem(getString(R.string.male), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                tvGender.setText(getString(R.string.male));
+            }
+        });
+        builder.addSheetItem(getString(R.string.female), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                tvGender.setText(getString(R.string.female));
+            }
+        });
+        Dialog dialog = builder.create();
+        dialog.show();
     }
 
     private void randomCreate() {
@@ -330,8 +366,11 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             Picasso.with(AddCustomContactActivityNew.this)
                     .load(imgUrl)
                     .into(imgIcon);
-        } else {
+        } else if (requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR) {
             imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+        } else if (selectTagFinish(requestCode, resultCode)) {
+            String tag = intent.getStringExtra("tag");
+            tvTag.setText(tag);
         }
     }
 
@@ -341,6 +380,10 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
     private boolean selectNetworkAvatarFinish(int requestCode, int resultCode) {
         return requestCode == Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR && resultCode == 999;
+    }
+
+    private boolean selectTagFinish(int requestCode, int resultCode) {
+        return requestCode == Constant.REQUEST_CODE_SELECT_CONTACT_TAG && resultCode == Constant.RESULT_CODE_SUCCESS;
     }
 
     private int imgRes;

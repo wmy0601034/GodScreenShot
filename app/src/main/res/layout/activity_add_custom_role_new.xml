@@ -442,9 +442,9 @@
                         android:layout_weight="1"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
-                        android:inputType="number"
                         android:minWidth="16dp"
                         android:text=""
+                        android:clickable="false"
                         android:textColor="@color/gray"
                         android:textSize="14dp" />
 

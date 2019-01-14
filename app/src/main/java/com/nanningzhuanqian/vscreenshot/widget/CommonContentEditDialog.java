@@ -17,6 +17,7 @@ import com.nanningzhuanqian.vscreenshot.R;
 
 public class CommonContentEditDialog  extends Dialog {
     private Context context;
+    private TextView tvTitle;
     private EditText edMark;
     private TextView btnCancel;
     private TextView btnOk;
@@ -37,6 +38,7 @@ public class CommonContentEditDialog  extends Dialog {
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
 
         edMark = dialogLayout.findViewById(R.id.edMark);
+        tvTitle = dialogLayout.findViewById(R.id.tvTitle);
         btnCancel = dialogLayout.findViewById(R.id.btnCancel);
         btnOk = dialogLayout.findViewById(R.id.btnOk);
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -67,6 +69,10 @@ public class CommonContentEditDialog  extends Dialog {
             edMark.setText(hint);
             edMark.setSelection(hint.length());
         }
+    }
+
+    public void setTitle(String title){
+        tvTitle.setText(title);
     }
 
     public void setOnOkListener(OnOkListener listener){

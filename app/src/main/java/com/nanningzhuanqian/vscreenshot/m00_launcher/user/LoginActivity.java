@@ -97,6 +97,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     protected void initView() {
         tvBack = (TextView) findViewById(R.id.tvBack);
+        tvBack.setVisibility(View.VISIBLE);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvTitle.setText("登录");
         btnLogin = (Button) findViewById(R.id.btnLogin);

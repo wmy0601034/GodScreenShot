@@ -384,4 +384,14 @@ public class Util {
         return name;
     }
 
+    public static final boolean checkTagFormat(String name){
+        String tag = name.replace("、","")
+                         .replace("、","")
+                         .replace(";","");
+        if(tag.length()!=name.length()){
+            return false;
+        }
+        return true;
+    }
+
 }
