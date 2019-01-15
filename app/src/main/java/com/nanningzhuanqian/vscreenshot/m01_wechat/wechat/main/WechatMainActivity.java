@@ -34,7 +34,6 @@ import com.nanningzhuanqian.vscreenshot.widget.MFViewPager;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import org.greenrobot.eventbus.EventBus;
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -219,7 +218,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             public void onClick(int which) {
                 //清空对话内容
                 Conversations.getInstance().clear();
-                LitePal.deleteAll(Conversation.class);
+//                LitePal.deleteAll(Conversation.class);
                 conversationListFragment.notifyDataSetChanged();
             }
         });
@@ -324,7 +323,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             cacheList.add(item);
             //保存到本地
             ContractLite contractLite = item.convertToLite();
-            contractLite.save();
+//            contractLite.save();
         }
         ContractItems.getInstance().add(cacheList);
         Log.i(TAG,"ContractItems add = "+ContractItems.getInstance().size()+" "+cacheList.size());
@@ -370,7 +369,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             Conversations.getInstance().addFirst(item);
 
             //保存到本地
-            item.save();
+//            item.save();
         }
         int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         unReadCount +=lastUnreadCount;

@@ -1,6 +1,7 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat.custom;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
@@ -20,9 +21,10 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tag;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tags;
 import com.nanningzhuanqian.vscreenshot.base.bean.TagsCur;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
+import com.nanningzhuanqian.vscreenshot.base.util.MyDB;
 import com.nanningzhuanqian.vscreenshot.widget.CommonContentEditDialog;
 
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -149,8 +151,9 @@ public class WxContactTagSelectionActivity extends BaseActivity {
                 Tag tag = new Tag();
                 tag.setName(name);
                 tag.setContactList(contactList);
-                boolean result = tag.save();
-                Log.i("wmy","tag.save() = "+result);
+                DBManager.saveTag(getApplicationContext(),tag);
+//                boolean result = tag.save();
+//                Log.i("wmy","tag.save() = "+result);
                 tag.setSelected(true);
                 Tags.getInstance().add(tag);
                 TagsCur.getInstance().add(tag);
@@ -164,8 +167,8 @@ public class WxContactTagSelectionActivity extends BaseActivity {
     @Override
     protected void initData() {
         Tags.getInstance().clear();
-        List<Tag> tagList = LitePal.findAll(Tag.class);
-
+//        List<Tag> tagList = LitePal.findAll(Tag.class);
+        List<Tag> tagList = DBManager.getTags(getApplicationContext());
         Tags.getInstance().add(tagList);
         Log.i("wmy","initData Tags = "+Tags.getInstance().size());
         Tags.getInstance().resetSelection();

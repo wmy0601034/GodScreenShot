@@ -406,7 +406,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         contact.setPointToUser(mobile);
         contact.setAvatarUri(avatarUri);
-        contact.save();
+//        contact.save();
 
         ContractItem item = new ContractItem();
         item.setName(wxNickname);
@@ -418,7 +418,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         ContractItems.getInstance().addFirst(item);
         //保存到本地
         ContractLite contractLite = item.convertToLite();
-        contractLite.save();
+//        contractLite.save();
 
         //保存到服务器
         ContractBmob contractBmob = item.convertToBmob();

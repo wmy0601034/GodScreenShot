@@ -14,7 +14,6 @@ import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingeChatActivity;
 
-import org.litepal.LitePal;
 
 import java.util.List;
 

@@ -21,7 +21,6 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
-import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -126,8 +125,8 @@ public class ConversationListFragment extends Fragment {
                 //删除
                 Conversation conversation =Conversations.getInstance().get(position);
                 Conversations.getInstance().remove(position);
-                LitePal.deleteAll(Conversation.class,"name=?and content = ?",conversation.getName(),
-                        conversation.getDisplayContent());
+//                LitePal.deleteAll(Conversation.class,"name=?and content = ?",conversation.getName(),
+//                        conversation.getDisplayContent());
                 conversationAdapter.notifyDataSetChanged();
             }
         });

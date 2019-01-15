@@ -2,7 +2,6 @@ package com.nanningzhuanqian.vscreenshot.base.bean;
 
 import android.net.Uri;
 
-import org.litepal.crud.LitePalSupport;
 
 import java.util.List;
 
@@ -11,7 +10,7 @@ import java.util.List;
  * Created by lenovo on 2019/1/11.
  */
 
-public class Contact extends LitePalSupport{
+public class Contact{
 
     //本地图片
     public static final int ICON_TYPE_RESOURCE = 0;

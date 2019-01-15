@@ -1,6 +1,5 @@
 package com.nanningzhuanqian.vscreenshot.base.bean;
 
-import org.litepal.crud.LitePalSupport;
 
 import java.util.List;
 
@@ -9,24 +8,15 @@ import java.util.List;
  * Created by lenovo on 2019/1/11.
  */
 
-public class Tag extends LitePalSupport{
-
-    //数据库id
-    private String id;
+public class Tag {
+    //id
+    private int id;
     //标签名称
     private String name;
     //标签下对应的联系人名单
     private List<Contact> contactList;
     //是否被选中 在选择标签时用
     private boolean isSelected;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
@@ -50,5 +40,13 @@ public class Tag extends LitePalSupport{
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

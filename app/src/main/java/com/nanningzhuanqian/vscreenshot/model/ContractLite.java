@@ -2,13 +2,12 @@ package com.nanningzhuanqian.vscreenshot.model;
 
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 
-import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by WMY on 2018/9/17.
  */
 
-public class ContractLite extends LitePalSupport{
+public class ContractLite {
 
     private int type;   // 根据ContractAdapter里面的来
     private String initial;

@@ -347,7 +347,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         Conversations.getInstance().addFirst(item);
 
         //保存到本地
-        item.save();
+//        item.save();
 
 
         toast("添加成功");

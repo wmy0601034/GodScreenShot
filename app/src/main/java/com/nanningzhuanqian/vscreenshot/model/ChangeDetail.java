@@ -3,13 +3,12 @@ package com.nanningzhuanqian.vscreenshot.model;
 import com.nanningzhuanqian.vscreenshot.item.ChangeDetailItem;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 
-import org.litepal.crud.LitePalSupport;
 
 /**
  * Created by WMY on 2018/9/18.
  */
 
-public class ChangeDetail extends LitePalSupport {
+public class ChangeDetail {
 
     private int type;
     private String name;

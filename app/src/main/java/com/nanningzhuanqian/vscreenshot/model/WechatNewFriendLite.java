@@ -2,9 +2,8 @@ package com.nanningzhuanqian.vscreenshot.model;
 
 import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItem;
 
-import org.litepal.crud.LitePalSupport;
 
-public class WechatNewFriendLite extends LitePalSupport {
+public class WechatNewFriendLite {
     private int imgRes;
     private String imgUrl;
     private int imgType;

@@ -25,7 +25,6 @@ import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfig;
 import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfigLite;
 import com.squareup.picasso.Picasso;
 
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -92,14 +91,14 @@ public class WechatWalletActivity extends BaseActivity {
             @Override
             public void onGetSuccess(Object o) {
                 List<WechatWalletConfig> configs = (List<WechatWalletConfig>) o;
-                LitePal.deleteAll(WechatWalletConfigLite.class);
+//                LitePal.deleteAll(WechatWalletConfigLite.class);
                 tencentServiceItems.clear();
                 spreadItems.clear();
                 thirdServiceItems.clear();
                 for(int i = 0;i<configs.size();i++){
                     WechatWalletItem item = configs.get(i).coverToWechatWalletBaseItem();
                     WechatWalletConfigLite configLite = configs.get(i).coverToWechatWalletConfigLite();
-                    configLite.save();
+//                    configLite.save();
                     if("00".equals(item.getConfigType())){
                         tencentServiceItems.add(item);
                     }else if("01".equals(item.getConfigType())){

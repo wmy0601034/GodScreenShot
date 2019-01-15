@@ -20,8 +20,6 @@ import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 import com.nanningzhuanqian.vscreenshot.widget.CustomListview;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
-import org.litepal.LitePal;
-
 import java.util.List;
 
 /**
@@ -142,7 +140,7 @@ public class WechatNewFriendActivity extends BaseActivity {
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                LitePal.deleteAll(WechatNewFriendLite.class);
+//                LitePal.deleteAll(WechatNewFriendLite.class);
                 WechatNewFriendItems.getInstance().clear();
                 SPUtils.put(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
                 tvDescription.setVisibility(View.GONE);
@@ -188,7 +186,7 @@ public class WechatNewFriendActivity extends BaseActivity {
 
             //保存到本地
             WechatNewFriendLite wechatNewFriendLite = item.converToWechatNewFriendLite();
-            wechatNewFriendLite.save();
+//            wechatNewFriendLite.save();
         }
         int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
         unReadCount +=lastUnreadCount;

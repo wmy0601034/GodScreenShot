@@ -2,14 +2,13 @@ package com.nanningzhuanqian.vscreenshot.base.bean;
 
 import android.support.annotation.NonNull;
 
-import org.litepal.crud.LitePalSupport;
 
 /**
  * 微信首页 对话
  * Created by lenovo on 2019/1/11.
  */
 
-public class Conversation extends LitePalSupport implements Comparable {
+public class Conversation implements Comparable {
 
     //单人聊天
     public static final int TYPE_SINGLE_CHAT = 0;

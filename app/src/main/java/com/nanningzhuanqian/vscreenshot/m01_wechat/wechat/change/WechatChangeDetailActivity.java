@@ -18,7 +18,6 @@ import com.nanningzhuanqian.vscreenshot.model.ChangeDetail;
 import com.nanningzhuanqian.vscreenshot.widget.CustomListview;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
-import org.litepal.LitePal;
 
 import java.util.List;
 
@@ -155,11 +154,11 @@ public class WechatChangeDetailActivity extends BaseActivity {
     @Override
     protected void initData() {
         ChangeDetailItems.getInstance().clear();
-        List<ChangeDetail> changeDetails = LitePal.order("tranTime desc").find(ChangeDetail.class);
-        for(int i = 0;i<changeDetails.size();i++){
-            ChangeDetailItem changeDetailItem = changeDetails.get(i).convertToChangeDetailItem();
-            ChangeDetailItems.getInstance().add(changeDetailItem);
-        }
+//        List<ChangeDetail> changeDetails = LitePal.order("tranTime desc").find(ChangeDetail.class);
+//        for(int i = 0;i<changeDetails.size();i++){
+//            ChangeDetailItem changeDetailItem = changeDetails.get(i).convertToChangeDetailItem();
+//            ChangeDetailItems.getInstance().add(changeDetailItem);
+//        }
         changeDetailAdapter.notifyDataSetChanged();
     }
 

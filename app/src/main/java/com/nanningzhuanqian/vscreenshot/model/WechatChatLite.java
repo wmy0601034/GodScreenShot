@@ -2,9 +2,8 @@ package com.nanningzhuanqian.vscreenshot.model;
 
 import com.nanningzhuanqian.vscreenshot.item.WechatChatItem;
 
-import org.litepal.crud.LitePalSupport;
 
-public class WechatChatLite extends LitePalSupport {
+public class WechatChatLite {
 
     private int type;
     private String name;

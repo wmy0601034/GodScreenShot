@@ -104,7 +104,7 @@ public class AddCustomWechatChangeDetailActivity extends BaseActivity {
         ChangeDetailItem changeDetailItem = new ChangeDetailItem(type, amount, timeMillis);
         //保存到本地
         ChangeDetail changeDetail = changeDetailItem.convertToChangeDetail();
-        changeDetail.save();
+//        changeDetail.save();
 
         ChangeDetailItems.getInstance().addFirst(changeDetailItem);
         finish();

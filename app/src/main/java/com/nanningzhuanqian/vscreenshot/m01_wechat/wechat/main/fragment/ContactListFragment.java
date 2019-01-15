@@ -27,7 +27,6 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contract.WechatNewFrie
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 
-import org.litepal.LitePal;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -2,9 +2,8 @@ package com.nanningzhuanqian.vscreenshot.model;
 
 import com.nanningzhuanqian.vscreenshot.item.WechatWalletItem;
 
-import org.litepal.crud.LitePalSupport;
 
-public class WechatWalletConfigLite extends LitePalSupport {
+public class WechatWalletConfigLite {
 
     private Integer type;
     private String name;
