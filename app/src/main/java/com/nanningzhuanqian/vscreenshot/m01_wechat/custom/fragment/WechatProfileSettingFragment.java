@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.linchaolong.android.imagepicker.ImagePicker;
+//import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -123,7 +123,7 @@ public class WechatProfileSettingFragment extends BaseFragment {
         edWechatAccount.setText(account);
     }
 
-    ImagePicker imagePicker = new ImagePicker();
+//    ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(getActivity());
 
@@ -146,21 +146,21 @@ public class WechatProfileSettingFragment extends BaseFragment {
             @Override
             public void onClick(int which) {
                 //相册
-                imagePicker.setTitle("设置头像");
-                // 设置是否裁剪图片
-                imagePicker.setCropImage(true);
-                imagePicker.startChooser(getActivity(), new ImagePicker.Callback() {
-                    // 选择图片回调
-                    @Override public void onPickImage(Uri imageUri) {
-
-                    }
-                    // 裁剪图片回调
-                    @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
-                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,imageUri.toString());
-                        imgAvatar.setImageURI(imageUri);
-                    }
-                });
+//                imagePicker.setTitle("设置头像");
+//                // 设置是否裁剪图片
+//                imagePicker.setCropImage(true);
+//                imagePicker.startChooser(getActivity(), new ImagePicker.Callback() {
+//                    // 选择图片回调
+//                    @Override public void onPickImage(Uri imageUri) {
+//
+//                    }
+//                    // 裁剪图片回调
+//                    @Override public void onCropImage(Uri imageUri) {
+//                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
+//                        SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,imageUri.toString());
+//                        imgAvatar.setImageURI(imageUri);
+//                    }
+//                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -197,7 +197,7 @@ public class WechatProfileSettingFragment extends BaseFragment {
             SPUtils.put(getThis(),Constant.KEY_PROFILE_AVATAR,String.valueOf(wechatUserAvatarRes));
             imgAvatar.setImageResource(wechatUserAvatarRes);
         }else{
-            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+//            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 

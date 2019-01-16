@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
@@ -113,7 +112,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    ImagePicker imagePicker = new ImagePicker();
+//    ImagePicker imagePicker = new ImagePicker();
     private void showAvatarSheetDialog() {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomContactActivity.this);
 
@@ -136,21 +135,21 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
             @Override
             public void onClick(int which) {
                 //相册
-                imagePicker.setTitle("设置头像");
-                // 设置是否裁剪图片
-                imagePicker.setCropImage(true);
-                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
-                    // 选择图片回调
-                    @Override public void onPickImage(Uri imageUri) {
-
-                    }
-                    // 裁剪图片回调
-                    @Override public void onCropImage(Uri imageUri) {
-                        avatarType = Constant.VALUE_PIC_LOCAL;
-                        avatarUri = imageUri;
-                        imgIcon.setImageURI(imageUri);
-                    }
-                });
+//                imagePicker.setTitle("设置头像");
+//                // 设置是否裁剪图片
+//                imagePicker.setCropImage(true);
+//                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
+//                    // 选择图片回调
+//                    @Override public void onPickImage(Uri imageUri) {
+//
+//                    }
+//                    // 裁剪图片回调
+//                    @Override public void onCropImage(Uri imageUri) {
+//                        avatarType = Constant.VALUE_PIC_LOCAL;
+//                        avatarUri = imageUri;
+//                        imgIcon.setImageURI(imageUri);
+//                    }
+//                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -200,7 +199,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
                     .load(imgUrl)
                     .into(imgIcon);
         }else{
-            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+//            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 

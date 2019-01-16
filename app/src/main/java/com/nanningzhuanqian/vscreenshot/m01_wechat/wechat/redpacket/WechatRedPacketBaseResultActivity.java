@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
-import com.linchaolong.android.imagepicker.ImagePicker;
+//import com.linchaolong.android.imagepicker.ImagePicker;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
@@ -30,7 +30,7 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
     public String name;
     public String amount;
     public String mark;
-    public ImagePicker imagePicker = new ImagePicker();
+//    public ImagePicker imagePicker = new ImagePicker();
     public int imgRes;
 
     public void setAvatar(){
@@ -134,21 +134,21 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
             @Override
             public void onClick(int which) {
                 //相册
-                imagePicker.setTitle("设置头像");
-                // 设置是否裁剪图片
-                imagePicker.setCropImage(true);
-                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
-                    // 选择图片回调
-                    @Override public void onPickImage(Uri imageUri) {
-
-                    }
-                    // 裁剪图片回调
-                    @Override public void onCropImage(Uri imageUri) {
-                        SPUtils.put(getThis(), Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
-                        SPUtils.put(getThis(),Constant.KEY_REDPACKET_AVATAR,imageUri.toString());
-                        imgAvatar.setImageURI(imageUri);
-                    }
-                });
+//                imagePicker.setTitle("设置头像");
+//                // 设置是否裁剪图片
+//                imagePicker.setCropImage(true);
+//                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
+//                    // 选择图片回调
+//                    @Override public void onPickImage(Uri imageUri) {
+//
+//                    }
+//                    // 裁剪图片回调
+//                    @Override public void onCropImage(Uri imageUri) {
+//                        SPUtils.put(getThis(), Constant.KEY_WECHAT_RED_PACKET_AVATAR_TYPE,Constant.VALUE_PIC_LOCAL);
+//                        SPUtils.put(getThis(),Constant.KEY_REDPACKET_AVATAR,imageUri.toString());
+//                        imgAvatar.setImageURI(imageUri);
+//                    }
+//                });
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -178,7 +178,7 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
     @Override public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
                                                      @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        imagePicker.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+//        imagePicker.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
     }
 
     private boolean selectAvatarFinish(int requestCode, int resultCode) {
@@ -194,7 +194,7 @@ public abstract class WechatRedPacketBaseResultActivity extends BaseActivity {
             SPUtils.put(getThis(),Constant.KEY_REDPACKET_AVATAR,String.valueOf(imgRes));
             imgAvatar.setImageResource(imgRes);
         }else{
-            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+//            imagePicker.onActivityResult(this, requestCode, resultCode, intent);
         }
     }
 

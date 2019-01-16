@@ -9,7 +9,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.linchaolong.android.imagepicker.ImagePicker;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -64,21 +63,21 @@ public class EditBankCardActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
 //相册
-                imagePicker.setTitle("设置Logo");
-                // 设置是否裁剪图片
-                imagePicker.setCropImage(false);
-                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
-                    // 选择图片回调
-                    @Override public void onPickImage(Uri imageUri) {
-                        iconUri = imageUri;
-                        imgIcon.setImageURI(imageUri);
-                    }
-                    // 裁剪图片回调
-                    @Override public void onCropImage(Uri imageUri) {
-                        iconUri = imageUri;
-                        imgIcon.setImageURI(imageUri);
-                    }
-                });
+//                imagePicker.setTitle("设置Logo");
+//                // 设置是否裁剪图片
+//                imagePicker.setCropImage(false);
+//                imagePicker.startChooser(getThis(), new ImagePicker.Callback() {
+//                    // 选择图片回调
+//                    @Override public void onPickImage(Uri imageUri) {
+//                        iconUri = imageUri;
+//                        imgIcon.setImageURI(imageUri);
+//                    }
+//                    // 裁剪图片回调
+//                    @Override public void onCropImage(Uri imageUri) {
+//                        iconUri = imageUri;
+//                        imgIcon.setImageURI(imageUri);
+//                    }
+//                });
             }
         });
     }
@@ -88,11 +87,11 @@ public class EditBankCardActivity extends BaseActivity {
 
     }
 
-    ImagePicker imagePicker = new ImagePicker();
+//    ImagePicker imagePicker = new ImagePicker();
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
-        imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+//        imagePicker.onActivityResult(this, requestCode, resultCode, intent);
     }
 }

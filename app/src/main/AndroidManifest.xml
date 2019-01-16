@@ -104,15 +104,6 @@
             android:theme="@style/Base.Theme.AppCompat"/>
         <activity android:name=".m00_launcher.bank_card.BankCardManagerActivity"/>
         <activity android:name=".m00_launcher.bank_card.EditBankCardActivity"/>
-        <provider
-            android:authorities="com.nanningzhuanqian.vscreenshot.fileprovider"
-            android:name="android.support.v4.content.FileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_provider_paths"/>
-        </provider>
     </application>
 
 </manifest>
