@@ -2,7 +2,13 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.custom;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.linchaolong.android.imagepicker.ImagePicker;
+import com.lzy.imagepicker.bean.ImageItem;
+import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
@@ -29,6 +37,15 @@ import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import cn.bmob.v3.datatype.BmobFile;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.UploadFileListener;
 
 /**
  * 添加自定义联系人界面
@@ -163,15 +180,15 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         builder.setCancelButtonVisiable(true);
         builder.setCanceledOnTouchOutside(true);
         builder.setTitle("选择头像");
-//        builder.addSheetItem("拍照", NewActionSheetDialog
-//                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
-//                .OnSheetItemClickListener() {
-//            @Override
-//            public void onClick(int which) {
-//                //拍照
-//                toast("暂未开放");
-//            }
-//        });
+        builder.addSheetItem("拍照", NewActionSheetDialog
+                .SheetItemColor.Blue, new NewActionSheetDialog.Builder
+                .OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                //拍照
+                takePhoto();
+            }
+        });
         builder.addSheetItem("相册", NewActionSheetDialog
                 .SheetItemColor.Blue, new NewActionSheetDialog.Builder
                 .OnSheetItemClickListener() {
@@ -353,6 +370,22 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
     }
 
+    private File tempFile;
+    private void takePhoto() {
+        tempFile = new File(getFilesDir(), System.currentTimeMillis() + ".jpg");
+        //跳转到调用系统相机
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        //判断版本
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
+            intent.setFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(AddCustomContactActivityNew.this, "com.nanningzhuanqian.vscreenshot.fileprovider", tempFile);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, contentUri);
+        } else {    //否则使用Uri.fromFile(file)方法获取Uri
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.fromFile(tempFile));
+        }
+        startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_AVATAR_BY_CAMERA);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
@@ -368,10 +401,82 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                     .into(imgIcon);
         } else if (requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR) {
             imagePicker.onActivityResult(this, requestCode, resultCode, intent);
+        } else if (requestCode == Constant.REQUEST_CODE_SELECT_AVATAR_BY_CAMERA) {
+            //用相机返回的照片去调用剪裁也需要对Uri进行处理
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                Uri contentUri = FileProvider.getUriForFile(AddCustomContactActivityNew.this, "com.nanningzhuanqian.vscreenshot.fileprovider", tempFile);
+                cropPhoto(contentUri);
+            } else {
+                cropPhoto(Uri.fromFile(tempFile));
+            }
         } else if (selectTagFinish(requestCode, resultCode)) {
             String tag = intent.getStringExtra("tag");
             tvTag.setText(tag);
+        }else if(requestCode ==Constant.REQUEST_CODE_CROP){
+            Bundle bundle = intent.getExtras();
+            if (bundle != null) {
+                //在这里获得了剪裁后的Bitmap对象，可以用于上传
+                Bitmap image = bundle.getParcelable("data");
+                //设置到ImageView上
+                imgIcon.setImageBitmap(image);
+                //也可以进行一些保存、压缩等操作后上传
+                String path = saveImage("crop", image);
+                if(TextUtils.isEmpty(path)){
+                    toast("保存失败");
+                    return;
+                }
+                showLoadingDialog();
+                File file = new File(path);
+                BmobFile bmobFile = new BmobFile(file);
+                bmobFile.uploadblock(new UploadFileListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        hideLoadingDialog();
+                        if(e==null){
+                            imgUrl = e.getMessage();
+                        }else {
+
+                        }
+                    }
+                });
+            }
         }
+    }
+
+    public String saveImage(String name, Bitmap bmp) {
+        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
+        if (!appDir.exists()) {
+            appDir.mkdir();
+        }
+        String fileName = name + ".jpg";
+        File file = new File(appDir, fileName);
+        try {
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
+            fos.flush();
+            fos.close();
+            return file.getAbsolutePath();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * 裁剪图片
+     */
+    private void cropPhoto(Uri uri) {
+        Intent intent = new Intent("com.android.camera.action.CROP");
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+        intent.setDataAndType(uri, "image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("outputX", 300);
+        intent.putExtra("outputY", 300);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, Constant.REQUEST_CODE_CROP);
     }
 
     private boolean selectLocalAvatarFinish(int requestCode, int resultCode) {

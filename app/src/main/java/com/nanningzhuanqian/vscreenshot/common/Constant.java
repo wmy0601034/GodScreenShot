@@ -78,6 +78,8 @@ public class Constant {
     public static final int REQUEST_CODE_SELECT_LOCAL_AVATAR = 1014;
     public static final int REQUEST_CODE_SELECT_NETWORK_AVATAR = 1015;
     public static final int REQUEST_CODE_SELECT_CONTACT_TAG = 1016;
+    public static final int REQUEST_CODE_SELECT_AVATAR_BY_CAMERA = 1017;
+    public static final int REQUEST_CODE_CROP = 1018;
 
     public static final int RESULT_CODE_SUCCESS = 1000;
     public static final int RESULT_CODE_CANCEL = 2000;
