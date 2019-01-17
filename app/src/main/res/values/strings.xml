@@ -6130,7 +6130,7 @@ http://wechat.com/dl/ 然后扫描二维码加我好友。"</string>
     <string name="djr">朋友们可以通过微信号找到你</string>
     <string name="djs">填写个人信息</string>
     <string name="djt">微信号</string>
-    <string name="dju">微信号格式不正确。微信号支持使用6～20个字母、数字、下划线和减号，必须以字母开头</string>
+    <string name="wx_account_not_right">微信号格式不正确。微信号支持使用6～20个字母、数字、下划线和减号，必须以字母开头</string>
     <string name="djv">当前没有任何消息提醒</string>
     <string name="djw">设置提醒失败</string>
     <string name="djx">无法设置提醒</string>
@@ -6943,7 +6943,7 @@ http://wechat.com/dl/ 然后扫描二维码加我好友。"</string>
     <string name="e5h">更多安全设置</string>
     <string name="e5i">我的相册</string>
     <string name="e5j">相册</string>
-    <string name="e5k">不公开显示</string>
+    <string name="no_public_show">不公开显示</string>
     <string name="e5l">我的发票抬头</string>
     <string name="e5m">我的二维码</string>
     <string name="e5n">昵称</string>
@@ -8372,7 +8372,7 @@ https://weixin.qq.com
     <string name="f6e">帐单地址信息类型格式有误，请重新填写</string>
     <string name="f6f">银行卡号格式错误，请检查并重新输入</string>
     <string name="f6g">证件号格式和手机号码格式错误，请检查并重新输入</string>
-    <string name="f6h">手机号码格式错误，请检查并重新输入</string>
+    <string name="mobile_not_right">手机号码格式错误，请检查并重新输入</string>
     <string name="f6i">请输入名</string>
     <string name="f6j">名</string>
     <string name="f6k">关注%s公众号，及时获取消息通知</string>

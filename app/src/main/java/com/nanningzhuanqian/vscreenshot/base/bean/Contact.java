@@ -16,6 +16,12 @@ public class Contact{
     public static final int ICON_TYPE_RESOURCE = 0;
     //网络图片
     public static final int ICON_TYPE_NETWORK = 1;
+    //男
+    public static final int GENDER_MALE = 0;
+    //女
+    public static final int GENDER_FEMALE = 1;
+    //保密
+    public static final int GENDER_PRIVATE = 2;
     //数据库id
     private String id;
     //图标类型 0 本地 1 网络
@@ -45,9 +51,9 @@ public class Contact{
     //微信昵称
     private String wechatNickName;
     //微信号
-    private String wechatNumber;
+    private String wechatAccount;
     //地区
-    private String region;
+    private String wechatAddress;
     //给该联系人添加的标签
     private List<Tag> tagList;
     //电话号码
@@ -74,12 +80,13 @@ public class Contact{
     private int momentBackgroundRes;
     //朋友圈背景图网络图片url
     private int momentBackgroundUrl;
+    //男女
+    private int gender;
 
     private String pointToUser;
 
-    private Uri avatarUri;
     //共同好友个数
-    private int commonContact;
+    private int commonGroup;
     //来源
     private int fromType;
     //0 来自QQ好友
@@ -103,12 +110,12 @@ public class Contact{
     //9 无
     public static final int FROM_NONE = 9;
 
-    public int getCommonContact() {
-        return commonContact;
+    public int getCommonGroup() {
+        return commonGroup;
     }
 
-    public void setCommonContact(int commonContact) {
-        this.commonContact = commonContact;
+    public void setCommonGroup(int commonGroup) {
+        this.commonGroup = commonGroup;
     }
 
     public int getFromType() {
@@ -125,14 +132,6 @@ public class Contact{
 
     public void setPointToUser(String pointToUser) {
         this.pointToUser = pointToUser;
-    }
-
-    public Uri getAvatarUri() {
-        return avatarUri;
-    }
-
-    public void setAvatarUri(Uri avatarUri) {
-        this.avatarUri = avatarUri;
     }
 
     public String getId() {
@@ -248,20 +247,28 @@ public class Contact{
         this.wechatNickName = wechatNickName;
     }
 
-    public String getWechatNumber() {
-        return wechatNumber;
+    public String getWechatAccount() {
+        return wechatAccount;
     }
 
-    public void setWechatNumber(String wechatNumber) {
-        this.wechatNumber = wechatNumber;
+    public void setWechatAccount(String wechatAccount) {
+        this.wechatAccount = wechatAccount;
     }
 
-    public String getRegion() {
-        return region;
+    public String getWechatAddress() {
+        return wechatAddress;
     }
 
-    public void setRegion(String region) {
-        this.region = region;
+    public void setWechatAddress(String wechatAddress) {
+        this.wechatAddress = wechatAddress;
+    }
+
+    public int getGender() {
+        return gender;
+    }
+
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
     public List<Tag> getTagList() {

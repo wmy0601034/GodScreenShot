@@ -233,7 +233,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
         contact.setIconUrl(imgUrl);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
         contact.setPointToUser(mobile);
-        contact.setAvatarUri(avatarUri);
+//        contact.setAvatarUri(avatarUri);
 //        contact.save();
 
         ContractItem item = new ContractItem();

@@ -22,12 +22,12 @@ import android.widget.TextView;
 
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
-import com.lzy.imagepicker.loader.ImageLoader;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.TagsCur;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
@@ -39,6 +39,7 @@ import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.NetworkAvatar;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.m00_base.NetworkAvatarSelectActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.person.WXRegionSelectionActivity;
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
@@ -46,9 +47,6 @@ import com.nanningzhuanqian.vscreenshot.widget.PicassoImageLoader;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 
 import cn.bmob.v3.datatype.BmobFile;
@@ -69,10 +67,11 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     private EditText edRemarkName;
     private EditText edWechatAccount;
     private TextView tvGender;
-    private EditText edAddress;
+    private LinearLayout llAddress;
+    private TextView tvAddress;
     private EditText edMobile;
     private TextView tvFrom;
-    private EditText edCommon;
+    private EditText edCommonGroup;
     private TextView tvTag;
     private EditText edSignatrue;
     private LinearLayout llFrom;
@@ -81,9 +80,18 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     private Button btnRandom;
     private Button btnSubmit;
 
+    private int imgRes;
+    private String remarkName;
+    private String wxNickname;
+    private String wxAccount;
+    private int gender = Contact.GENDER_PRIVATE;
+    private String wxAddress;
+    private String wxMobile = "18888888888";
+    private String wxSignature;
+    private int commonGroup;
+    private String tag;
     private int fromType = 0;
     private String avatarType = "";
-    private Uri avatarUri;
     private String imgUrl = "";
     private int iconType = Contact.ICON_TYPE_RESOURCE;
 
@@ -103,11 +111,12 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         edRemarkName = (EditText) findViewById(R.id.edRemarkName);
         edWechatAccount = (EditText) findViewById(R.id.edWechatAccount);
         tvGender = (TextView) findViewById(R.id.tvGender);
-        edAddress = (EditText) findViewById(R.id.edAddress);
+        llAddress = (LinearLayout)findViewById(R.id.llAddress);
+        tvAddress = (TextView) findViewById(R.id.tvAddress);
         edMobile = (EditText) findViewById(R.id.edMobile);
         tvFrom = (TextView) findViewById(R.id.tvFrom);
         edSignatrue = (EditText) findViewById(R.id.edSignatrue);
-        edCommon = (EditText) findViewById(R.id.edCommon);
+        edCommonGroup = (EditText) findViewById(R.id.edCommonGroup);
         tvTag = (TextView) findViewById(R.id.tvTag);
         llFrom = (LinearLayout) findViewById(R.id.llFrom);
         llGender = (LinearLayout) findViewById(R.id.llGender);
@@ -124,6 +133,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         llAvatar.setOnClickListener(this);
         llFrom.setOnClickListener(this);
         llGender.setOnClickListener(this);
+        llAddress.setOnClickListener(this);
         llTag.setOnClickListener(this);
         tvTag.setOnClickListener(this);
         btnRandom.setOnClickListener(this);
@@ -145,6 +155,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         imagePicker.setImageLoader(new PicassoImageLoader());
         imagePicker.setShowCamera(true);  //显示拍照按钮
         imagePicker.setCrop(true);        //允许裁剪（单选才有效）
+        imagePicker.setMultiMode(false);
         imagePicker.setSaveRectangle(true); //是否按矩形区域保存
         imagePicker.setSelectLimit(1);    //选中数量限制
         imagePicker.setStyle(CropImageView.Style.RECTANGLE);  //裁剪框的形状
@@ -165,6 +176,9 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 break;
             case R.id.llAvatar:
                 showAvatarSheetDialog();
+                break;
+            case R.id.llAddress:
+                selectAddress();
                 break;
             case R.id.llFrom:
                 showFromSelection();
@@ -243,6 +257,11 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void selectAddress(){
+        Intent intent = new Intent(getThis(),WXRegionSelectionActivity.class);
+        startActivity(intent);
     }
 
     private void showFromSelection() {
@@ -361,12 +380,21 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             @Override
             public void onClick(int which) {
                 tvGender.setText(getString(R.string.male));
+                gender = Contact.GENDER_MALE;
             }
         });
         builder.addSheetItem(getString(R.string.female), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
                 tvGender.setText(getString(R.string.female));
+                gender = Contact.GENDER_FEMALE;
+            }
+        });
+        builder.addSheetItem(getString(R.string.no_public_show), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                tvGender.setText(getString(R.string.no_public_show));
+                gender = Contact.GENDER_PRIVATE;
             }
         });
         Dialog dialog = builder.create();
@@ -394,13 +422,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                     ImageItem imageItem = images.get(0);
                     String path = imageItem.path;
                     Log.i(TAG, "images size = " + images.size() + " path = " + path);
-                    File file = new File(path);
-                    if (file != null) {
-                        Uri imgUri = Uri.fromFile(file);
-                        cropPhoto(imgUri);
-                    } else {
-
-                    }
+                    uploadImage(path);
                 } else {
 
                 }
@@ -419,60 +441,22 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             } else {
                 Log.i(TAG, "没有数据");
             }
-        } else if (resultCode == ImagePicker.REQUEST_CODE_TAKE) {
-            Log.i(TAG, "");
-            Uri imgUri = (Uri) intent.getSerializableExtra(MediaStore.EXTRA_OUTPUT);
-            cropPhoto(imgUri);
-        } else {
-            if (selectLocalAvatarFinish(requestCode, resultCode)) {
-                imgRes = intent.getIntExtra("imgRes", R.mipmap.app_images_defaultface);
-                avatarType = Constant.VALUE_PIC_RES;
-                iconType = Contact.ICON_TYPE_RESOURCE;
-                imgIcon.setImageResource(imgRes);
-            } else if (selectNetworkAvatarFinish(requestCode, resultCode)) {
-                imgUrl = intent.getStringExtra("imgUrl");
-                Picasso.with(AddCustomContactActivityNew.this)
-                        .load(imgUrl)
-                        .into(imgIcon);
-            } else if (requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR) {
-
-            } else if (selectTagFinish(requestCode, resultCode)) {
-                String tag = intent.getStringExtra("tag");
-                tvTag.setText(tag);
-            } else if (requestCode == Constant.REQUEST_CODE_CROP) {
-//                Bundle bundle = intent.getExtras();
-//                if (bundle != null) {
-//                    //在这里获得了剪裁后的Bitmap对象，可以用于上传
-//                    Bitmap image = bundle.getParcelable("data");
-//                    //设置到ImageView上
-//                    imgIcon.setImageBitmap(image);
-//                    //也可以进行一些保存、压缩等操作后上传
-//                    String path = saveImage("crop", image);
-//                    if (TextUtils.isEmpty(path)) {
-//                        toast("保存失败");
-//                        return;
-//                    }
-//                    uploadImage(path);
-//                }
-                try {
-                    //获取裁剪后的图片，并显示出来
-                    Bitmap bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(mCutUri));
-                    String path = saveImage("crop", bitmap);
-                    imgIcon.setImageBitmap(bitmap);
-                    if (TextUtils.isEmpty(path)) {
-                        toast("保存失败");
-                        return;
-                    }
-                    uploadImage(path);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-
-            }
+        } else if (selectLocalAvatarFinish(requestCode, resultCode)) {
+            imgRes = intent.getIntExtra("imgRes", R.mipmap.app_images_defaultface);
+            avatarType = Constant.VALUE_PIC_RES;
+            iconType = Contact.ICON_TYPE_RESOURCE;
+            imgIcon.setImageResource(imgRes);
+        } else if (selectNetworkAvatarFinish(requestCode, resultCode)) {
+            imgUrl = intent.getStringExtra("imgUrl");
+            iconType = Contact.ICON_TYPE_NETWORK;
+            Picasso.with(AddCustomContactActivityNew.this)
+                    .load(imgUrl)
+                    .into(imgIcon);
+        } else if (selectTagFinish(requestCode, resultCode)) {
+            String tag = intent.getStringExtra("tag");
+            tvTag.setText(tag);
         }
     }
-
-    private Uri mCutUri;
 
     private void uploadImage(String path) {
         showLoadingDialog();
@@ -484,6 +468,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
                 if (e == null) {
                     imgUrl = bmobFile.getFileUrl();
+                    iconType = Contact.ICON_TYPE_NETWORK;
                     uploadNetworkAvatar(imgUrl);
                 } else {
                     hideLoadingDialog();
@@ -513,90 +498,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         });
     }
 
-    private String saveImage(String name, Bitmap bmp) {
-        File appDir = new File(Environment.getExternalStorageDirectory().getPath());
-        if (!appDir.exists()) {
-            appDir.mkdir();
-        }
-        String fileName = name + ".jpg";
-        File file = new File(appDir, fileName);
-        try {
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            return file.getAbsolutePath();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    /**
-     * 裁剪图片
-     */
-    private void cropPhoto(Uri uri) {
-        try {
-            Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//        intent.setDataAndType(uri, "image/*");
-//        intent.putExtra("crop", "true");
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        intent.putExtra("outputX", 400);
-//        intent.putExtra("outputY", 400);
-//        intent.putExtra("return-data", true);
-            File cutfile = new File(Environment.getExternalStorageDirectory().getPath(),
-                    "cutcamera.png"); //随便命名一个
-            if (cutfile.exists()) { //如果已经存在，则先删除,这里应该是上传到服务器，然后再删除本地的，没服务器，只能这样了
-                cutfile.delete();
-            }
-            cutfile.createNewFile();
-            //初始化 uri
-            Uri imageUri = uri; //返回来的 uri
-            Uri outputUri = null; //真实的 uri
-
-            File camerafile = new File(getFilesDir(),"crop.jpg");
-            if (Build.VERSION.SDK_INT >= 24) {
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                imageUri = FileProvider.getUriForFile(getApplicationContext(),
-                        "com.nanningzhuanqian.vscreenshot.provider",
-                        camerafile);
-            } else {
-                imageUri = Uri.fromFile(camerafile);
-            }
-
-            outputUri = Uri.fromFile(cutfile);
-            //把这个 uri 提供出去，就可以解析成 bitmap了
-            mCutUri = outputUri;
-            // crop为true是设置在开启的intent中设置显示的view可以剪裁
-            intent.putExtra("crop", true);
-            // aspectX,aspectY 是宽高的比例，这里设置正方形
-            intent.putExtra("aspectX", 1);
-            intent.putExtra("aspectY", 1);
-            //设置要裁剪的宽高
-            intent.putExtra("outputX", 400); //200dp
-            intent.putExtra("outputY", 400);
-            intent.putExtra("scale", true);
-            //如果图片过大，会导致oom，这里设置为false
-            intent.putExtra("return-data", false);
-            if (imageUri != null) {
-                intent.setDataAndType(imageUri, "image/*");
-            }
-            if (outputUri != null) {
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, outputUri);
-            }
-            intent.putExtra("noFaceDetection", true);
-            //压缩图片
-            intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-            startActivityForResult(intent, Constant.REQUEST_CODE_CROP);
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.i(TAG,"crop e = "+e.toString());
-        }
-    }
-
     private boolean selectLocalAvatarFinish(int requestCode, int resultCode) {
         return requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR && resultCode == 999;
     }
@@ -609,27 +510,43 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         return requestCode == Constant.REQUEST_CODE_SELECT_CONTACT_TAG && resultCode == Constant.RESULT_CODE_SUCCESS;
     }
 
-    private int imgRes;
-    private String remarkName;
-    private String wxNickname;
-
     private void save() {
         wxNickname = edWXNickname.getText().toString();
         remarkName = edRemarkName.getText().toString();
+        wxAccount = edWechatAccount.getText().toString();
+        wxAddress = tvAddress.getText().toString();
+        wxMobile = edMobile.getText().toString();
+        wxSignature = edSignatrue.getText().toString();
+        commonGroup = Integer.valueOf(edCommonGroup.getText().toString());
+        tag = tvTag.getText().toString();
         if (TextUtils.isEmpty(wxNickname)) {
             toast("请输入微信昵称");
             return;
         }
+        boolean checkWxAccount = Util.checkWxAccount(wxAccount);
+        if(!checkWxAccount){
+            toast(getString(R.string.wx_account_not_right));
+            return;
+        }
+        boolean checkMobile = Util.isPhone(wxMobile);
+        if(!checkMobile){
+            toast(getString(R.string.mobile_not_right));
+            return;
+        }
+
+
         Contact contact = new Contact();
         contact.setWechatNickName(wxNickname);
         contact.setRemarkName(remarkName);
+        contact.setWechatAccount(wxAccount);
+        contact.setWechatAddress(wxAddress);
+        contact.setMobile(wxMobile);
+        contact.setPersonalitySign(wxSignature);
         contact.setIconType(iconType);
         contact.setIconRes(imgRes);
         contact.setIconUrl(imgUrl);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         contact.setPointToUser(mobile);
-        contact.setAvatarUri(avatarUri);
-//        contact.save();
 
         ContractItem item = new ContractItem();
         item.setName(wxNickname);
@@ -637,7 +554,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
         item.setPointToUser(mobile);
         item.setImgType(avatarType);
-        item.setAvatarUri(avatarUri);
         ContractItems.getInstance().addFirst(item);
         //保存到本地
         ContractLite contractLite = item.convertToLite();

@@ -119,6 +119,8 @@
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
+                        android:singleLine="true"
+                        android:maxLength="16"
                         android:textColor="@color/gray"
                         android:textSize="14dp" />
 
@@ -150,6 +152,7 @@
                         android:layout_height="48dp"
                         android:layout_marginRight="@dimen/common_margin_two_side"
                         android:layout_weight="1"
+                        android:maxLength="16"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
@@ -184,6 +187,9 @@
                         android:layout_height="48dp"
                         android:layout_marginRight="@dimen/common_margin_two_side"
                         android:layout_weight="1"
+                        android:singleLine="true"
+                        android:maxLength="24"
+                        android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_-"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
@@ -240,22 +246,27 @@
                     android:background="@color/gray" />
 
                 <LinearLayout
+                    android:id="@+id/llAddress"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:background="?attr/selectableItemBackground">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="地区" />
 
-                    <EditText
-                        android:id="@+id/edAddress"
+                    <TextView
+                        android:id="@+id/tvAddress"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_marginRight="@dimen/common_margin_two_side"
                         android:layout_weight="1"
+                        android:maxLength="16"
+                        android:clickable="false"
+                        android:singleLine="true"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
@@ -292,10 +303,12 @@
                         android:layout_height="48dp"
                         android:layout_marginRight="@dimen/common_margin_two_side"
                         android:layout_weight="1"
+                        android:inputType="number"
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
                         android:text="18888888888"
+                        android:singleLine="true"
                         android:textColor="@color/gray"
                         android:textSize="14dp" />
 
@@ -367,6 +380,8 @@
                         android:background="@color/transparent"
                         android:gravity="center_vertical|right"
                         android:minWidth="16dp"
+                        android:maxLength="20"
+                        android:singleLine="true"
                         android:textColor="@color/gray"
                         android:textSize="14dp" />
 
@@ -393,7 +408,7 @@
                         android:text="我和TA共同的群聊" />
 
                     <EditText
-                        android:id="@+id/edCommon"
+                        android:id="@+id/edCommonGroup"
                         android:layout_width="0dp"
                         android:layout_height="48dp"
                         android:layout_weight="1"
@@ -402,6 +417,7 @@
                         android:inputType="number"
                         android:minWidth="16dp"
                         android:text=""
+                        android:singleLine="true"
                         android:textColor="@color/gray"
                         android:textSize="14dp" />
 

@@ -7,7 +7,9 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ChangeDetailAdapter;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
@@ -382,6 +384,37 @@ public class Util {
                 break;
         }
         return name;
+    }
+
+    public static final boolean checkWxAccount(String wxAccount){
+        if(TextUtils.isEmpty(wxAccount)){
+            return false;
+        }
+        String head = wxAccount.substring(0,1);
+        if(isNumber(head)){
+            return false;
+        }
+        if(wxAccount.length()<6){
+            return false;
+        }
+        if(wxAccount.length()>20){
+            return false;
+        }
+        return true;
+    }
+
+    public static final boolean isNumber(String letter){
+        String str = letter.replace("0","")
+                .replace("1","")
+                .replace("2","")
+                .replace("3","")
+                .replace("4","")
+                .replace("5","")
+                .replace("6","")
+                .replace("7","")
+                .replace("8","")
+                .replace("9","");
+        return TextUtils.equals(letter,str);
     }
 
     public static final boolean checkTagFormat(String name){
