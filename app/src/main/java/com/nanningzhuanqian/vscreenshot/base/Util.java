@@ -391,13 +391,17 @@ public class Util {
             return false;
         }
         String head = wxAccount.substring(0,1);
+        Log.i("wmy","checkWxAccount "+head+" "+wxAccount.length());
         if(isNumber(head)){
+            Log.i("wmy","checkWxAccount isNumber false");
             return false;
         }
         if(wxAccount.length()<6){
+            Log.i("wmy","checkWxAccount <6 false");
             return false;
         }
         if(wxAccount.length()>20){
+            Log.i("wmy","checkWxAccount >20 false");
             return false;
         }
         return true;
@@ -414,7 +418,7 @@ public class Util {
                 .replace("7","")
                 .replace("8","")
                 .replace("9","");
-        return TextUtils.equals(letter,str);
+        return !TextUtils.equals(letter,str);
     }
 
     public static final boolean checkTagFormat(String name){

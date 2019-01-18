@@ -86,7 +86,8 @@
         <activity android:name=".m01_wechat.wechat.person.WXRegionSelectionActivity"/>
 
         <activity android:name=".m01_wechat.custom.AddCustomConversationActivity"/>
-        <activity android:name=".m01_wechat.custom.AddCustomContactActivityNew"/>
+        <activity android:name=".m01_wechat.custom.AddCustomContactActivityNew"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".m01_wechat.custom.WxContactTagSelectionActivity"/>
         <activity android:name=".m01_wechat.custom.AddCustomContactActivity" />
         <activity android:name=".m01_wechat.custom.WechatChangeEditActivity"/>

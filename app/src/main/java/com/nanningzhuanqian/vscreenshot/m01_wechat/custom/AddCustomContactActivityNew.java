@@ -10,10 +10,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,9 +31,12 @@ import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.bean.TagsCur;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
+import com.nanningzhuanqian.vscreenshot.base.util.MyDB;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
@@ -88,12 +93,13 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     private String wxAddress;
     private String wxMobile = "18888888888";
     private String wxSignature;
-    private int commonGroup;
+    private int commonGroup = 0;
     private String tag;
     private int fromType = 0;
     private String avatarType = "";
     private String imgUrl = "";
     private int iconType = Contact.ICON_TYPE_RESOURCE;
+
 
 
     @Override
@@ -261,7 +267,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
     private void selectAddress(){
         Intent intent = new Intent(getThis(),WXRegionSelectionActivity.class);
-        startActivity(intent);
+        startActivityForResult(intent,Constant.REQUEST_CODE_SELECT_WX_REGION);
     }
 
     private void showFromSelection() {
@@ -455,6 +461,13 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         } else if (selectTagFinish(requestCode, resultCode)) {
             String tag = intent.getStringExtra("tag");
             tvTag.setText(tag);
+        }else if(requestCode==Constant.REQUEST_CODE_SELECT_WX_REGION){
+            if(resultCode == Constant.RESULT_CODE_SUCCESS){
+                String address = intent.getStringExtra(Constant.INTENT_KEY_ADDRESS);
+                tvAddress.setText(address);
+            }else {
+
+            }
         }
     }
 
@@ -517,12 +530,27 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         wxAddress = tvAddress.getText().toString();
         wxMobile = edMobile.getText().toString();
         wxSignature = edSignatrue.getText().toString();
+        if(TextUtils.isEmpty(edCommonGroup.getText().toString())) {
+            commonGroup = 0;
+        }
         commonGroup = Integer.valueOf(edCommonGroup.getText().toString());
         tag = tvTag.getText().toString();
         if (TextUtils.isEmpty(wxNickname)) {
             toast("请输入微信昵称");
             return;
         }
+        if(TextUtils.isEmpty(remarkName)) {
+            if (Contacts.getInstance().contains("wechatNickName",wxNickname)) {
+                toast(getString(R.string.wx_nickname_exists));
+                return;
+            }
+        }else{
+            if(Contacts.getInstance().contains("remarkName",remarkName)){
+                toast(getString(R.string.wx_remark_exists));
+                return;
+            }
+        }
+        Log.i(TAG,"wxAccount "+wxAccount);
         boolean checkWxAccount = Util.checkWxAccount(wxAccount);
         if(!checkWxAccount){
             toast(getString(R.string.wx_account_not_right));
@@ -534,7 +562,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             return;
         }
 
-
         Contact contact = new Contact();
         contact.setWechatNickName(wxNickname);
         contact.setRemarkName(remarkName);
@@ -545,8 +572,13 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         contact.setIconType(iconType);
         contact.setIconRes(imgRes);
         contact.setIconUrl(imgUrl);
+        contact.setGender(gender);
+        contact.setFromType(fromType);
+        contact.setCommonGroup(commonGroup);
+        contact.setTag(tag);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         contact.setPointToUser(mobile);
+        DBManager.saveContact(getApplicationContext(),contact);
 
         ContractItem item = new ContractItem();
         item.setName(wxNickname);
@@ -555,28 +587,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         item.setPointToUser(mobile);
         item.setImgType(avatarType);
         ContractItems.getInstance().addFirst(item);
-        //保存到本地
-        ContractLite contractLite = item.convertToLite();
-//        contractLite.save();
 
-        //保存到服务器
-        ContractBmob contractBmob = item.convertToBmob();
-        HttpUtil.getInstance().saveContract(contractBmob, new CallbackListener() {
-            @Override
-            public void onSuccess() {
-
-            }
-
-            @Override
-            public void onGetSuccess(Object o) {
-
-            }
-
-            @Override
-            public void onFailure(String message) {
-
-            }
-        });
         toast("添加成功");
         setResult(999);
         finish();

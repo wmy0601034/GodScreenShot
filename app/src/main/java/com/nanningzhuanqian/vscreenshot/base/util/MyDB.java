@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,10 +24,32 @@ public class MyDB extends SQLiteOpenHelper {
     public static final int DB_VERSION = 1;
     //微信联系人标签表
     public static final String TABLE_WX_TAG = "wx_tag";
+    //微信联系人表
+    public static final String TABLE_WX_CONTACT = "wx_contact";
     //创建微信联系人标签表的命令行
     public static final String CREATE_WX_TAG_TABLE_SQL =  "create table if not exists " + TABLE_WX_TAG + "("
             + "id integer primary key autoincrement,"
-            + "name vachar(20) not null)";
+            + "name text)";
+    //创建微信联系人标签表的命令行
+    public static final String CREATE_WX_CONTACT_TABLE_SQL = "create table if not exists "+TABLE_WX_CONTACT
+            + " ("
+            + "id integer primary key autoincrement,"
+            + "wechatNickName text,"
+            + "remarkName text,"
+            + "wechatAccount text,"
+            + "wechatAddress text,"
+            + "mobile text,"
+            + "personalitySign text,"
+            + "iconType ingeter,"
+            + "iconRes integer,"
+            + "iconUrl text,"
+            + "gender integer,"
+            + "fromType integer,"
+            + "commonGroup integer,"
+            + "tag text,"
+            + "pointToUser text"
+            + ")";
+
 
     private static Map<String, MyDB> dbMaps = new HashMap<String, MyDB>();
     private OnSqliteUpdateListener onSqliteUpdateListener;
@@ -39,6 +62,11 @@ public class MyDB extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VERSION);
         createTableList = new ArrayList<String>();
         createTableList.add(CREATE_WX_TAG_TABLE_SQL);
+        createTableList.add(CREATE_WX_CONTACT_TABLE_SQL);
+    }
+
+    public void init(){
+
     }
 
     /**
@@ -63,6 +91,7 @@ public class MyDB extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (String sqlString : createTableList) {
+            Log.i("wmy","mydb onCreate "+sqlString);
             db.execSQL(sqlString);
         }
     }
@@ -117,7 +146,8 @@ public class MyDB extends SQLiteOpenHelper {
         MyDB dataBaseOpenHelper = dbMaps.get(DB_NAME);
         synchronized (dataBaseOpenHelper) {
             SQLiteDatabase database = dataBaseOpenHelper.getWritableDatabase();
-            database.insert(table, null, contentValues);
+            long result = database.insert(table, null, contentValues);
+            Log.i("wmy","insert result = "+result);
         }
     }
 
@@ -258,6 +288,9 @@ public class MyDB extends SQLiteOpenHelper {
         if (onSqliteUpdateListener != null) {
             onSqliteUpdateListener.onSqliteUpdateListener(db, arg1, arg2);
         }
+        Log.i("wmy","mydb onUpgrade");
+        db.execSQL(CREATE_WX_TAG_TABLE_SQL);
+        db.execSQL(CREATE_WX_CONTACT_TABLE_SQL);
     }
 
     public interface OnSqliteUpdateListener {

@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.person;
 
+import android.content.Intent;
 import android.content.res.AssetManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Country;
 import com.nanningzhuanqian.vscreenshot.base.bean.Province;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tag;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tags;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WxContactTagSelectionActivity;
 
 import java.io.BufferedInputStream;
@@ -45,9 +47,6 @@ public class WXRegionSelectionActivity extends BaseActivity {
     private Country selectedCountry;
     private Province selectedProvince;
     private City selectedCity;
-    private List<String> strCountries = new ArrayList<>();
-    private HashMap<String, List<Province>> strProvinces = new HashMap<>();
-    private HashMap<String, List<City>> strCities = new HashMap<>(); //Key 省份 Value 城市集合
 
     @Override
     protected int getLayoutId() {
@@ -68,6 +67,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (level == 0) {
+                    setResult(Constant.RESULT_CODE_CANCEL);
                     finish();
                 } else if (level == 1) {
                     level = 0;
@@ -103,6 +103,13 @@ public class WXRegionSelectionActivity extends BaseActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        setResult(Constant.RESULT_CODE_CANCEL);
+        finish();
+    }
+
+    @Override
     protected void initData() {
         getCountries();
     }
@@ -135,7 +142,6 @@ public class WXRegionSelectionActivity extends BaseActivity {
                 String[] regions = enName.split("_");
                 int length = regions.length;
                 if (length <= 1) {  //国家级
-//                    Log.i(TAG,"lastCountry "+lastCountry+" cnName "+cnName);
                     if (TextUtils.isEmpty(lastCountry) || !TextUtils.equals(lastCountry, cnName)) {
                         List<Province> provinceList = new ArrayList<>();
                         for (int i = 0; i < provinces.size(); i++) {
@@ -144,8 +150,6 @@ public class WXRegionSelectionActivity extends BaseActivity {
                         country.setProvinces(provinceList);
                         if (!TextUtils.isEmpty(lastCountry)) {
                             countries.add(country);
-                            strCountries.add(cnName);
-                            strProvinces.put(cnName, provinceList);
                             Log.i(TAG, countries.size() + "添加 country = " + lastCountry + " " + country.getProvinces().size());
                         }
                         lastCountry = cnName;
@@ -156,36 +160,33 @@ public class WXRegionSelectionActivity extends BaseActivity {
                     country.setCnName(cnName);
                     country.setEnName(regions[0]);
                 } else if (length == 2) {  //省级
-                    if (!TextUtils.equals(lastProvince, cnName)) {
-                        List<City> cityList = new ArrayList<>();
-                        for (int i = 0; i < cities.size(); i++) {
-                            cityList.add(cities.get(i));
-                        }
-                        province.setCities(cityList);
-//                        if(!TextUtils.isEmpty(lastProvince)) {
-                        provinces.add(province);
-                        strCities.put(cnName, cityList);
-//                        }
-                        lastProvince = cnName;
-                    }
-                    cities.clear();
-                    cities = new ArrayList<>();
                     if (!TextUtils.isEmpty(cnName)) {
                         province = new Province();
                         province.setCnName(cnName);
                         province.setEnName(regions[1]);
+                        if (!TextUtils.equals(lastProvince, cnName)) {
+                            provinces.add(province);
+                            lastProvince = cnName;
+                        }
+                        cities.clear();
+                        cities = new ArrayList<>();
                     }
                 } else { //市级
                     city = new City();
                     city.setCnName(cnName);
                     city.setEnName(regions[2]);
                     cities.add(city);
+                    List<City> cityList = new ArrayList<>();
+                    for (int i = 0; i < cities.size(); i++) {
+                        cityList.add(cities.get(i));
+                    }
+                    if(provinces.size()!=0) {
+                        int position = provinces.size()-1;
+                        provinces.get(position).setCities(cityList);
+                    }
                 }
                 line = br.readLine();
             }
-            Log.i(TAG, "countries = " + countries.size());
-            Log.i(TAG, "china = " + countries.get(169).getCnName() + " " + countries.get(169).getProvinces().size());
-            Log.i(TAG, "china province " + strProvinces.get("中国").size());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -220,6 +221,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
         //省份数量为0的话 就可以返回了
         if (provinces == null || provinces.size() == 0) {
             selectFinish();
+            return;
         }
         provinceAdapter = new ProvinceAdapter();
         provinceAdapter.setProvinces(provinces);
@@ -229,6 +231,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
     private void selectCity(List<City> cities) {
         if (cities == null || cities.size() == 0) {
             selectFinish();
+            return;
         }
         cityAdapter = new CityAdapter();
         cityAdapter.setCities(cities);
@@ -236,7 +239,19 @@ public class WXRegionSelectionActivity extends BaseActivity {
     }
 
     private void selectFinish() {
-
+        String countryName = selectedCountry.getCnName();
+        String provinceName = selectedProvince==null?"":selectedProvince.getCnName();
+        String cityName = selectedCity == null?"":selectedCity.getCnName();
+        String address;
+        if(TextUtils.isEmpty(cityName)){
+            address = countryName+" "+provinceName;
+        }else{
+            address = provinceName+" "+cityName;
+        }
+        Intent intent = new Intent();
+        intent.putExtra(Constant.INTENT_KEY_ADDRESS,address);
+        setResult(Constant.RESULT_CODE_SUCCESS,intent);
+        finish();
     }
 
     public String getCode(InputStream is) {

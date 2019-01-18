@@ -2456,6 +2456,7 @@ All Rights Reserved."</string>
     <string name="awu">我可以帮你在微信里收发腾讯微博私信。</string>
     <string name="awv">电话号码</string>
     <string name="aww">设置备注和标签</string>
+    <string name="wx_remark_exists">微信备注已存在</string>
     <string name="awx">备注信息</string>
     <string name="awy">备注名</string>
     <string name="awz">朋友圈权限</string>
@@ -6619,6 +6620,7 @@ http://wechat.com/dl/ 然后扫描二维码加我好友。"</string>
     <string name="dws">"标签: "</string>
     <string name="dwt">"微信号: "</string>
     <string name="dwu">"微信昵称: "</string>
+    <string name="wx_nickname_exists">微信昵称已存在</string>
     <string name="dwv">搜索%s</string>
     <string name="dww">文章</string>
     <string name="dwx">公众号</string>

@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseFragment;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinComparator;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -101,6 +103,11 @@ public class ContactListFragment extends BaseFragment {
         pinyinComparator = new PinyinComparator();
 //        ContractItems.getInstance().add(new ContractItem(ContractAdapter.ITEM_CONTRACT_TYPE,"A0鹤鸣九州",R.mipmap.app_images_role_10000));
         String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
+        List<Contact> contacts = DBManager.getContacts(getContext());
+        Log.i(TAG,"initData = "+contacts.size());
+        for(int i = 0;i<contacts.size();i++){
+            Log.i(TAG,"initData = "+contacts.get(i).toString());
+        }
 //        List<ContractLite> contractLites = LitePal.findAll(ContractLite.class);
 //        for(int i = 0;i<contractLites.size();i++){
 //            ContractItem item = contractLites.get(i).convertToContractItem();

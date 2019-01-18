@@ -23,7 +23,7 @@ public class Contact{
     //保密
     public static final int GENDER_PRIVATE = 2;
     //数据库id
-    private String id;
+    private int id;
     //图标类型 0 本地 1 网络
     private int iconType;
     //本地图片资源ID
@@ -56,6 +56,8 @@ public class Contact{
     private String wechatAddress;
     //给该联系人添加的标签
     private List<Tag> tagList;
+    //标签字符串
+    private String tag;
     //电话号码
     private String mobile;
     //描述
@@ -134,11 +136,11 @@ public class Contact{
         this.pointToUser = pointToUser;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -373,5 +375,53 @@ public class Contact{
 
     public void setMomentBackgroundUrl(int momentBackgroundUrl) {
         this.momentBackgroundUrl = momentBackgroundUrl;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact{" +
+                "id=" + id +
+                ", iconType=" + iconType +
+                ", iconRes=" + iconRes +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", miniProgramList=" + miniProgramList +
+                ", isIgnore=" + isIgnore +
+                ", isImportant=" + isImportant +
+                ", isStrongReminder=" + isStrongReminder +
+                ", chatBackgroundType=" + chatBackgroundType +
+                ", chatBackgroundRes=" + chatBackgroundRes +
+                ", chatBackgroundUrl='" + chatBackgroundUrl + '\'' +
+                ", chatRecordList=" + chatRecordList +
+                ", remarkName='" + remarkName + '\'' +
+                ", wechatNickName='" + wechatNickName + '\'' +
+                ", wechatAccount='" + wechatAccount + '\'' +
+                ", wechatAddress='" + wechatAddress + '\'' +
+                ", tagList=" + tagList +
+                ", tag='" + tag + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", description='" + description + '\'' +
+                ", momentList=" + momentList +
+                ", commonGroupList=" + commonGroupList +
+                ", personalitySign='" + personalitySign + '\'' +
+                ", source='" + source + '\'' +
+                ", isStarContact=" + isStarContact +
+                ", isNoAccess=" + isNoAccess +
+                ", isAvoid=" + isAvoid +
+                ", momentBackgroundType=" + momentBackgroundType +
+                ", momentBackgroundRes=" + momentBackgroundRes +
+                ", momentBackgroundUrl=" + momentBackgroundUrl +
+                ", gender=" + gender +
+                ", pointToUser='" + pointToUser + '\'' +
+                ", commonGroup=" + commonGroup +
+                ", fromType=" + fromType +
+                '}';
     }
 }
