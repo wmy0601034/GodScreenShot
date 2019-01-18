@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -26,6 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -39,6 +41,13 @@ public class WXRegionSelectionActivity extends BaseActivity {
     private CountryAdapter countryAdapter;
     private ProvinceAdapter provinceAdapter;
     private CityAdapter cityAdapter;
+    private int level = 0;//有3档 0是国家 1 是省份 2是城市
+    private Country selectedCountry;
+    private Province selectedProvince;
+    private City selectedCity;
+    private List<String> strCountries = new ArrayList<>();
+    private HashMap<String, List<Province>> strProvinces = new HashMap<>();
+    private HashMap<String, List<City>> strCities = new HashMap<>(); //Key 省份 Value 城市集合
 
     @Override
     protected int getLayoutId() {
@@ -48,7 +57,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
     @Override
     protected void initView() {
         tvBack = (TextView) findViewById(R.id.tvBack);
-        lvRegion = (ListView)findViewById(R.id.lvRegion);
+        lvRegion = (ListView) findViewById(R.id.lvRegion);
         countryAdapter = new CountryAdapter();
         lvRegion.setAdapter(countryAdapter);
     }
@@ -58,7 +67,37 @@ public class WXRegionSelectionActivity extends BaseActivity {
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (level == 0) {
+                    finish();
+                } else if (level == 1) {
+                    level = 0;
+                    selectedProvince = null;
+                    selectCountry();
+                } else if (level == 2) {
+                    level = 1;
+                    selectedCity = null;
+                    selectProvince(provinces);
+                }
+            }
+        });
+        lvRegion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (level == 0) {
+                    level = 1;
+                    selectedCountry = countries.get(position);
+                    provinces = selectedCountry.getProvinces();
+                    Log.i("wmy", "onItemClick country " + selectedCountry.getCnName() + " " + (provinces != null ? provinces.size() : "null"));
+                    selectProvince(provinces);
+                } else if (level == 1) {
+                    level = 2;
+                    selectedProvince = provinces.get(position);
+                    cities = selectedProvince.getCities();
+                    selectCity(cities);
+                } else if (level == 2) {
+                    selectedCity = cities.get(position);
+                    selectFinish();
+                }
             }
         });
     }
@@ -73,9 +112,10 @@ public class WXRegionSelectionActivity extends BaseActivity {
     List<City> cities = new ArrayList<>();
     String lastCountry = "";
     String lastProvince = "";
+
     private void getCountries() {
         String path = "file:///android_asset/mmregioncode_zh_CN.txt";
-        Log.i(TAG,"getCountries start");
+        Log.i(TAG, "getCountries start");
         showLoadingDialog();
         AssetManager am = getAssets();
         try {
@@ -89,19 +129,25 @@ public class WXRegionSelectionActivity extends BaseActivity {
             City city = new City();
             String line = br.readLine();
             while (line != null) {
-                String []names = line.split("\\|");
+                String[] names = line.split("\\|");
                 String enName = names[0];
                 String cnName = names[1];
-                Log.i(TAG,"line = "+line+ " "+code+" "+names.length+" "+enName+" "+cnName);
-                String [] regions = enName.split("_");
+                String[] regions = enName.split("_");
                 int length = regions.length;
-                if(length<=1){  //国家级
-                    if(!TextUtils.isEmpty(lastCountry)&&!TextUtils.equals(lastCountry,cnName)) {
-                        country.setProvinces(provinces);
-                        countries.add(country);
-                        Log.i(TAG,"country enName "+country.getEnName()+" cnName "+country.getCnName()+" "+countries.size());
-                    }
-                    if(!TextUtils.equals(lastCountry,cnName)){
+                if (length <= 1) {  //国家级
+//                    Log.i(TAG,"lastCountry "+lastCountry+" cnName "+cnName);
+                    if (TextUtils.isEmpty(lastCountry) || !TextUtils.equals(lastCountry, cnName)) {
+                        List<Province> provinceList = new ArrayList<>();
+                        for (int i = 0; i < provinces.size(); i++) {
+                            provinceList.add(provinces.get(i));
+                        }
+                        country.setProvinces(provinceList);
+                        if (!TextUtils.isEmpty(lastCountry)) {
+                            countries.add(country);
+                            strCountries.add(cnName);
+                            strProvinces.put(cnName, provinceList);
+                            Log.i(TAG, countries.size() + "添加 country = " + lastCountry + " " + country.getProvinces().size());
+                        }
                         lastCountry = cnName;
                     }
                     provinces.clear();
@@ -109,26 +155,37 @@ public class WXRegionSelectionActivity extends BaseActivity {
                     country = new Country();
                     country.setCnName(cnName);
                     country.setEnName(regions[0]);
-                }else if(length == 2){  //省级
-                    if(!TextUtils.isEmpty(lastProvince)&&!TextUtils.equals(lastProvince,cnName)){
-                        province.setCities(cities);
+                } else if (length == 2) {  //省级
+                    if (!TextUtils.equals(lastProvince, cnName)) {
+                        List<City> cityList = new ArrayList<>();
+                        for (int i = 0; i < cities.size(); i++) {
+                            cityList.add(cities.get(i));
+                        }
+                        province.setCities(cityList);
+//                        if(!TextUtils.isEmpty(lastProvince)) {
                         provinces.add(province);
-                    }
-                    if(!TextUtils.equals(lastProvince,cnName)){
+                        strCities.put(cnName, cityList);
+//                        }
                         lastProvince = cnName;
                     }
                     cities.clear();
-                    province.setCnName(cnName);
-                    province.setEnName(regions[1]);
-                    provinces.add(province);
-                }else { //市级
+                    cities = new ArrayList<>();
+                    if (!TextUtils.isEmpty(cnName)) {
+                        province = new Province();
+                        province.setCnName(cnName);
+                        province.setEnName(regions[1]);
+                    }
+                } else { //市级
+                    city = new City();
                     city.setCnName(cnName);
                     city.setEnName(regions[2]);
                     cities.add(city);
                 }
                 line = br.readLine();
             }
-            Log.i(TAG,"countries = "+countries.size());
+            Log.i(TAG, "countries = " + countries.size());
+            Log.i(TAG, "china = " + countries.get(169).getCnName() + " " + countries.get(169).getProvinces().size());
+            Log.i(TAG, "china province " + strProvinces.get("中国").size());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -139,7 +196,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
         } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            Log.i(TAG,"countries e = "+e.toString());
+            Log.i(TAG, "countries e = " + e.toString());
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -147,6 +204,39 @@ public class WXRegionSelectionActivity extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void selectCountry() {
+        if (countries == null || countries.size() == 0) {
+            return;
+        }
+        if (countryAdapter == null) {
+            countryAdapter = new CountryAdapter();
+        }
+        lvRegion.setAdapter(countryAdapter);
+    }
+
+    private void selectProvince(List<Province> provinces) {
+        //省份数量为0的话 就可以返回了
+        if (provinces == null || provinces.size() == 0) {
+            selectFinish();
+        }
+        provinceAdapter = new ProvinceAdapter();
+        provinceAdapter.setProvinces(provinces);
+        lvRegion.setAdapter(provinceAdapter);
+    }
+
+    private void selectCity(List<City> cities) {
+        if (cities == null || cities.size() == 0) {
+            selectFinish();
+        }
+        cityAdapter = new CityAdapter();
+        cityAdapter.setCities(cities);
+        lvRegion.setAdapter(cityAdapter);
+    }
+
+    private void selectFinish() {
+
     }
 
     public String getCode(InputStream is) {
@@ -180,7 +270,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
         return null;
     }
 
-    public class CountryAdapter extends BaseAdapter{
+    public class CountryAdapter extends BaseAdapter {
 
         @Override
         public int getCount() {
@@ -215,11 +305,11 @@ public class WXRegionSelectionActivity extends BaseActivity {
         }
     }
 
-    public class ProvinceAdapter extends BaseAdapter{
+    public class ProvinceAdapter extends BaseAdapter {
 
         private List<Province> provinceList;
 
-        public void setProvinces(List<Province> provinceList){
+        public void setProvinces(List<Province> provinceList) {
             this.provinceList = provinceList;
         }
 
@@ -256,11 +346,11 @@ public class WXRegionSelectionActivity extends BaseActivity {
         }
     }
 
-    public class CityAdapter extends BaseAdapter{
+    public class CityAdapter extends BaseAdapter {
 
         private List<City> cityList;
 
-        public void setCities(List<City> cityList){
+        public void setCities(List<City> cityList) {
             this.cityList = cityList;
         }
 
@@ -297,7 +387,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
         }
     }
 
-    public class ViewHolder{
+    public class ViewHolder {
 
         TextView tvName;
 
