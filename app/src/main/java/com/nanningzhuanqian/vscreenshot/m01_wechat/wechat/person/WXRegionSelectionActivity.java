@@ -20,6 +20,7 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Country;
 import com.nanningzhuanqian.vscreenshot.base.bean.Province;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tag;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tags;
+import com.nanningzhuanqian.vscreenshot.base.util.WXRegionManager;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WxContactTagSelectionActivity;
 
@@ -187,6 +188,7 @@ public class WXRegionSelectionActivity extends BaseActivity {
                 }
                 line = br.readLine();
             }
+            WXRegionManager.getInstance(getApplicationContext()).setResgionData(countries);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {

@@ -1,6 +1,14 @@
 package com.nanningzhuanqian.vscreenshot.model;
 
+import android.content.Context;
+
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.base.bean.City;
+import com.nanningzhuanqian.vscreenshot.base.bean.Country;
+import com.nanningzhuanqian.vscreenshot.base.bean.Province;
+import com.nanningzhuanqian.vscreenshot.base.util.WXRegionManager;
+
+import java.util.List;
 import java.util.Random;
 
 public class RandomManager {
@@ -56,24 +64,121 @@ public class RandomManager {
 
     public static int getAvatarRes() {
         Random random = new Random();
-        int position  = random.nextInt(100);
+        int position = random.nextInt(100);
         return localAvatarRes[position];
     }
 
-    public static String [] conversationContents = {"我要做代理","代理怎么做","代理相关","代理","求代理","我想做代理","做代理","想做代理","怎么做代理",
-            "代理怎么操作","求做代理"};
+    public static String[] conversationContents = {"我要做代理", "代理怎么做", "代理相关", "代理", "求代理", "我想做代理", "做代理", "想做代理", "怎么做代理",
+            "代理怎么操作", "求做代理"};
 
-    public static String [] conversationContentsFrom = {"群里看到的","朋友介绍的","贴吧看到的","朋友圈看到的","QQ群看到的","微信群看到的","论坛看到的",
-            "论坛看到的","公众号看到的","扫码加的你","群里加的你","朋友介绍加的你","贴吧看到加的你","朋友圈看到加的你","Q群看到加的你","微信群加的你","论坛看到加的你"};
+    public static String[] conversationContentsFrom = {"群里看到的", "朋友介绍的", "贴吧看到的", "朋友圈看到的", "QQ群看到的", "微信群看到的", "论坛看到的",
+            "论坛看到的", "公众号看到的", "扫码加的你", "群里加的你", "朋友介绍加的你", "贴吧看到加的你", "朋友圈看到加的你", "Q群看到加的你", "微信群加的你", "论坛看到加的你"};
 
-    public static String [] contractContents = {"求加","加我","求通过"};
+    public static String[] contractContents = {"求加", "加我", "求通过"};
 
-    public static String [] conversationSpace={","," ","!","~","。","!!","!!!"};
+    public static String[] conversationSpace = {",", " ", "!", "~", "。", "!!", "!!!"};
 
-    public static String getRandomContent(){
+    public String[] signatures = {"", ""};
+
+    public String[] numberAreas = {"133", "149", "153", "173", "177", "180", "181", "189", "191", "199",
+            "130", "131", "132", "145", "155", "156", "166", "171", "175", "176", "185", "186", "134", "135", "136",
+            "137", "138", "139", "147", "150", "151", "152", "157", "158", "159", "172", "178", "182", "183", "184",
+            "187", "188", "198","1700","1701","1702","162","1703","1705","1706","165","1704","1707","1708","1709",
+            "171","167","199"};
+
+    public static String getRandomContent() {
         Random random = new Random();
         int position = random.nextInt(11);
         return conversationContents[position];
+    }
+
+    public String getRandomWxAccount() {
+        return "wxid_" + System.currentTimeMillis();
+    }
+
+    public String getRandomWxAddress(Context context) {
+        String address = "";
+        Random random = new Random();
+        List<Country> countries = WXRegionManager.getInstance(context).getRegionData();
+        if(countries==null||countries.size()==0){
+            return address;
+        }
+        int countryBound = countries.size()-1;
+        int countryIndex = random.nextInt(countryBound);
+        Country country = countries.get(countryIndex);
+        if(country==null){
+            return address;
+        }
+        String countryName = country.getCnName();
+        address = countryName;
+        List<Province> provinces = country.getProvinces();
+        if(provinces==null||provinces.size()==0){
+            return address;
+        }
+        int provinceBound = provinces.size()-1;
+        int provinceIndex = random.nextInt(provinceBound);
+        Province province = provinces.get(provinceIndex);
+        if(province==null){
+            return address;
+        }
+        String provinceName = province.getCnName();
+        address = countryName+" "+provinceName;
+        List<City> cities = province.getCities();
+        if(cities==null||cities.size()==0){
+            return address;
+        }
+        int cityBound = cities.size()-1;
+        int cityIndex = random.nextInt(cityBound);
+        City city = cities.get(cityIndex);
+        if(city==null){
+            return address;
+        }
+        String cityName = city.getCnName();
+        address = provinceName+" "+cityName;
+        return address;
+    }
+
+    public String getRandomMobile() {
+        String mobile = "";
+        Random random = new Random();
+        int bound = numberAreas.length-1;
+        int position = random.nextInt(bound);
+        String numberHead = numberAreas[position];
+        String currentTime = String.valueOf(System.currentTimeMillis());
+        if(numberHead.length()==4){
+            mobile = numberHead+currentTime.substring(0,7);
+        }else {
+            mobile = numberHead+currentTime.substring(0,8);
+        }
+        return mobile;
+    }
+
+    public String getRandomSignature() {
+        String signature = "";
+        return signature;
+    }
+
+    public int getRandomGender() {
+        Random random = new Random();
+        int gender = random.nextInt(3);
+        return gender;
+    }
+
+    public int getRandomFromType() {
+        Random random = new Random();
+        int fromType = random.nextInt(9);
+        return fromType;
+    }
+
+    public int getRandomCommonGroup() {
+        Random random = new Random();
+        int commonGroup = random.nextInt(6);
+        return commonGroup;
+    }
+
+    public String getRandomTag() {
+        String tag = "";
+        return tag;
     }
 
     public static String getRandomName() {
@@ -82,16 +187,16 @@ public class RandomManager {
         String firstName = "";
         if (type == NAME_TYPE_PREFIX_NAME) {
             Random randomPreFix = new Random();
-            int firstNameIndex =randomPreFix.nextInt(realFirstName.length-1);
+            int firstNameIndex = randomPreFix.nextInt(realFirstName.length - 1);
             firstName = realFirstName[firstNameIndex];
             int prefixIndex = randomPreFix.nextInt(3);
-            name = prefixName[prefixIndex]+firstName;
+            name = prefixName[prefixIndex] + firstName;
         } else if (type == NAME_TYPE_POSTFIX_NAME) {
             Random randomPostFix = new Random();
-            int firstNameIndex =randomPostFix.nextInt(realFirstName.length-1);
+            int firstNameIndex = randomPostFix.nextInt(realFirstName.length - 1);
             firstName = realFirstName[firstNameIndex];
             int postfixIndex = randomPostFix.nextInt(8);
-            name = firstName+postfixName[postfixIndex];
+            name = firstName + postfixName[postfixIndex];
         } else if (type == 2) {
 
         }
@@ -103,15 +208,15 @@ public class RandomManager {
             "曹", "曾", "彭", "萧", "蔡", "潘", "田", "董", "袁", "于", "余", "叶", "蒋", "杜", "苏", "魏", "程", "吕", "丁", "沈",
             "任", "姚", "卢", "傅", "钟", "姜", "崔", "谭", "廖", "范", "汪", "陆", "金", "石", "戴", "贾", "韦", "夏", "邱", "方",
             "侯", "邹", "熊", "孟", "秦", "白", "江", "阎", "薛", "尹", "段", "雷", "黎", "史", "龙", "陶", "贺", "顾", "毛", "郝",
-            "龚", "邵", "万", "钱", "严", "赖", "覃", "洪", "武", "莫", "孔", "汤", "向", "常", "温", "康", "施", "文" };
+            "龚", "邵", "万", "钱", "严", "赖", "覃", "洪", "武", "莫", "孔", "汤", "向", "常", "温", "康", "施", "文"};
 
 //    public static final String[] realLastName = {
 //
 //    };
 
-    public static String[] prefixName = {"阿", "老", "小" };
+    public static String[] prefixName = {"阿", "老", "小"};
 
-    public static String[] postfixName = {"老板", "总", "科", "董", "哥", "姐", "工", "局" };
+    public static String[] postfixName = {"老板", "总", "科", "董", "哥", "姐", "工", "局"};
 
     private static final int NAME_TYPE_PREFIX_NAME = 0; //如 老+林
     private static final int NAME_TYPE_POSTFIX_NAME = 1; //如 林+哥
@@ -129,7 +234,7 @@ public class RandomManager {
         return System.currentTimeMillis() - randomInt * 60 * 1000;
     }
 
-    public static boolean getBoolean(){
+    public static boolean getBoolean() {
         Random random = new Random();
         return random.nextBoolean();
     }

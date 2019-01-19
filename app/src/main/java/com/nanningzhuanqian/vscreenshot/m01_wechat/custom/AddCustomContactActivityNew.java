@@ -49,6 +49,7 @@ import com.nanningzhuanqian.vscreenshot.m00_base.NetworkAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.person.WXRegionSelectionActivity;
 import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.ContractLite;
+import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.nanningzhuanqian.vscreenshot.widget.PicassoImageLoader;
 import com.squareup.picasso.Picasso;
@@ -56,6 +57,7 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -104,7 +106,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     private int iconType = Contact.ICON_TYPE_RESOURCE;
 
 
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_add_custom_role_new;
@@ -121,7 +122,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         edRemarkName = (EditText) findViewById(R.id.edRemarkName);
         edWechatAccount = (EditText) findViewById(R.id.edWechatAccount);
         tvGender = (TextView) findViewById(R.id.tvGender);
-        llAddress = (LinearLayout)findViewById(R.id.llAddress);
+        llAddress = (LinearLayout) findViewById(R.id.llAddress);
         tvAddress = (TextView) findViewById(R.id.tvAddress);
         edMobile = (EditText) findViewById(R.id.edMobile);
         tvFrom = (TextView) findViewById(R.id.tvFrom);
@@ -264,9 +265,9 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         dialog.show();
     }
 
-    private void selectAddress(){
-        Intent intent = new Intent(getThis(),WXRegionSelectionActivity.class);
-        startActivityForResult(intent,Constant.REQUEST_CODE_SELECT_WX_REGION);
+    private void selectAddress() {
+        Intent intent = new Intent(getThis(), WXRegionSelectionActivity.class);
+        startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_WX_REGION);
     }
 
     private void showFromSelection() {
@@ -407,38 +408,102 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     }
 
     private void randomCreate() {
+        Contact contact = getRandomContact();
+        wxNickname = contact.getWechatNickName();
+        remarkName = contact.getRemarkName();
+        wxAccount = contact.getWechatAccount();
+        wxAddress = contact.getWechatAddress();
+        wxMobile = contact.getMobile();
+        wxSignature = contact.getPersonalitySign();
+        iconType = contact.getIconType();
+        imgRes = contact.getIconRes();
+        gender = contact.getGender();
+        fromType = contact.getFromType();
+        commonGroup = contact.getCommonGroup();
+        tag = contact.getTag();
+        edWXNickname.setText(wxNickname);
+        edRemarkName.setText(remarkName);
+        edWechatAccount.setText(wxAccount);
+        tvAddress.setText(wxAddress);
+        edMobile.setText(wxMobile);
+        edSignatrue.setText(wxSignature);
+        imgIcon.setImageResource(imgRes);
+        switch (gender) {
+            case Contact.GENDER_MALE:
+                tvGender.setText(getString(R.string.male));
+                break;
+            case Contact.GENDER_FEMALE:
+                tvGender.setText(getString(R.string.female));
+                break;
+            case Contact.GENDER_PRIVATE:
+                tvGender.setText(getString(R.string.no_public_show));
+                break;
+        }
+        switch (fromType) {
+            case Contact.FROM_QQ:
+                tvFrom.setText(getString(R.string.from_qq));
+                break;
+            case Contact.FROM_MOBILE:
+                tvFrom.setText(getString(R.string.from_mobile));
+                break;
+            case Contact.FROM_GROUP:
+                tvFrom.setText(getString(R.string.from_group));
+                break;
+            case Contact.FROM_PHONE_CONTACT:
+                tvFrom.setText(getString(R.string.from_phone_contact));
+                break;
+            case Contact.FROM_QRCODE:
+                tvFrom.setText(getString(R.string.from_qrcode));
+                break;
+            case Contact.FROM_CARD_SHARE:
+                tvFrom.setText(getString(R.string.from_card_share));
+                break;
+            case Contact.FROM_NEAR:
+                tvFrom.setText(getString(R.string.from_near));
+                break;
+            case Contact.FROM_SHAKE:
+                tvFrom.setText(getString(R.string.from_shake));
+                break;
+            case Contact.FROM_DRIFT:
+                tvFrom.setText(getString(R.string.from_drift));
+                break;
+            case Contact.FROM_NONE:
 
+                break;
+        }
+        edCommonGroup.setText(commonGroup+"");
+        tvTag.setText(tag);
     }
 
     private void checkCamera() {
-        if(checkingPermission){
+        if (checkingPermission) {
             return;
         }
         //运行时权限申请
         PermissionUtils.requestPermissions(this, new PermissionUtils.OnRequestPermissionListener() {
             @Override
             public void onResult(boolean granted, Map<String, Boolean> denied) {
-                if(granted){
+                if (granted) {
                     //拍照需要摄像头权限
-                    PermissionUtils.requestPermissions(getThis(),new PermissionUtils.OnRequestPermissionListener(){
+                    PermissionUtils.requestPermissions(getThis(), new PermissionUtils.OnRequestPermissionListener() {
                         @Override
-                        public void onResult(boolean granted,Map<String, Boolean> denied) {
+                        public void onResult(boolean granted, Map<String, Boolean> denied) {
 //                            if(BuildConfig.DEBUG) Log.e("requestPermissions","denied: "+denied);
-                            if(granted||denied.size()<=1){
+                            if (granted || denied.size() <= 1) {
                                 checkingPermission = false;
                                 checkStorage(true);
-                            }else {
+                            } else {
                                 checkingPermission = false;
-                                permissionDeniedDialog(R.string.open_permission,R.string.open_camera_permission);
+                                permissionDeniedDialog(R.string.open_permission, R.string.open_camera_permission);
                             }
                         }
                     }, Manifest.permission.CAMERA);
-                }else {
+                } else {
                     checkingPermission = false;
-                    permissionDeniedDialog(R.string.open_permission,R.string.open_camera_permission);
+                    permissionDeniedDialog(R.string.open_permission, R.string.open_camera_permission);
                 }
             }
-        },Manifest.permission.CAMERA);
+        }, Manifest.permission.CAMERA);
     }
 
     @Override
@@ -447,48 +512,48 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void checkStorage(final boolean takePhoto){
-        if(checkingPermission){
+    private void checkStorage(final boolean takePhoto) {
+        if (checkingPermission) {
             return;
         }
         //运行时权限申请
         PermissionUtils.requestPermissions(this, new PermissionUtils.OnRequestPermissionListener() {
             @Override
             public void onResult(boolean granted, Map<String, Boolean> denied) {
-                if(granted){
+                if (granted) {
                     //需要存储权限
-                    PermissionUtils.requestPermissions(getThis(),new PermissionUtils.OnRequestPermissionListener(){
+                    PermissionUtils.requestPermissions(getThis(), new PermissionUtils.OnRequestPermissionListener() {
                         @Override
-                        public void onResult(boolean granted,Map<String, Boolean> denied) {
+                        public void onResult(boolean granted, Map<String, Boolean> denied) {
 //                            if(BuildConfig.DEBUG) Log.e("requestPermissions","denied: "+denied);
-                            if(granted||denied.size()<=1){
+                            if (granted || denied.size() <= 1) {
                                 checkingPermission = false;
-                                if(takePhoto) {
+                                if (takePhoto) {
                                     goCamera();
-                                }else {
+                                } else {
                                     goPickPictrue();
                                 }
-                            }else {
+                            } else {
                                 checkingPermission = false;
-                                permissionDeniedDialog(R.string.open_permission,R.string.open_storage_permission);
+                                permissionDeniedDialog(R.string.open_permission, R.string.open_storage_permission);
                             }
                         }
-                    }, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                }else {
+                    }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                } else {
                     checkingPermission = false;
-                    permissionDeniedDialog(R.string.open_permission,R.string.open_storage_permission);
+                    permissionDeniedDialog(R.string.open_permission, R.string.open_storage_permission);
                 }
             }
-        },Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        }, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE);
     }
 
-    private void goCamera(){
+    private void goCamera() {
         Intent intent = new Intent(this, ImageGridActivity.class);
         intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
         startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_AVATAR_BY_CAMERA);
     }
 
-    private void goPickPictrue(){
+    private void goPickPictrue() {
         Intent intent = new Intent(AddCustomContactActivityNew.this, ImageGridActivity.class);
         startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
     }
@@ -535,11 +600,11 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         } else if (selectTagFinish(requestCode, resultCode)) {
             String tag = intent.getStringExtra("tag");
             tvTag.setText(tag);
-        }else if(requestCode==Constant.REQUEST_CODE_SELECT_WX_REGION){
-            if(resultCode == Constant.RESULT_CODE_SUCCESS){
+        } else if (requestCode == Constant.REQUEST_CODE_SELECT_WX_REGION) {
+            if (resultCode == Constant.RESULT_CODE_SUCCESS) {
                 String address = intent.getStringExtra(Constant.INTENT_KEY_ADDRESS);
                 tvAddress.setText(address);
-            }else {
+            } else {
 
             }
         }
@@ -604,7 +669,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         wxAddress = tvAddress.getText().toString();
         wxMobile = edMobile.getText().toString();
         wxSignature = edSignatrue.getText().toString();
-        if(TextUtils.isEmpty(edCommonGroup.getText().toString())) {
+        if (TextUtils.isEmpty(edCommonGroup.getText().toString())) {
             commonGroup = 0;
         }
         commonGroup = Integer.valueOf(edCommonGroup.getText().toString());
@@ -613,26 +678,26 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             toast("请输入微信昵称");
             return;
         }
-        if(TextUtils.isEmpty(remarkName)) {
-            if (Contacts.getInstance().contains("wechatNickName",wxNickname)) {
+        if (TextUtils.isEmpty(remarkName)) {
+            if (Contacts.getInstance().contains("wechatNickName", wxNickname)) {
                 toast(getString(R.string.wx_nickname_exists));
                 return;
             }
             remarkName = wxNickname;
-        }else{
-            if(Contacts.getInstance().contains("remarkName",remarkName)){
+        } else {
+            if (Contacts.getInstance().contains("remarkName", remarkName)) {
                 toast(getString(R.string.wx_remark_exists));
                 return;
             }
         }
-        Log.i(TAG,"wxAccount "+wxAccount);
+        Log.i(TAG, "wxAccount " + wxAccount);
         boolean checkWxAccount = Util.checkWxAccount(wxAccount);
-        if(!checkWxAccount){
+        if (!checkWxAccount) {
             toast(getString(R.string.wx_account_not_right));
             return;
         }
         boolean checkMobile = Util.isPhone(wxMobile);
-        if(!checkMobile){
+        if (!checkMobile) {
             toast(getString(R.string.mobile_not_right));
             return;
         }
@@ -651,12 +716,43 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         contact.setFromType(fromType);
         contact.setCommonGroup(commonGroup);
         contact.setTag(tag);
-        Log.i(TAG,"save iconType = "+iconType+" imgRes = "+imgRes+" imgUrl = "+imgUrl);
+        Log.i(TAG, "save iconType = " + iconType + " imgRes = " + imgRes + " imgUrl = " + imgUrl);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         contact.setPointToUser(mobile);
-        DBManager.saveContact(getApplicationContext(),contact);
+        DBManager.saveContact(getApplicationContext(), contact);
         toast("添加成功");
         setResult(999);
         finish();
+    }
+
+    private Contact getRandomContact() {
+        String wxNickname = RandomManager.getInstance().getRandomName();
+        String remarkName = RandomManager.getInstance().getRandomName();
+        String wxAccount = RandomManager.getInstance().getRandomWxAccount();
+        String wxAddress = RandomManager.getInstance().getRandomWxAddress(getThis());
+        String wxMobile = RandomManager.getInstance().getRandomMobile();
+        String wxSignature = RandomManager.getInstance().getRandomSignature();
+        int iconType = Contact.ICON_TYPE_RESOURCE;
+        int imgRes = RandomManager.getInstance().getAvatarRes();
+        String imgUrl = "";
+        int gender = RandomManager.getInstance().getRandomGender();
+        int fromType = RandomManager.getInstance().getRandomFromType();
+        int commonGroup = RandomManager.getInstance().getRandomCommonGroup();
+        String tag = RandomManager.getInstance().getRandomTag();
+        Contact randomContact = new Contact();
+        randomContact.setWechatNickName(wxNickname);
+        randomContact.setRemarkName(remarkName);
+        randomContact.setWechatAccount(wxAccount);
+        randomContact.setWechatAddress(wxAddress);
+        randomContact.setMobile(wxMobile);
+        randomContact.setPersonalitySign(wxSignature);
+        randomContact.setIconType(iconType);
+        randomContact.setIconRes(imgRes);
+        randomContact.setIconUrl(imgUrl);
+        randomContact.setGender(gender);
+        randomContact.setFromType(fromType);
+        randomContact.setCommonGroup(commonGroup);
+        randomContact.setTag(tag);
+        return randomContact;
     }
 }
