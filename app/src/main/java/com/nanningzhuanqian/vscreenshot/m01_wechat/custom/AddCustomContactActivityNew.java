@@ -1,22 +1,11 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat.custom;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -28,27 +17,19 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.bean.TagsCur;
-import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
-import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
-import com.nanningzhuanqian.vscreenshot.base.util.MyDB;
 import com.nanningzhuanqian.vscreenshot.base.util.PermissionUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.NetworkAvatar;
 import com.nanningzhuanqian.vscreenshot.m00_base.LocalAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.m00_base.NetworkAvatarSelectActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.person.WXRegionSelectionActivity;
-import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
-import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.nanningzhuanqian.vscreenshot.widget.PicassoImageLoader;
@@ -57,7 +38,6 @@ import com.squareup.picasso.Picasso;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Random;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -408,7 +388,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
     }
 
     private void randomCreate() {
-        Contact contact = getRandomContact();
+        Contact contact = RandomManager.getInstance().getRandomContact(getThis());
         wxNickname = contact.getWechatNickName();
         remarkName = contact.getRemarkName();
         wxAccount = contact.getWechatAccount();
@@ -725,34 +705,4 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         finish();
     }
 
-    private Contact getRandomContact() {
-        String wxNickname = RandomManager.getInstance().getRandomName();
-        String remarkName = RandomManager.getInstance().getRandomName();
-        String wxAccount = RandomManager.getInstance().getRandomWxAccount();
-        String wxAddress = RandomManager.getInstance().getRandomWxAddress(getThis());
-        String wxMobile = RandomManager.getInstance().getRandomMobile();
-        String wxSignature = RandomManager.getInstance().getRandomSignature();
-        int iconType = Contact.ICON_TYPE_RESOURCE;
-        int imgRes = RandomManager.getInstance().getAvatarRes();
-        String imgUrl = "";
-        int gender = RandomManager.getInstance().getRandomGender();
-        int fromType = RandomManager.getInstance().getRandomFromType();
-        int commonGroup = RandomManager.getInstance().getRandomCommonGroup();
-        String tag = RandomManager.getInstance().getRandomTag();
-        Contact randomContact = new Contact();
-        randomContact.setWechatNickName(wxNickname);
-        randomContact.setRemarkName(remarkName);
-        randomContact.setWechatAccount(wxAccount);
-        randomContact.setWechatAddress(wxAddress);
-        randomContact.setMobile(wxMobile);
-        randomContact.setPersonalitySign(wxSignature);
-        randomContact.setIconType(iconType);
-        randomContact.setIconRes(imgRes);
-        randomContact.setIconUrl(imgUrl);
-        randomContact.setGender(gender);
-        randomContact.setFromType(fromType);
-        randomContact.setCommonGroup(commonGroup);
-        randomContact.setTag(tag);
-        return randomContact;
-    }
 }

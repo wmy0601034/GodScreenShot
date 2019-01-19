@@ -1,13 +1,8 @@
 package com.nanningzhuanqian.vscreenshot.base.bean;
 
-import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.DataStorageImpl;
-import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 
-import java.util.Collections;
 import java.util.List;
 
 /**

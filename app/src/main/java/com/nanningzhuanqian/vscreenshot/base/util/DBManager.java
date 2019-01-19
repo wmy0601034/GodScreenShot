@@ -136,6 +136,10 @@ public class DBManager {
         return contacts;
     }
 
+    public static final int clearContact(Context context){
+        return MyDB.getInstance(context).delete(MyDB.TABLE_WX_CONTACT,null,null);
+    }
+
     //对话
 
 

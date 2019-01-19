@@ -3,22 +3,20 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.event.RefreshUnReadCountEvent;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItems;
-import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomContactActivityNew;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.WechatGlobalSettingActivity;
@@ -26,7 +24,6 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ContactL
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ConversationListFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.DiscoverFragment;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.fragment.ProfileFragment;
-import com.nanningzhuanqian.vscreenshot.model.ContractLite;
 import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabButton;
 import com.nanningzhuanqian.vscreenshot.widget.DMTabHost;
@@ -35,8 +32,6 @@ import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -85,7 +80,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
                         showConversationOptionDialog();
                         break;
                     case 1:
-                        showRoleOptionDialog();
+                        showContactOptionDialog();
                         break;
                 }
             }
@@ -227,7 +222,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         dialog.show();
     }
 
-    private void showRoleOptionDialog(){
+    private void showContactOptionDialog(){
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatMainActivity.this);
 
         builder.setCancelable(false);
@@ -251,7 +246,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //随机添加1个角色
-                randomSingleNewFriend();
+                randomCreateContact(1);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_20_role), NewActionSheetDialog
@@ -260,7 +255,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //随机添加20个角色
-                random20NewFriend();
+                randomCreateContact(20);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_clear_role), NewActionSheetDialog
@@ -269,8 +264,9 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //清空所有角色
-                ContractItems.getInstance().clear();
-                conversationListFragment.notifyDataSetChanged();
+                Contacts.getInstance().clear();
+                int count = DBManager.clearContact(getApplicationContext());
+                contactListFragment.initData();
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_page_setting), NewActionSheetDialog
@@ -295,41 +291,15 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         }
     }
 
-    private void randomSingleNewFriend(){
-        generateRandomNewFriend(1);
-    }
-
-    private void random20NewFriend(){
-        generateRandomNewFriend(20);
-    }
-
-    private void generateRandomNewFriend(int count){
-        List<ContractItem> cacheList ;
-        cacheList = ContractItems.getInstance().getWithOutTop();
-        if(cacheList==null){
-            cacheList = new ArrayList<>();
-        }
-        Log.i(TAG,"generateRandomNewFriend count = "+count);
-        ContractItems.getInstance().clear();
+    private void randomCreateContact(int count){
+        //先缓存当前的
         for(int i = 0;i<count;i++){
-            String name = RandomManager.getInstance().getRandomName();
-            int imgRes =RandomManager.getInstance().getAvatarRes();
-            String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
-            ContractItem item = new ContractItem();
-            item.setName(name);
-            item.setType(ContactAdapter.ITEM_COMMON_TYPE);
-            item.setImgRes(imgRes);
-            item.setPointToUser(mobile);
-            cacheList.add(item);
-            //保存到本地
-            ContractLite contractLite = item.convertToLite();
-//            contractLite.save();
+            Contact contact = RandomManager.getInstance().getRandomContact(getApplicationContext());
+            String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
+            contact.setPointToUser(mobile);
+            DBManager.saveContact(getApplicationContext(), contact);
         }
-        ContractItems.getInstance().add(cacheList);
-        Log.i(TAG,"ContractItems add = "+ContractItems.getInstance().size()+" "+cacheList.size());
-        ContractItems.getInstance().initTop();
-        Log.i(TAG,"ContractItems initTop = "+ContractItems.getInstance().size());
-        contactListFragment.notifyDataSetChanged();
+        contactListFragment.initData();
     }
 
     private void randomSingleConversation(){

@@ -1,7 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.base.net;
 
 
-import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 
 /**
@@ -56,14 +55,6 @@ public class HttpUtil {
     public void submitFeedback(Feedback feedback,CallbackListener callbackListener){
         api.submitFeedback(feedback,callbackListener);
     }
-
-    public void saveContract(ContractBmob contractBmob,CallbackListener callbackListener){
-        api.saveContract(contractBmob,callbackListener);
-    }
-
-//    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener){
-//        api.saveConversation(conversationBmob,callbackListener);
-//    }
 
     public void getWechatWalletContent(CallbackListener callbackListener){
         api.getWechatWalletContent(callbackListener);

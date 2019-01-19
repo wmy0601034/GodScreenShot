@@ -1,6 +1,5 @@
 package com.nanningzhuanqian.vscreenshot.base.net;
 
-import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 
 /**
@@ -43,10 +42,6 @@ public interface API {
     void getConfig(CallbackListener callbackListener);
 
     void submitFeedback(Feedback feedback,CallbackListener callbackListener);
-
-    void saveContract(ContractBmob contractBmob,CallbackListener callbackListener);
-
-//    void saveConversation(ConversationBmob conversationBmob,CallbackListener callbackListener);
 
     void getWechatWalletContent(CallbackListener callbackListener);
 

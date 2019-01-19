@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.nanningzhuanqian.vscreenshot.item.NetworkAvatar;
 import com.nanningzhuanqian.vscreenshot.model.Config;
-import com.nanningzhuanqian.vscreenshot.model.ContractBmob;
 import com.nanningzhuanqian.vscreenshot.model.Feedback;
 import com.nanningzhuanqian.vscreenshot.model.User;
 import com.nanningzhuanqian.vscreenshot.model.WechatWalletConfig;
@@ -117,26 +116,6 @@ public class BmobApi implements API {
             }
         });
     }
-
-    @Override
-    public void saveContract(ContractBmob contractBmob, CallbackListener callbackListener) {
-        contractBmob.save(new SaveListener<String>() {
-            @Override
-            public void done(String objectId, BmobException e) {
-
-            }
-        });
-    }
-
-//    @Override
-//    public void saveConversation(ConversationBmob conversationBmob, CallbackListener callbackListener) {
-//        conversationBmob.save(new SaveListener<String>() {
-//            @Override
-//            public void done(String s, BmobException e) {
-//
-//            }
-//        });
-//    }
 
     @Override
     public void getWechatWalletContent(final CallbackListener callbackListener) {

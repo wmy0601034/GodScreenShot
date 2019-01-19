@@ -1,7 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.model;
 
 import com.nanningzhuanqian.vscreenshot.item.ChangeDetailItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 
 
 /**

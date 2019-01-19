@@ -20,15 +20,7 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinComparator;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinUtils;
-import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
-import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItems;
-import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItem;
-import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contract.WechatNewFriendActivity;
-import com.nanningzhuanqian.vscreenshot.model.ContractLite;
-import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 
 
 import java.util.ArrayList;
@@ -96,7 +88,7 @@ public class ContactListFragment extends BaseFragment {
         rcvContract.setItemAnimator(new DefaultItemAnimator());
     }
 
-    private void initData() {
+    public void initData() {
         pinyinComparator = new PinyinComparator();
         List<Contact> contacts = DBManager.getContacts(getContext());
         Log.i(TAG,"initData = "+contacts.size());
@@ -110,10 +102,6 @@ public class ContactListFragment extends BaseFragment {
                     .getIconRes()+" "+Contacts.getInstance().get(i).getIconUrl());
         }
         Contacts.getInstance().initTop();
-        contactAdapter.notifyDataSetChanged();
-    }
-
-    public void notifyDataSetChanged(){
         contactAdapter.notifyDataSetChanged();
     }
 

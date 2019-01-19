@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.bean.City;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Country;
 import com.nanningzhuanqian.vscreenshot.base.bean.Province;
 import com.nanningzhuanqian.vscreenshot.base.util.WXRegionManager;
@@ -237,5 +238,36 @@ public class RandomManager {
     public static boolean getBoolean() {
         Random random = new Random();
         return random.nextBoolean();
+    }
+
+    public Contact getRandomContact(Context context) {
+        String wxNickname = getRandomName();
+        String remarkName = getRandomName();
+        String wxAccount = getRandomWxAccount();
+        String wxAddress = getRandomWxAddress(context);
+        String wxMobile = getRandomMobile();
+        String wxSignature = getRandomSignature();
+        int iconType = Contact.ICON_TYPE_RESOURCE;
+        int imgRes = getAvatarRes();
+        String imgUrl = "";
+        int gender = getRandomGender();
+        int fromType = getRandomFromType();
+        int commonGroup = getRandomCommonGroup();
+        String tag = getRandomTag();
+        Contact randomContact = new Contact();
+        randomContact.setWechatNickName(wxNickname);
+        randomContact.setRemarkName(remarkName);
+        randomContact.setWechatAccount(wxAccount);
+        randomContact.setWechatAddress(wxAddress);
+        randomContact.setMobile(wxMobile);
+        randomContact.setPersonalitySign(wxSignature);
+        randomContact.setIconType(iconType);
+        randomContact.setIconRes(imgRes);
+        randomContact.setIconUrl(imgUrl);
+        randomContact.setGender(gender);
+        randomContact.setFromType(fromType);
+        randomContact.setCommonGroup(commonGroup);
+        randomContact.setTag(tag);
+        return randomContact;
     }
 }

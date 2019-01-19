@@ -179,11 +179,11 @@ public class MyDB extends SQLiteOpenHelper {
      * @return void
      * @author lihy
      */
-    public void delete(String table, String whereClause, String[] whereArgs) {
+    public int delete(String table, String whereClause, String[] whereArgs) {
         MyDB dataBaseOpenHelper = dbMaps.get(DB_NAME);
         synchronized (dataBaseOpenHelper) {
             SQLiteDatabase database = dataBaseOpenHelper.getWritableDatabase();
-            database.delete(table, whereClause, whereArgs);
+            return database.delete(table, whereClause, whereArgs);
         }
     }
 
