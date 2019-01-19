@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
+import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
@@ -239,7 +239,7 @@ public class AddCustomContactActivity extends BaseActivity implements View.OnCli
         ContractItem item = new ContractItem();
         item.setName(wxNickname);
         item.setImgRes(imgRes);
-        item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
+        item.setType(ContactAdapter.ITEM_COMMON_TYPE);
         item.setPointToUser(mobile);
         item.setImgType(avatarType);
         item.setAvatarUri(avatarUri);

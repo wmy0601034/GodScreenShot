@@ -12,22 +12,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.item.ContractItem;
-import com.nanningzhuanqian.vscreenshot.item.ContractItems;
 import com.nanningzhuanqian.vscreenshot.item.WechatNewFriendItems;
+import com.squareup.picasso.Picasso;
 
-public class ContractAdapter extends RecyclerView.Adapter {
+public class ContactAdapter extends RecyclerView.Adapter {
 
     public static final int ITEM_COMMON_TYPE = 0;
-    public static final int ITEM_NEW_FRIEND = 2;
-    public static final int ITEM_CONTRACT_TYPE = 1;
-
+    public static final int ITEM_GONGZHONGHAO_TYPE = 1;
+    public static final int ITEM_TAG_TYPE = 2;
+    public static final int ITEM_GROUP_TYPE = 3;
+    public static final int ITEM_NEW_FRIEND = 4;
     private Context context;
     private OnItemClickListener listener;
 
-    public ContractAdapter(Context context) {
+    public ContactAdapter(Context context) {
         this.context = context;
     }
 
@@ -36,22 +38,21 @@ public class ContractAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position,ContractItem item);
+        void onItemClick(int position,Contact contact);
     }
 
     @Override
     public RecyclerView.ViewHolder  onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType==ITEM_COMMON_TYPE||viewType==ITEM_CONTRACT_TYPE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_list_item, parent, false);
-            CommonViewHolder viewHolder = new CommonViewHolder(v);
-            return viewHolder;
-        }else if(viewType==ITEM_NEW_FRIEND){
+        if(viewType==ITEM_NEW_FRIEND){
             View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_new_friend_item,
                     parent, false);
             NewFriendViewHolder viewHolder = new NewFriendViewHolder(v);
             return viewHolder;
+        }else{
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.m01_contract_list_item, parent, false);
+            CommonViewHolder viewHolder = new CommonViewHolder(v);
+            return viewHolder;
         }
-        return null;
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
             CommonViewHolder viewHolder = (CommonViewHolder) holder;
             int section = getSectionForPosition(position);
             Log.i("wmy", "section = " + section);
-            final ContractItem item = ContractItems.getInstance().get(position);
+            final Contact contact = Contacts.getInstance().get(position);
             if (section == -1) {
                 viewHolder.tvInitial.setVisibility(View.GONE);
                 viewHolder.divider.setVisibility(View.VISIBLE);
@@ -68,19 +69,45 @@ public class ContractAdapter extends RecyclerView.Adapter {
                 if (position == getPositionForSection(section)) {
                     viewHolder.tvInitial.setVisibility(View.VISIBLE);
                     viewHolder.divider.setVisibility(View.GONE);
-                    viewHolder.tvInitial.setText(item.getLetters());
+                    viewHolder.tvInitial.setText(contact.getLetters());
                 } else {
                     viewHolder.tvInitial.setVisibility(View.GONE);
                     viewHolder.divider.setVisibility(View.VISIBLE);
                 }
             }
-            viewHolder.imgAvatar.setImageResource(item.getImgRes());
-            viewHolder.tvName.setText(item.getName());
+            int iconType = contact.getIconType();
+            if(iconType==Contact.ICON_TYPE_RESOURCE) {
+                viewHolder.imgAvatar.setImageResource(contact.getIconRes());
+            }else if(iconType==Contact.ICON_TYPE_NETWORK){
+                String imgUrl = contact.getIconUrl();
+                Picasso.with(context)
+                        .load(imgUrl)
+                        .into(viewHolder.imgAvatar);
+            }
+            int type = contact.getType();
+            String remarkName = contact.getRemarkName();
+            String wxNickName = contact.getWechatNickName();
+            if(type == ITEM_COMMON_TYPE) {
+                if (TextUtils.isEmpty(remarkName)) {
+                    viewHolder.tvName.setText(wxNickName);
+                } else {
+                    viewHolder.tvName.setText(remarkName);
+                }
+            }else if(type == ITEM_TAG_TYPE){
+                viewHolder.tvName.setText(context.getString(R.string.wx_tag));
+                viewHolder.imgAvatar.setImageResource(R.mipmap.app_views_pages_wechat_home_images_contacticon3);
+            }else if(type == ITEM_GROUP_TYPE){
+                viewHolder.tvName.setText(context.getString(R.string.wx_group_chat));
+                viewHolder.imgAvatar.setImageResource(R.mipmap.app_views_pages_wechat_home_images_contacticon2);
+            }else if(type ==ITEM_GONGZHONGHAO_TYPE){
+                viewHolder.tvName.setText(context.getString(R.string.wx_gongzhonghao));
+                viewHolder.imgAvatar.setImageResource(R.mipmap.app_views_pages_wechat_home_images_contacticon4);
+            }
             viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        listener.onItemClick(position,item);
+                        listener.onItemClick(position,contact);
                     }
                 }
             });
@@ -121,10 +148,10 @@ public class ContractAdapter extends RecyclerView.Adapter {
      * 根据ListView的当前位置获取分类的首字母的char ascii值
      */
     public int getSectionForPosition(int position) {
-        if (TextUtils.isEmpty(ContractItems.getInstance().get(position).getLetters())) {
+        if (TextUtils.isEmpty(Contacts.getInstance().get(position).getLetters())) {
             return -1;
         } else {
-            return ContractItems.getInstance().get(position).getLetters().charAt(0);
+            return Contacts.getInstance().get(position).getLetters().charAt(0);
         }
     }
 
@@ -133,7 +160,7 @@ public class ContractAdapter extends RecyclerView.Adapter {
      */
     public int getPositionForSection(int section) {
         for (int i = 0; i < getItemCount(); i++) {
-            String sortStr = ContractItems.getInstance().get(i).getLetters();
+            String sortStr = Contacts.getInstance().get(i).getLetters();
             if(!TextUtils.isEmpty(sortStr)) {
                 char firstChar = sortStr.toUpperCase().charAt(0);
                 if (firstChar == section) {
@@ -147,12 +174,12 @@ public class ContractAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemViewType(int position) {
-        return ContractItems.getInstance().get(position).getType();
+        return Contacts.getInstance().get(position).getType();
     }
 
     @Override
     public int getItemCount() {
-        return ContractItems.getInstance().size();
+        return Contacts.getInstance().size();
     }
 
     public class CommonViewHolder extends RecyclerView.ViewHolder {

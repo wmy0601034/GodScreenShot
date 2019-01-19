@@ -9,7 +9,7 @@ import cn.bmob.v3.BmobObject;
 public class ContractBmob extends BmobObject {
 
 
-    private int type;   // 根据ContractAdapter里面的来
+    private int type;   // 根据ContactAdapter里面的来
     private String initial;
     private String name;
     private int imgRes;

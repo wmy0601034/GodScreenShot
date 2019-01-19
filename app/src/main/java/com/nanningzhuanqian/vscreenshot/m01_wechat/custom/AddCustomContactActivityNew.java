@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat.custom;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.lzy.imagepicker.view.CropImageView;
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
+import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
@@ -37,6 +38,7 @@ import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
 import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.MyDB;
+import com.nanningzhuanqian.vscreenshot.base.util.PermissionUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
@@ -53,6 +55,7 @@ import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Map;
 
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.exception.BmobException;
@@ -111,6 +114,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         tvBack = (TextView) findViewById(R.id.tvBack);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
         tvSubmit = (TextView) findViewById(R.id.tvSubmit);
+        tvSubmit.setVisibility(View.GONE);
         llAvatar = (LinearLayout) findViewById(R.id.llAvatar);
         imgIcon = (ImageView) findViewById(R.id.imgIcon);
         edWXNickname = (EditText) findViewById(R.id.edWXNickname);
@@ -135,7 +139,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
     protected void initEvent() {
         tvBack.setOnClickListener(this);
-        tvSubmit.setOnClickListener(this);
         llAvatar.setOnClickListener(this);
         llFrom.setOnClickListener(this);
         llGender.setOnClickListener(this);
@@ -176,9 +179,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         switch (v.getId()) {
             case R.id.tvBack:
                 finish();
-                break;
-            case R.id.tvSubmit:
-                save();
                 break;
             case R.id.llAvatar:
                 showAvatarSheetDialog();
@@ -229,7 +229,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             @Override
             public void onClick(int which) {
                 //拍照
-                takePhoto();
+                checkCamera();
             }
         });
         builder.addSheetItem("相册", NewActionSheetDialog
@@ -238,8 +238,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
             @Override
             public void onClick(int which) {
                 //相册
-                Intent intent = new Intent(AddCustomContactActivityNew.this, ImageGridActivity.class);
-                startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
+                checkStorage(false);
             }
         });
         builder.addSheetItem("头像库", NewActionSheetDialog
@@ -411,10 +410,87 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
 
     }
 
-    private void takePhoto() {
+    private void checkCamera() {
+        if(checkingPermission){
+            return;
+        }
+        //运行时权限申请
+        PermissionUtils.requestPermissions(this, new PermissionUtils.OnRequestPermissionListener() {
+            @Override
+            public void onResult(boolean granted, Map<String, Boolean> denied) {
+                if(granted){
+                    //拍照需要摄像头权限
+                    PermissionUtils.requestPermissions(getThis(),new PermissionUtils.OnRequestPermissionListener(){
+                        @Override
+                        public void onResult(boolean granted,Map<String, Boolean> denied) {
+//                            if(BuildConfig.DEBUG) Log.e("requestPermissions","denied: "+denied);
+                            if(granted||denied.size()<=1){
+                                checkingPermission = false;
+                                checkStorage(true);
+                            }else {
+                                checkingPermission = false;
+                                permissionDeniedDialog(R.string.open_permission,R.string.open_camera_permission);
+                            }
+                        }
+                    }, Manifest.permission.CAMERA);
+                }else {
+                    checkingPermission = false;
+                    permissionDeniedDialog(R.string.open_permission,R.string.open_camera_permission);
+                }
+            }
+        },Manifest.permission.CAMERA);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    private void checkStorage(final boolean takePhoto){
+        if(checkingPermission){
+            return;
+        }
+        //运行时权限申请
+        PermissionUtils.requestPermissions(this, new PermissionUtils.OnRequestPermissionListener() {
+            @Override
+            public void onResult(boolean granted, Map<String, Boolean> denied) {
+                if(granted){
+                    //需要存储权限
+                    PermissionUtils.requestPermissions(getThis(),new PermissionUtils.OnRequestPermissionListener(){
+                        @Override
+                        public void onResult(boolean granted,Map<String, Boolean> denied) {
+//                            if(BuildConfig.DEBUG) Log.e("requestPermissions","denied: "+denied);
+                            if(granted||denied.size()<=1){
+                                checkingPermission = false;
+                                if(takePhoto) {
+                                    goCamera();
+                                }else {
+                                    goPickPictrue();
+                                }
+                            }else {
+                                checkingPermission = false;
+                                permissionDeniedDialog(R.string.open_permission,R.string.open_storage_permission);
+                            }
+                        }
+                    }, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+                }else {
+                    checkingPermission = false;
+                    permissionDeniedDialog(R.string.open_permission,R.string.open_storage_permission);
+                }
+            }
+        },Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE);
+    }
+
+    private void goCamera(){
         Intent intent = new Intent(this, ImageGridActivity.class);
         intent.putExtra(ImageGridActivity.EXTRAS_TAKE_PICKERS, true); // 是否是直接打开相机
         startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_AVATAR_BY_CAMERA);
+    }
+
+    private void goPickPictrue(){
+        Intent intent = new Intent(AddCustomContactActivityNew.this, ImageGridActivity.class);
+        startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
     }
 
     @Override
@@ -427,7 +503,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 if (images != null) {
                     ImageItem imageItem = images.get(0);
                     String path = imageItem.path;
-                    Log.i(TAG, "images size = " + images.size() + " path = " + path);
                     uploadImage(path);
                 } else {
 
@@ -438,7 +513,6 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 if (images != null) {
                     ImageItem imageItem = images.get(0);
                     String path = imageItem.path;
-                    Log.i(TAG, "images size = " + images.size() + " path = " + path);
                     uploadImage(path);
                 } else {
                     Log.i(TAG, "images = null ");
@@ -544,6 +618,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
                 toast(getString(R.string.wx_nickname_exists));
                 return;
             }
+            remarkName = wxNickname;
         }else{
             if(Contacts.getInstance().contains("remarkName",remarkName)){
                 toast(getString(R.string.wx_remark_exists));
@@ -576,18 +651,10 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         contact.setFromType(fromType);
         contact.setCommonGroup(commonGroup);
         contact.setTag(tag);
+        Log.i(TAG,"save iconType = "+iconType+" imgRes = "+imgRes+" imgUrl = "+imgUrl);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         contact.setPointToUser(mobile);
         DBManager.saveContact(getApplicationContext(),contact);
-
-        ContractItem item = new ContractItem();
-        item.setName(wxNickname);
-        item.setImgRes(imgRes);
-        item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
-        item.setPointToUser(mobile);
-        item.setImgType(avatarType);
-        ContractItems.getInstance().addFirst(item);
-
         toast("添加成功");
         setResult(999);
         finish();

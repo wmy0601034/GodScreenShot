@@ -1,7 +1,9 @@
 package com.nanningzhuanqian.vscreenshot.base;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,6 +27,7 @@ import android.widget.Toast;
 
 import com.gyf.barlibrary.ImmersionBar;
 import com.nanningzhuanqian.vscreenshot.R;
+import com.nanningzhuanqian.vscreenshot.base.util.PermissionUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.widget.ArrowView;
@@ -390,6 +393,30 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     public void initWechatUserImaRes(){
         wechatUserAvatarRes = (Integer)SPUtils.get(getThis(),Constant.KEY_PROFILE_AVATAR,0);
+    }
+
+    public boolean checkingPermission = false;
+    public void permissionDeniedDialog(int titleRes,int msgRes) {
+        new AlertDialog.Builder(getThis())
+                .setTitle(titleRes)
+                .setMessage(msgRes)
+                .setCancelable(false)
+                .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        finish();
+                    }
+                })
+                .setPositiveButton(R.string.setting_now, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        Util.showAppPermissions(getThis());
+                        checkingPermission = false;
+                    }
+                })
+                .create().show();
     }
 
 

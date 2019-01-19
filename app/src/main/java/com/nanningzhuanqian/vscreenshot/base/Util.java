@@ -1,12 +1,16 @@
 package com.nanningzhuanqian.vscreenshot.base;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.nanningzhuanqian.vscreenshot.BuildConfig;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ChangeDetailAdapter;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
@@ -429,6 +433,81 @@ public class Util {
             return false;
         }
         return true;
+    }
+
+    public static void showAppPermissions(Context context){
+
+        try {
+            boolean ret = false;
+            if (Build.BRAND.equalsIgnoreCase("nubia")) {
+                //手机管家
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage("cn.nubia.security2");
+                context.startActivity(intent);
+                ret = true;
+            } else if (Build.BRAND.equalsIgnoreCase("oppo")) {
+                //am start com.color.safecenter/.permission.PermissionManagerActivity
+                //安全中心
+                Intent intent = new Intent();
+                intent.setClassName("com.color.safecenter", "com.color.safecenter.permission.PermissionManagerActivity");
+                context.startActivity(intent);
+                ret = true;
+            } else if (Build.MODEL.equalsIgnoreCase("SM-G7108V")||Build.MODEL.equalsIgnoreCase("SM-A5000")) {
+                //一些三星手机,设定
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.android.settings");
+                context.startActivity(intent);
+                ret = true;
+            } else if (Build.BRAND.equalsIgnoreCase("GiONEE")) {
+                //系统管家
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.gionee.softmanager");
+                context.startActivity(intent);
+                ret = true;
+            }else if(Build.BRAND.equalsIgnoreCase("HUAWEI")){
+                Intent intent = new Intent("huawei.intent.action.HSM_PERMISSION_MANAGER");
+                context.startActivity(intent);
+                ret = true;
+            }else if(Build.MANUFACTURER.equalsIgnoreCase("YuLong")){
+                Intent intent = context.getPackageManager().getLaunchIntentForPackage("com.yulong.android.seccenter");
+                context.startActivity(intent);
+                ret = true;
+            }
+            if(ret)return;
+        }catch (Throwable e){
+            if(BuildConfig.DEBUG)e.printStackTrace();
+        }
+        showInstalledAppDetails(context);
+    }
+
+    public static void showInstalledAppDetails(Context context) {
+        showInstalledAppDetails(context,context.getPackageName());
+    }
+
+    private static final String SCHEME = "package";
+
+    private static final String APP_PKG_NAME_21 = "com.android.settings.ApplicationPkgName";
+
+    private static final String APP_PKG_NAME_22 = "pkg";
+
+    private static final String APP_DETAILS_PACKAGE_NAME = "com.android.settings";
+
+    private static final String APP_DETAILS_CLASS_NAME = "com.android.settings.InstalledAppDetails";
+
+    public static void showInstalledAppDetails(Context context,String packageName) {
+        Intent intent = new Intent();
+        final int apiLevel = Build.VERSION.SDK_INT;
+        if (apiLevel >= 9) { // above 2.3
+            intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+            Uri uri = Uri.fromParts(SCHEME, packageName, null);
+            intent.setData(uri);
+        } else { // below 2.3
+            final String appPkgName = (apiLevel == 8 ? APP_PKG_NAME_22
+                    : APP_PKG_NAME_21);
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.setClassName(APP_DETAILS_PACKAGE_NAME,
+                    APP_DETAILS_CLASS_NAME);
+            intent.putExtra(appPkgName, packageName);
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
 }

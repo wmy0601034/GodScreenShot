@@ -867,8 +867,9 @@ All Rights Reserved."</string>
     <string name="r9">libapp2sys</string>
     <string name="r_">请开启录音和摄像头权限</string>
     <string name="ra">请开启录音权限</string>
-    <string name="rb">请开启摄像头权限</string>
-    <string name="rc">开启权限</string>
+    <string name="open_camera_permission">请开启摄像头权限</string>
+    <string name="open_storage_permission">请开启文件存储权限</string>
+    <string name="open_permission">开启权限</string>
     <string name="rd">升级</string>
     <string name="re">NEW</string>
     <string name="rf">下一步</string>
@@ -2421,7 +2422,7 @@ All Rights Reserved."</string>
     <string name="avw">进群方式</string>
     <string name="avx">功能介绍</string>
     <string name="avy">在企业微信打开</string>
-    <string name="avz">标签</string>
+    <string name="wx_tag">标签</string>
     <string name="aw0">清除我的位置信息</string>
     <string name="aw1">开始查看附近的人</string>
     <string name="aw2">显示1千米范围内同样也进入此功能的人。</string>
@@ -3932,9 +3933,9 @@ All Rights Reserved."</string>
     <string name="bz2">搜索:</string>
     <string name="bz3">查找手机/QQ号:</string>
     <string name="bz4">查找微信号:</string>
-    <string name="bz5">公众号</string>
+    <string name="wx_gongzhonghao">公众号</string>
     <string name="bz6">相关文章</string>
-    <string name="bz7">群聊</string>
+    <string name="wx_group_chat">群聊</string>
     <string name="bz8">联系人</string>
     <string name="bz9">表情</string>
     <string name="bz_">表情专辑</string>
@@ -4694,7 +4695,7 @@ http://wechat.com/dl/ 然后扫描二维码加我好友。"</string>
     <string name="cia">验证失败</string>
     <string name="cib">公安系统失败</string>
     <string name="cic">对比信息与本人不符</string>
-    <string name="cid">去设置</string>
+    <string name="setting_now">去设置</string>
     <string name="cie">删除</string>
     <string name="cif">知道了</string>
     <string name="cig">选择联系人</string>

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ContractAdapter;
+import com.nanningzhuanqian.vscreenshot.adapter.ContactAdapter;
 import com.nanningzhuanqian.vscreenshot.adapter.MainTabAdpter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
@@ -317,7 +317,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
             ContractItem item = new ContractItem();
             item.setName(name);
-            item.setType(ContractAdapter.ITEM_CONTRACT_TYPE);
+            item.setType(ContactAdapter.ITEM_COMMON_TYPE);
             item.setImgRes(imgRes);
             item.setPointToUser(mobile);
             cacheList.add(item);

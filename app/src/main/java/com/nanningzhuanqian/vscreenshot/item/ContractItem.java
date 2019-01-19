@@ -10,7 +10,7 @@ import com.nanningzhuanqian.vscreenshot.model.ContractLite;
  */
 public class ContractItem{
 
-    private int type;   // 根据ContractAdapter里面的来
+    private int type;   // 根据ContactAdapter里面的来
     private String initial;
     private String name;
     private int imgRes;

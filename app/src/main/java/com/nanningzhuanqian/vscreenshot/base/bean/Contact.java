@@ -24,6 +24,8 @@ public class Contact{
     public static final int GENDER_PRIVATE = 2;
     //数据库id
     private int id;
+    //类型 0 普通  根据ContactAdapter里面的来
+    private int type;
     //图标类型 0 本地 1 网络
     private int iconType;
     //本地图片资源ID
@@ -111,6 +113,16 @@ public class Contact{
     public static final int FROM_DRIFT = 8;
     //9 无
     public static final int FROM_NONE = 9;
+    //显示拼音的首字母
+    private String letters;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 
     public int getCommonGroup() {
         return commonGroup;
@@ -383,6 +395,14 @@ public class Contact{
 
     public void setTag(String tag) {
         this.tag = tag;
+    }
+
+    public String getLetters() {
+        return letters;
+    }
+
+    public void setLetters(String letters) {
+        this.letters = letters;
     }
 
     @Override

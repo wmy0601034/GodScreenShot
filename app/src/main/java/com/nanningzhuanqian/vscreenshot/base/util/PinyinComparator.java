@@ -1,13 +1,14 @@
 package com.nanningzhuanqian.vscreenshot.base.util;
 
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.item.ContractItem;
 import com.nanningzhuanqian.vscreenshot.model.SortModel;
 
 import java.util.Comparator;
 
-public class PinyinComparator implements Comparator<ContractItem> {
+public class PinyinComparator implements Comparator<Contact> {
 
-    public int compare(ContractItem o1, ContractItem o2) {
+    public int compare(Contact o1, Contact o2) {
         if (o1.getLetters().equals("@")
                 || o2.getLetters().equals("#")) {
             return -1;
