@@ -64,6 +64,10 @@ public class Constant {
     public static final String INTENT_KEY_WITHDRAW_RESULT = "intent_key_withdraw_result";
     public static final String INTENT_KEY_ADDRESS = "intent_key_address";
 
+    public static final String INTENT_KEY_CONTACT_ALL_POS = "intent_key_contact_all_pos";
+
+    public static final String INTENT_KEY_CONTACT_SUB_POS = "intent_key_contact_sub_pos";
+
     public static final String INTENT_VALUE_EDIT = "intent_value_edit";
     public static final String INTENT_VALUE_ADD = "intent_value_add";
 

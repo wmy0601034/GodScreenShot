@@ -20,7 +20,12 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinComparator;
 import com.nanningzhuanqian.vscreenshot.base.util.PinyinUtils;
-import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contract.WechatNewFriendActivity;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact.WXContactProfileActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact.WechatNewFriendActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.group.WXGroupChatListActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.publicaccount.WXPublicAccountListActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.tag.WxContactTagListActivity;
 
 
 import java.util.ArrayList;
@@ -63,12 +68,25 @@ public class ContactListFragment extends BaseFragment {
     private void initEvent() {
         contactAdapter.setOnItemClickListener(new ContactAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(int position,Contact item) {
-                if(position==0){
-                    Intent intent = new Intent(getActivity(),WechatNewFriendActivity.class);
+            public void onItemClick(int allPos, int subPos, Contact contact) {
+                if (allPos == 0) {  //新的朋友
+                    Intent intent = new Intent(getActivity(), WechatNewFriendActivity.class);
                     startActivity(intent);
-                }else {
-                    toast(item.getRemarkName());
+                } else if (allPos == 1) {   //群聊列表
+                    Intent intent = new Intent(getActivity(),WXGroupChatListActivity.class);
+                    startActivity(intent);
+                } else if (allPos == 2) {   //标签
+                    Intent intent = new Intent(getActivity(),WxContactTagListActivity.class);
+                    startActivity(intent);
+                } else if (allPos == 3) {
+                    Intent intent = new Intent(getActivity(),WXPublicAccountListActivity.class);
+                    startActivity(intent);
+                } else {
+                    toast(contact.getRemarkName());
+                    Intent intent = new Intent(getActivity(),WXContactProfileActivity.class);
+                    intent.putExtra(Constant.INTENT_KEY_CONTACT_ALL_POS,allPos);
+                    intent.putExtra(Constant.INTENT_KEY_CONTACT_SUB_POS,subPos);
+                    startActivity(intent);
                 }
             }
         });
@@ -91,15 +109,15 @@ public class ContactListFragment extends BaseFragment {
     public void initData() {
         pinyinComparator = new PinyinComparator();
         List<Contact> contacts = DBManager.getContacts(getContext());
-        Log.i(TAG,"initData = "+contacts.size());
+        Log.i(TAG, "initData = " + contacts.size());
         Contacts.getInstance().clear();
-        contacts= filledData(contacts);
+        contacts = filledData(contacts);
         Collections.sort(contacts, pinyinComparator);
 
         Contacts.getInstance().add(contacts);
-        for(int i = 0;i<Contacts.getInstance().size();i++){
-            Log.i(TAG,i+ " "+Contacts.getInstance().get(i).getIconType()+" "+Contacts.getInstance().get(i)
-                    .getIconRes()+" "+Contacts.getInstance().get(i).getIconUrl());
+        for (int i = 0; i < Contacts.getInstance().size(); i++) {
+            Log.i(TAG, i + " " + Contacts.getInstance().get(i).getIconType() + " " + Contacts.getInstance().get(i)
+                    .getIconRes() + " " + Contacts.getInstance().get(i).getIconUrl());
         }
         Contacts.getInstance().initTop();
         contactAdapter.notifyDataSetChanged();

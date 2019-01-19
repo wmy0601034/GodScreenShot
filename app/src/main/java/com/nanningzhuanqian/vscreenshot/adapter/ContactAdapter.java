@@ -38,7 +38,7 @@ public class ContactAdapter extends RecyclerView.Adapter {
     }
 
     public interface OnItemClickListener {
-        void onItemClick(int position,Contact contact);
+        void onItemClick(int allPos,int subPos,Contact contact);
     }
 
     @Override
@@ -107,7 +107,7 @@ public class ContactAdapter extends RecyclerView.Adapter {
                 @Override
                 public void onClick(View v) {
                     if (listener != null) {
-                        listener.onItemClick(position,contact);
+                        listener.onItemClick(position,position>3?-1:position-4,contact);
                     }
                 }
             });
@@ -141,6 +141,14 @@ public class ContactAdapter extends RecyclerView.Adapter {
                 viewHolder.imgAvatar3.setVisibility(View.VISIBLE);
                 viewHolder.imgAvatar3.setImageResource(WechatNewFriendItems.getInstance().get(3).getImgRes());
             }
+            viewHolder.rootView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (listener != null) {
+                        listener.onItemClick(position,-1,null);
+                    }
+                }
+            });
         }
     }
 

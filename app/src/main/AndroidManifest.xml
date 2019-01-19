@@ -49,7 +49,14 @@
         <activity android:name=".m01_wechat.wechat.chat.WechatGroupChatActivity"/>
         <activity android:name=".m01_wechat.wechat.chat.WechatSingeChatActivity"/>
 
-        <activity android:name=".m01_wechat.wechat.contract.WechatNewFriendActivity"/>
+        <activity android:name=".m01_wechat.wechat.contact.WechatNewFriendActivity"/>
+        <activity android:name=".m01_wechat.wechat.contact.WXContactProfileActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.publicaccount.WXPublicAccountListActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.tag.WxContactTagListActivity"/>
+
+        <activity android:name=".m01_wechat.wechat.group.WXGroupChatListActivity"/>
         
         <activity android:name=".m01_wechat.wechat.moment.AddTextMomentActivity" />
         <activity android:name=".m01_wechat.wechat.moment.AddImageMomentActivity" />

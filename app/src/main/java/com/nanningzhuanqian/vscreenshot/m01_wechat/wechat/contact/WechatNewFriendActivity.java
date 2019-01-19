@@ -1,4 +1,4 @@
-package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contract;
+package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,8 +19,6 @@ import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.model.WechatNewFriendLite;
 import com.nanningzhuanqian.vscreenshot.widget.CustomListview;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
-
-import java.util.List;
 
 /**
  * 微信添加联系人界面
