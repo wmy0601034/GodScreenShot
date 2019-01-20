@@ -5,9 +5,13 @@ import android.content.Context;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.bean.City;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Country;
+import com.nanningzhuanqian.vscreenshot.base.bean.Group;
 import com.nanningzhuanqian.vscreenshot.base.bean.Province;
+import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.WXRegionManager;
+import com.nanningzhuanqian.vscreenshot.common.Constant;
 
 import java.util.List;
 import java.util.Random;
@@ -270,4 +274,35 @@ public class RandomManager {
         randomContact.setTag(tag);
         return randomContact;
     }
+
+    public Conversation getRandomConversation(Context context){
+        Contact randomContact = getRandomContact(context);
+        Conversation randomConversation = new Conversation();
+        Random random = new Random();
+        int badge = random.nextInt(100);
+        boolean isIgnore = random.nextBoolean();
+        boolean isImportant =random.nextBoolean();
+        long timeMillis = RandomManager.getRandomTime();
+        String name = randomContact.getRemarkName();
+        int imgType = randomContact.getIconType();
+        int imgRes =randomContact.getIconRes();
+        String imgUrl = randomContact.getIconUrl();
+        String content = RandomManager.getInstance().getRandomContent();
+
+        randomConversation.setType(Conversation.TYPE_SINGLE_CHAT);
+        randomConversation.setIconType(imgType);
+        randomConversation.setIconUrl(imgUrl);
+        randomConversation.setIconRes(imgRes);
+        randomConversation.setImportant(isImportant);
+        randomConversation.setContact(randomContact);
+        randomConversation.setBadgeCount(badge);
+        randomConversation.setName(name);
+        randomConversation.setDisplayContent(content);
+        randomConversation.setUpdateTime(timeMillis);
+        randomConversation.setIgnore(isIgnore);
+        String mobile = (String) SPUtils.get(context, Constant.KEY_MOBILE,"");
+        randomConversation.setPointToUser(mobile);
+        return randomConversation;
+    }
+
 }

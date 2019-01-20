@@ -410,6 +410,7 @@ public class Contact implements Serializable{
     public String toString() {
         return "Contact{" +
                 "id=" + id +
+                ", type=" + type +
                 ", iconType=" + iconType +
                 ", iconRes=" + iconRes +
                 ", iconUrl='" + iconUrl + '\'' +
@@ -443,6 +444,7 @@ public class Contact implements Serializable{
                 ", pointToUser='" + pointToUser + '\'' +
                 ", commonGroup=" + commonGroup +
                 ", fromType=" + fromType +
+                ", letters='" + letters + '\'' +
                 '}';
     }
 }

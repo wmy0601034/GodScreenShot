@@ -63,7 +63,7 @@ public class NetworkAvatarSelectActivity extends BaseActivity {
                 if(TextUtils.isEmpty(type)){
                     Intent intent = new Intent();
                     intent.putExtra("imgUrl", NetworkAvatars.getInstance().get(position).getImgUrl());
-                    setResult(999,intent);
+                    setResult(Constant.RESULT_CODE_SUCCESS,intent);
                     finish();
                 }else if(Constant.INTENT_VALUE_MOMENT_AVATAR.equals(type)){
                     String imgRes = String.valueOf(LocalAvatarItems.getInstance().get(position).getImgRes());

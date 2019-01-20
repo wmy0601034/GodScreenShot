@@ -175,7 +175,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             public void onClick(int which) {
                 //添加自定义对话
                 Intent intent = new Intent(WechatMainActivity.this,AddCustomConversationActivity.class);
-                startActivityForResult(intent,999);
+                startActivityForResult(intent,Constant.REQUEST_CODE_ADD_CONVERSATION);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_1_conversation), NewActionSheetDialog
@@ -235,9 +235,8 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //添加自定义角色
-//                Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivity.class);
                 Intent intent = new Intent(WechatMainActivity.this,AddCustomContactActivityNew.class);
-                startActivityForResult(intent,999);
+                startActivityForResult(intent,Constant.REQUEST_CODE_ADD_CONTACT);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_1_role), NewActionSheetDialog

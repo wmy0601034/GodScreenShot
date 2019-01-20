@@ -25,7 +25,7 @@ public class Conversation implements Comparable {
     //网络图片
     public static final int ICON_TYPE_NETWORK = 1;
     //数据库id
-    private String id;
+    private int id;
     //图标类型 0 本地 1 网络
     private int iconType;
     //本地图片资源ID
@@ -46,6 +46,8 @@ public class Conversation implements Comparable {
     private boolean isImportant;
     //关联的单人聊天
     private Contact contact;
+    //关联的联系人id
+    private long contactId;
     //关联的群组
     private Group group;
 
@@ -74,11 +76,11 @@ public class Conversation implements Comparable {
         this.type = type;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -168,6 +170,14 @@ public class Conversation implements Comparable {
 
     public void setGroup(Group group) {
         this.group = group;
+    }
+
+    public long getContactId() {
+        return contactId;
+    }
+
+    public void setContactId(long contactId) {
+        this.contactId = contactId;
     }
 
     @Override

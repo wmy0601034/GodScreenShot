@@ -97,6 +97,8 @@ public class Constant {
     public static final int REQUEST_CODE_CROP = 1018;
     public static final int REQUEST_CODE_SELECT_WX_REGION = 1019;
     public static final int REQUEST_CODE_EDIT_CONTACT = 1020;
+    public static final int REQUEST_CODE_ADD_CONTACT = 1021;
+    public static final int REQUEST_CODE_ADD_CONVERSATION = 1022;
 
     public static final int RESULT_CODE_SUCCESS = 1000;
     public static final int RESULT_CODE_CANCEL = 2000;

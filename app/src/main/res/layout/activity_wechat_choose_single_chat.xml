@@ -9,7 +9,7 @@
     <include layout="@layout/base_top" />
 
     <ListView
-        android:id="@+id/lvConservation"
+        android:id="@+id/lvContacts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="@color/wechat_contract_divider_gray"

@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
+import com.nanningzhuanqian.vscreenshot.base.bean.Group;
 import com.nanningzhuanqian.vscreenshot.base.bean.Tag;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
@@ -59,7 +61,7 @@ public class DBManager {
     }
 
     //添加联系人
-    public static final void saveContact(Context context, Contact contact){
+    public static final long saveContact(Context context, Contact contact){
         String wechatNickName = contact.getWechatNickName();
         String remarkName = contact.getRemarkName();
         String wechatAccount = contact.getWechatAccount();
@@ -89,7 +91,44 @@ public class DBManager {
         contentValues.put("commonGroup",commonGroup);
         contentValues.put("tag",tag);
         contentValues.put("pointToUser",pointToUser);
-        MyDB.getInstance(context).insert(MyDB.TABLE_WX_CONTACT,contentValues);
+        long id = MyDB.getInstance(context).insert(MyDB.TABLE_WX_CONTACT,contentValues);
+        return id;
+    }
+
+    public static final int updateContact(Context context,Contact contact){
+        int id = contact.getId();
+        String wechatNickName = contact.getWechatNickName();
+        String remarkName = contact.getRemarkName();
+        String wechatAccount = contact.getWechatAccount();
+        String wechatAddress = contact.getWechatAddress();
+        int fromType = contact.getFromType();
+        String mobile = contact.getMobile();
+        String personalitySign = contact.getPersonalitySign();
+        int iconType = contact.getIconType();
+        int iconRes = contact.getIconRes();
+        String iconUrl = contact.getIconUrl();
+        int gender = contact.getGender();
+        int commonGroup = contact.getCommonGroup();
+        String tag = contact.getTag();
+        String pointToUser = contact.getPointToUser();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("wechatNickName",wechatNickName);
+        contentValues.put("remarkName",remarkName);
+        contentValues.put("wechatAccount",wechatAccount);
+        contentValues.put("wechatAddress",wechatAddress);
+        contentValues.put("mobile",mobile);
+        contentValues.put("personalitySign",personalitySign);
+        contentValues.put("iconType",iconType);
+        contentValues.put("iconRes",iconRes);
+        contentValues.put("iconUrl",iconUrl);
+        contentValues.put("gender",gender);
+        contentValues.put("fromType",fromType);
+        contentValues.put("commonGroup",commonGroup);
+        contentValues.put("tag",tag);
+        contentValues.put("pointToUser",pointToUser);
+        String whereClause = "id = ?";
+        String[] whereArgs={String.valueOf(id)};
+        return MyDB.getInstance(context).update(MyDB.TABLE_WX_CONTACT,contentValues,whereClause,whereArgs);
     }
 
     //获取所有联系人
@@ -141,7 +180,35 @@ public class DBManager {
     }
 
     //对话
-
+    public static final long saveConversation(Context context, Conversation conversation){
+        String name = conversation.getName();
+        int type = conversation.getType();
+        int iconType = conversation.getIconType();
+        int iconRes = conversation.getIconRes();
+        String iconUrl = conversation.getIconUrl();
+        int badgeCount = conversation.getBadgeCount();
+        long updateTime = conversation.getUpdateTime();
+        String displayContent = conversation.getDisplayContent();
+        boolean ignore = conversation.isIgnore();
+        boolean isImportant = conversation.isImportant();
+        long contactId = conversation.getContactId();
+        String pointToUser = conversation.getPointToUser();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",name);
+        contentValues.put("type",type);
+        contentValues.put("badgeCount",badgeCount);
+        contentValues.put("updateTime",updateTime);
+        contentValues.put("displayContent",displayContent);
+        contentValues.put("iconType",iconType);
+        contentValues.put("iconRes",iconRes);
+        contentValues.put("iconUrl",iconUrl);
+        contentValues.put("ignore",ignore);
+        contentValues.put("isImportant",isImportant);
+        contentValues.put("contactId",contactId);
+        contentValues.put("pointToUser",pointToUser);
+        long id = MyDB.getInstance(context).insert(MyDB.TABLE_WX_CONVERSATION,contentValues);
+        return id;
+    }
 
 
 }

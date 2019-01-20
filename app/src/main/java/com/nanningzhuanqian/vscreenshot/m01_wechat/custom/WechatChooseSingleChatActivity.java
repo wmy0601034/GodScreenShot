@@ -6,10 +6,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nanningzhuanqian.vscreenshot.R;
-import com.nanningzhuanqian.vscreenshot.adapter.ChooseConversationAdapter;
+import com.nanningzhuanqian.vscreenshot.adapter.ChooseContactAdapter;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingleChatActivity;
@@ -23,8 +26,8 @@ import java.util.List;
  */
 public class WechatChooseSingleChatActivity extends BaseActivity {
 
-    private ListView lvConservation;
-    private ChooseConversationAdapter chooseConversationAdapter;
+    private ListView lvContacts;
+    private ChooseContactAdapter contactAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -35,19 +38,19 @@ public class WechatChooseSingleChatActivity extends BaseActivity {
     protected void initView() {
         initCommonTopBar();
         setCommonTitle("选择对话用户");
-        lvConservation = (ListView) findViewById(R.id.lvConservation);
+        lvContacts = (ListView) findViewById(R.id.lvContacts);
         setCommonRightContent("添加用户", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getThis(), AddCustomConversationActivity.class);
-                startActivityForResult(intent,999);
+                Intent intent = new Intent(getThis(), AddCustomContactActivityNew.class);
+                startActivityForResult(intent,Constant.REQUEST_CODE_ADD_CONTACT);
             }
         });
     }
 
     @Override
     protected void initEvent() {
-        lvConservation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        lvContacts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getThis(),WechatSingleChatActivity.class);
@@ -59,20 +62,15 @@ public class WechatChooseSingleChatActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        chooseConversationAdapter = new ChooseConversationAdapter(getThis());
-
-        lvConservation.setAdapter(chooseConversationAdapter);
+        contactAdapter = new ChooseContactAdapter(getThis());
+        lvContacts.setAdapter(contactAdapter);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Conversations.getInstance().clear();
-        String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
-//        List<ConversationLite> conversationLites = LitePal.where("pointToUser", mobile).find
-//                (ConversationLite.class);
-//        List<Conversation> conversations = LitePal.findAll(Conversation.class);
-//        Conversations.getInstance().add(conversations);
-        chooseConversationAdapter.notifyDataSetChanged();
+        List<Contact> contacts = DBManager.getContacts(getApplicationContext());
+        contactAdapter.setContacts(contacts);
+        contactAdapter.notifyDataSetChanged();
     }
 }

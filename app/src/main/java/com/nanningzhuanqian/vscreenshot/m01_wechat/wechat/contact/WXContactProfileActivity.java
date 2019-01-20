@@ -2,6 +2,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -48,7 +49,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
     private RelativeLayout rlMoreInfo;
     private LinearLayout llSendMessage;
     private LinearLayout llMediaCall;
-    private LinearLayout llMobile;
+    private RelativeLayout rlMobile;
     private TextView tvMobile;
     private View line1;
 
@@ -85,7 +86,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
         rlMoreInfo = (RelativeLayout) findViewById(R.id.rlMoreInfo);
         llSendMessage = (LinearLayout) findViewById(R.id.llSendMessage);
         llMediaCall = (LinearLayout) findViewById(R.id.llMediaCall);
-        llMobile = (LinearLayout)findViewById(R.id.llMobile);
+        rlMobile = (RelativeLayout) findViewById(R.id.rlMobile);
         tvMobile = (TextView)findViewById(R.id.tvMobile);
         line1 = findViewById(R.id.line1);
     }
@@ -108,6 +109,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
         subPos = getIntent().getIntExtra(Constant.INTENT_KEY_CONTACT_SUB_POS,0);
         if(Contacts.getInstance().size()<5){
             toast(getString(R.string.wx_internal_error));
+            finish();
             return;
         }
         contact = Contacts.getInstance().get(allPos);
@@ -123,6 +125,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
     private void setContactInfo(){
         if(contact==null){
             toast(getString(R.string.wx_internal_error));
+            finish();
             return;
         }
         String wechatNickName = contact.getWechatNickName();
@@ -142,13 +145,13 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
         tvWxNickname.setText(getString(R.string.wx_profile_nickname,wechatNickName));
         tvWxAccount.setText(getString(R.string.wx_profile_account,wechatAccount));
         tvWxRegion.setText(getString(R.string.wx_profile_region,wechatAddress));
-        if(TextUtils.isEmpty(mobile)){
+        if(TextUtils.isEmpty(wxMobile)){
             line1.setVisibility(View.GONE);
-            llMobile.setVisibility(View.GONE);
+            rlMobile.setVisibility(View.GONE);
         }else{
-            llMobile.setVisibility(View.VISIBLE);
+            rlMobile.setVisibility(View.VISIBLE);
             line1.setVisibility(View.VISIBLE);
-            tvMobile.setText(mobile);
+            tvMobile.setText(wxMobile);
         }
         tvTag.setText(tag);
         if(iconType==Contact.ICON_TYPE_RESOURCE){
@@ -170,7 +173,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
                 break;
             case R.id.btnMore:
                 Intent intent = new Intent(getThis(),EditCustomContactActivity.class);
-                intent.putExtra(Constant.INTENT_KEY_CONTACT_FROM,contact);
+                intent.putExtra(Constant.INTENT_KEY_CONTACT,contact);
                 startActivityForResult(intent,Constant.REQUEST_CODE_EDIT_CONTACT);
                 break;
             case R.id.imgAvatar:
@@ -178,8 +181,8 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
                 startActivity(intent1);
                 break;
             case R.id.rlTag:
-                Intent intent2 = new Intent(getThis(), WxContactSetTagRemarkActivity.class);
-                startActivity(intent2);
+//                Intent intent2 = new Intent(getThis(), WxContactSetTagRemarkActivity.class);
+//                startActivity(intent2);
                 break;
             case R.id.rlMoment:
                 Intent intent3 = new Intent(getThis(),WxMomentVisitorActivity.class);
@@ -201,6 +204,17 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
                 Intent intent6 = new Intent(getThis(),WechatMediaChatActivity.class);
                 startActivity(intent6);
                 break;
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
+        Log.i(TAG,"onActivityResult "+requestCode+" "+resultCode);
+        if(requestCode==Constant.REQUEST_CODE_EDIT_CONTACT&&resultCode==Constant.RESULT_CODE_SUCCESS){
+            contact = (Contact) intent.getSerializableExtra(Constant.INTENT_KEY_CONTACT);
+            Log.i(TAG,"onActivityResult "+contact.toString());
+            setContactInfo();
         }
     }
 }

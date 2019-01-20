@@ -701,7 +701,7 @@ public class AddCustomContactActivityNew extends BaseActivity implements View.On
         contact.setPointToUser(mobile);
         DBManager.saveContact(getApplicationContext(), contact);
         toast("添加成功");
-        setResult(999);
+        setResult(Constant.RESULT_CODE_SUCCESS);
         finish();
     }
 

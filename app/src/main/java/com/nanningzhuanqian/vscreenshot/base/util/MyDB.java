@@ -26,12 +26,14 @@ public class MyDB extends SQLiteOpenHelper {
     public static final String TABLE_WX_TAG = "wx_tag";
     //微信联系人表
     public static final String TABLE_WX_CONTACT = "wx_contact";
+    //微信会话表
+    public static final String TABLE_WX_CONVERSATION = "wx_conversation";
     //创建微信联系人标签表的命令行
-    public static final String CREATE_WX_TAG_TABLE_SQL =  "create table if not exists " + TABLE_WX_TAG + "("
+    public static final String CREATE_WX_TAG_TABLE_SQL = "create table if not exists " + TABLE_WX_TAG + "("
             + "id integer primary key autoincrement,"
             + "name text)";
     //创建微信联系人标签表的命令行
-    public static final String CREATE_WX_CONTACT_TABLE_SQL = "create table if not exists "+TABLE_WX_CONTACT
+    public static final String CREATE_WX_CONTACT_TABLE_SQL = "create table if not exists " + TABLE_WX_CONTACT
             + " ("
             + "id integer primary key autoincrement,"
             + "wechatNickName text,"
@@ -40,13 +42,28 @@ public class MyDB extends SQLiteOpenHelper {
             + "wechatAddress text,"
             + "mobile text,"
             + "personalitySign text,"
-            + "iconType ingeter,"
+            + "iconType integer,"
             + "iconRes integer,"
             + "iconUrl text,"
             + "gender integer,"
             + "fromType integer,"
             + "commonGroup integer,"
             + "tag text,"
+            + "pointToUser text"
+            + ")";
+    //创建微信会话表的命令行
+    public static final String CREATE_WX_CONVERSATION_TABLE_SQL = "create table if not exists " + TABLE_WX_CONVERSATION
+            + "("
+            + "id integer primary key autoincrement,"
+            + "contactId text,"
+            + "iconType integer,"
+            + "iconRes integer,"
+            + "iconUrl text,"
+            + "badgeCount integer,"
+            + "updateTime integer,"
+            + "ignore boolean,"
+            + "isImportant boolean,"
+            + "type integer,"
             + "pointToUser text"
             + ")";
 
@@ -63,20 +80,20 @@ public class MyDB extends SQLiteOpenHelper {
         createTableList = new ArrayList<String>();
         createTableList.add(CREATE_WX_TAG_TABLE_SQL);
         createTableList.add(CREATE_WX_CONTACT_TABLE_SQL);
+        createTableList.add(CREATE_WX_CONVERSATION_TABLE_SQL);
     }
 
-    public void init(){
+    public void init() {
 
     }
 
     /**
-     *
-     * @Title: getInstance
-     * @Description: 获取数据库实例
-     * @param @param context
-     * @param @param userId
+     * @param @param  context
+     * @param @param  userId
      * @param @return
      * @return DataBaseOpenHelper
+     * @Title: getInstance
+     * @Description: 获取数据库实例
      * @author lihy
      */
     public static MyDB getInstance(Context context) {
@@ -86,23 +103,24 @@ public class MyDB extends SQLiteOpenHelper {
         }
         dbMaps.put(DB_NAME, dataBaseOpenHelper);
         return dataBaseOpenHelper;
-    };
+    }
+
+    ;
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         for (String sqlString : createTableList) {
-            Log.i("wmy","mydb onCreate "+sqlString);
+            Log.i("wmy", "mydb onCreate " + sqlString);
             db.execSQL(sqlString);
         }
     }
 
     /**
-     *
-     * @Title: execSQL
-     * @Description: Sql写入
      * @param @param sql
      * @param @param bindArgs
      * @return void
+     * @Title: execSQL
+     * @Description: Sql写入
      * @author lihy
      */
     public void execSQL(String sql, Object[] bindArgs) {
@@ -114,13 +132,12 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @Title: rawQuery
-     * @Description:
-     * @param @param sql查询
-     * @param @param bindArgs
+     * @param @param  sql查询
+     * @param @param  bindArgs
      * @param @return
      * @return Cursor
+     * @Title: rawQuery
+     * @Description:
      * @author lihy
      */
     public Cursor rawQuery(String sql, String[] bindArgs) {
@@ -133,50 +150,51 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @Title: insert
-     * @Description: 插入数据
      * @param @param table
      * @param @param contentValues 设定文件
      * @return void 返回类型
-     * @author lihy
      * @throws
+     * @Title: insert
+     * @Description: 插入数据
+     * @author lihy
      */
-    public void insert(String table, ContentValues contentValues) {
+    public long insert(String table, ContentValues contentValues) {
         MyDB dataBaseOpenHelper = dbMaps.get(DB_NAME);
         synchronized (dataBaseOpenHelper) {
             SQLiteDatabase database = dataBaseOpenHelper.getWritableDatabase();
-            long result = database.insert(table, null, contentValues);
-            Log.i("wmy","insert result = "+result);
+            long rowId = database.insert(table, null, contentValues);
+            Log.i("wmy", "insert rowId = " + rowId);
+            return rowId;
         }
     }
 
     /**
-     *
-     * @Title: update
-     * @Description: 更新
      * @param @param table
      * @param @param values
      * @param @param whereClause
      * @param @param whereArgs 设定文件
      * @return void 返回类型
      * @throws
+     * @Title: update
+     * @Description: 更新
      */
-    public void update(String table, ContentValues values, String whereClause, String[] whereArgs) {
+    public int update(String table, ContentValues values, String whereClause, String[] whereArgs) {
+        int result = -1;
         MyDB dataBaseOpenHelper = dbMaps.get(DB_NAME);
         synchronized (dataBaseOpenHelper) {
             SQLiteDatabase database = dataBaseOpenHelper.getWritableDatabase();
-            database.update(table, values, whereClause, whereArgs);
+            result = database.update(table, values, whereClause, whereArgs);
+            return result;
         }
     }
+
     /**
-     *
-     * @Title: delete
-     * @Description:删除
      * @param @param table
      * @param @param whereClause
      * @param @param whereArgs
      * @return void
+     * @Title: delete
+     * @Description:删除
      * @author lihy
      */
     public int delete(String table, String whereClause, String[] whereArgs) {
@@ -188,9 +206,6 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @Title: query
-     * @Description: 查
      * @param @param table
      * @param @param columns
      * @param @param selection
@@ -199,6 +214,8 @@ public class MyDB extends SQLiteOpenHelper {
      * @param @param having
      * @param @param orderBy
      * @return void
+     * @Title: query
+     * @Description: 查
      * @author lihy
      */
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having,
@@ -212,9 +229,8 @@ public class MyDB extends SQLiteOpenHelper {
             return cursor;
         }
     }
+
     /**
-     *
-     * @Description:查
      * @param table
      * @param columns
      * @param selection
@@ -223,14 +239,14 @@ public class MyDB extends SQLiteOpenHelper {
      * @param having
      * @param orderBy
      * @param limit
-     * @return
-     * Cursor
+     * @return Cursor
+     * @Description:查
      * @exception:
      * @author: lihy
      * @time:2015-4-3 上午9:37:29
      */
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having,
-                        String orderBy,String limit) {
+                        String orderBy, String limit) {
         MyDB dataBaseOpenHelper = dbMaps.get(DB_NAME);
         synchronized (dataBaseOpenHelper) {
             SQLiteDatabase database = dataBaseOpenHelper.getReadableDatabase();
@@ -242,10 +258,9 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @Description 查询，方法重载,table表名，sqlString条件
      * @param @return
      * @return Cursor
+     * @Description 查询，方法重载,table表名，sqlString条件
      * @author lihy
      */
     public Cursor query(String tableName) {
@@ -258,10 +273,9 @@ public class MyDB extends SQLiteOpenHelper {
     }
 
     /**
-     *
-     * @Description 查询，方法重载,table表名，sqlString条件
      * @param @return
      * @return Cursor
+     * @Description 查询，方法重载,table表名，sqlString条件
      * @author lihy
      */
     public Cursor query(String tableName, String sqlString) {
@@ -288,9 +302,10 @@ public class MyDB extends SQLiteOpenHelper {
         if (onSqliteUpdateListener != null) {
             onSqliteUpdateListener.onSqliteUpdateListener(db, arg1, arg2);
         }
-        Log.i("wmy","mydb onUpgrade");
+        Log.i("wmy", "mydb onUpgrade");
         db.execSQL(CREATE_WX_TAG_TABLE_SQL);
         db.execSQL(CREATE_WX_CONTACT_TABLE_SQL);
+        db.execSQL(CREATE_WX_CONVERSATION_TABLE_SQL);
     }
 
     public interface OnSqliteUpdateListener {

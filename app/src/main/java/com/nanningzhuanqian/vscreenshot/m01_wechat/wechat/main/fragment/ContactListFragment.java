@@ -82,7 +82,6 @@ public class ContactListFragment extends BaseFragment {
                     Intent intent = new Intent(getActivity(),WXPublicAccountListActivity.class);
                     startActivity(intent);
                 } else {
-                    toast(contact.getRemarkName());
                     Intent intent = new Intent(getActivity(),WXContactProfileActivity.class);
                     intent.putExtra(Constant.INTENT_KEY_CONTACT_ALL_POS,allPos);
                     intent.putExtra(Constant.INTENT_KEY_CONTACT_SUB_POS,subPos);
@@ -115,10 +114,6 @@ public class ContactListFragment extends BaseFragment {
         Collections.sort(contacts, pinyinComparator);
 
         Contacts.getInstance().add(contacts);
-        for (int i = 0; i < Contacts.getInstance().size(); i++) {
-            Log.i(TAG, i + " " + Contacts.getInstance().get(i).getIconType() + " " + Contacts.getInstance().get(i)
-                    .getIconRes() + " " + Contacts.getInstance().get(i).getIconUrl());
-        }
         Contacts.getInstance().initTop();
         contactAdapter.notifyDataSetChanged();
     }
