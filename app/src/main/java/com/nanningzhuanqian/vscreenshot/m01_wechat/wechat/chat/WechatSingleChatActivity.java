@@ -52,7 +52,7 @@ import java.util.List;
 /**
  * 微信单聊界面
  */
-public class WechatSingeChatActivity extends BaseActivity implements View.OnClickListener {
+public class WechatSingleChatActivity extends BaseActivity implements View.OnClickListener {
     private ImageButton btnRight;
     private LinearLayout parent;
     private RecyclerView rcvConversation;
@@ -540,7 +540,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     }
 
     private void showChatSettingSheetDialog(){
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingeChatActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingleChatActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -590,7 +590,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     }
 
     private void showWechatChatItemSheetDialog(final int position){
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingeChatActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingleChatActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -637,7 +637,7 @@ public class WechatSingeChatActivity extends BaseActivity implements View.OnClic
     }
 
     private void showSendOptionSheetDialog(){
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingeChatActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WechatSingleChatActivity.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);

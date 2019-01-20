@@ -12,7 +12,7 @@ import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
-import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingeChatActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingleChatActivity;
 
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class WechatChooseSingleChatActivity extends BaseActivity {
         lvConservation.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getThis(),WechatSingeChatActivity.class);
+                Intent intent = new Intent(getThis(),WechatSingleChatActivity.class);
                 intent.putExtra("position",position);
                 startActivity(intent);
             }

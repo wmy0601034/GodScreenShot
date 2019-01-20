@@ -133,4 +133,6 @@
     <color name="wechat_red_packet_gold">#ffe2b1</color>
     <color name="wechat_gray_like_red_packet">#f1f1f1</color>
     <color name="wechat_red_packet_avatar_stroke_gold">#ebcd99</color>
+    <color name="wx_arrow_color">@color/black</color>
+    <color name="wx_text_color">@color/black</color>
 </resources>

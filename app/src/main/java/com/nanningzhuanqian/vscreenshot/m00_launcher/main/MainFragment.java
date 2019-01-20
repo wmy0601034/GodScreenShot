@@ -38,7 +38,7 @@ import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.change.WechatChangeAct
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.change.WechatChangeDetailActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.change.WechatChangeWithdrawActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatGroupChatActivity;
-import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contract.WechatNewFriendActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact.WechatNewFriendActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main.WechatMainActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.moment.WechatMomentActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.pay.WechatPayActivity;

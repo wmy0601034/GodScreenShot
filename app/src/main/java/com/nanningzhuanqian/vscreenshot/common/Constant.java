@@ -64,9 +64,19 @@ public class Constant {
     public static final String INTENT_KEY_WITHDRAW_RESULT = "intent_key_withdraw_result";
     public static final String INTENT_KEY_ADDRESS = "intent_key_address";
 
+    public static final String INTENT_KEY_CONTACT = "intent_key_contact";
+
     public static final String INTENT_KEY_CONTACT_ALL_POS = "intent_key_contact_all_pos";
 
     public static final String INTENT_KEY_CONTACT_SUB_POS = "intent_key_contact_sub_pos";
+
+    public static final String INTENT_KEY_CONTACT_COMMON_GROUP = "intent_key_contact_common_group";
+
+    public static final String INTENT_KEY_CONTACT_SIGNATURE = "intent_key_contact_signature";
+
+    public static final String INTENT_KEY_CONTACT_FROM = "intent_key_contact_from";
+
+    public static final String INTENT_KEY_CONTACT_GENDER = "intent_key_contact_gender";
 
     public static final String INTENT_VALUE_EDIT = "intent_value_edit";
     public static final String INTENT_VALUE_ADD = "intent_value_add";
@@ -86,6 +96,7 @@ public class Constant {
     public static final int REQUEST_CODE_SELECT_AVATAR_BY_CAMERA = 1017;
     public static final int REQUEST_CODE_CROP = 1018;
     public static final int REQUEST_CODE_SELECT_WX_REGION = 1019;
+    public static final int REQUEST_CODE_EDIT_CONTACT = 1020;
 
     public static final int RESULT_CODE_SUCCESS = 1000;
     public static final int RESULT_CODE_CANCEL = 2000;

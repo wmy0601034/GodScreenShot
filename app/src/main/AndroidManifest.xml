@@ -47,10 +47,14 @@
         <activity android:name=".m01_wechat.wechat.change.WechatWithdrawDetailActivity"/>
 
         <activity android:name=".m01_wechat.wechat.chat.WechatGroupChatActivity"/>
-        <activity android:name=".m01_wechat.wechat.chat.WechatSingeChatActivity"/>
+        <activity android:name=".m01_wechat.wechat.chat.WechatSingleChatActivity"/>
+        <activity android:name=".m01_wechat.wechat.chat.WechatMediaChatActivity"/>
 
         <activity android:name=".m01_wechat.wechat.contact.WechatNewFriendActivity"/>
         <activity android:name=".m01_wechat.wechat.contact.WXContactProfileActivity"/>
+        <activity android:name=".m01_wechat.wechat.contact.WxFullGraphActivity"/>
+        <activity android:name=".m01_wechat.wechat.contact.WXContactProfileMoreActivity"/>
+        <activity android:name=".m01_wechat.wechat.contact.WxContactSetTagRemarkActivity"/>
 
         <activity android:name=".m01_wechat.wechat.publicaccount.WXPublicAccountListActivity"/>
 
@@ -66,6 +70,7 @@
         <activity android:name=".m01_wechat.wechat.moment.WechatPermissionEditActivity" />
         <activity android:name=".m01_wechat.wechat.moment.WechatPromptEditActivity" />
         <activity android:name=".m01_wechat.wechat.moment.WechatMomentActivity"/>
+        <activity android:name=".m01_wechat.wechat.moment.WxMomentVisitorActivity"/>
 
         <activity android:name=".m01_wechat.wechat.pay.WechatPayActivity"/>
 
@@ -95,6 +100,7 @@
         <activity android:name=".m01_wechat.custom.AddCustomConversationActivity"/>
         <activity android:name=".m01_wechat.custom.AddCustomContactActivityNew"
             android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".m01_wechat.custom.EditCustomContactActivity"/>
         <activity android:name=".m01_wechat.custom.WxContactTagSelectionActivity"/>
         <activity android:name=".m01_wechat.custom.WechatChangeEditActivity"/>
         <activity android:name=".m01_wechat.custom.AddCustomWechatChangeDetailActivity"/>

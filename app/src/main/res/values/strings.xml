@@ -413,7 +413,7 @@
     <string name="f6">清理微信存储空间</string>
     <string name="f7">正在加载 %s</string>
     <string name="f8"> 和 </string>
-    <string name="f9">微信号：%s</string>
+    <string name="wx_profile_account">微信号：%s</string>
     <string name="f_">添加</string>
     <string name="fa">添加失败</string>
     <string name="fb">WeChat Favorites</string>
@@ -566,7 +566,7 @@
     <string name="j_">"我们将发送验证码短信到下面的号码：
 "</string>
     <string name="ja">请填写验证码</string>
-    <string name="jb">出现内部错误</string>
+    <string name="wx_internal_error">出现内部错误</string>
     <string name="jc">跳转</string>
     <string name="jd">支付</string>
     <string name="je">播放</string>
@@ -2364,12 +2364,12 @@ All Rights Reserved."</string>
     <string name="aua">清空此功能消息记录</string>
     <string name="aub">清空此功能消息记录？</string>
     <string name="auc">确定清空QQ邮箱助手的提醒信息？</string>
-    <string name="aud">我和她的共同群聊</string>
-    <string name="aue">我和他的共同群聊</string>
+    <string name="wx_common_group_female">我和她的共同群聊</string>
+    <string name="wx_common_group_male">我和他的共同群聊</string>
     <string name="auf">她的群昵称为“%s”</string>
     <string name="aug">他的群昵称为“%s”</string>
-    <string name="auh">%d个</string>
-    <string name="aui">我和他（她）的共同群聊</string>
+    <string name="wx_ge_unit">%d个</string>
+    <string name="wx_common_group_private">我和他（她）的共同群聊</string>
     <string name="auj">常见问题</string>
     <string name="auk">正在处理...</string>
     <string name="aul">删除联系人</string>
@@ -2455,13 +2455,13 @@ All Rights Reserved."</string>
     <string name="aws">查看记事</string>
     <string name="awt">微博朋友</string>
     <string name="awu">我可以帮你在微信里收发腾讯微博私信。</string>
-    <string name="awv">电话号码</string>
+    <string name="wx_mobile">电话号码</string>
     <string name="aww">设置备注和标签</string>
     <string name="wx_remark_exists">微信备注已存在</string>
     <string name="awx">备注信息</string>
     <string name="awy">备注名</string>
     <string name="awz">朋友圈权限</string>
-    <string name="ax0">更多信息</string>
+    <string name="wx_more_info">更多信息</string>
     <string name="ax1">加入黑名单</string>
     <string name="ax2">加入黑名单，你将不再收到对方的消息，并且你们相互看不到对方朋友圈的更新</string>
     <string name="ax3">加入黑名单，你将不再收到对方的消息</string>
@@ -2541,8 +2541,8 @@ All Rights Reserved."</string>
     <string name="az3">对方发来的验证消息为“%s”</string>
     <string name="az4">开始摇一摇</string>
     <string name="az5">摇一摇手机可以互加朋友，帮你找出同一时间一起摇的人，还能随机与远方的他（她）直接聊天。</string>
-    <string name="az6">个性签名</string>
-    <string name="az7">朋友圈</string>
+    <string name="wx_signature">个性签名</string>
+    <string name="wx_moment">朋友圈</string>
     <string name="az8">Facebook</string>
     <string name="az9">Google+</string>
     <string name="az_">Google Contacts</string>
@@ -2582,7 +2582,7 @@ All Rights Reserved."</string>
     <string name="from_phone_contact">通过手机通讯录添加</string>
     <string name="b08">对方通过手机通讯录添加</string>
     <string name="b09">查看QQ好友</string>
-    <string name="b0_">来源</string>
+    <string name="wx_contact_from">来源</string>
     <string name="b0a">在这里可以看到朋友的运动情况</string>
     <string name="b0b">置顶公众号</string>
     <string name="b0c">接收文章推送</string>
@@ -7928,7 +7928,7 @@ https://weixin.qq.com
     <string name="euh">个人主页</string>
     <string name="eui">家庭电话</string>
     <string name="euj">标志</string>
-    <string name="euk">昵称：%s</string>
+    <string name="wx_profile_nickname">昵称：%s</string>
     <string name="eul">电话</string>
     <string name="eum">组织</string>
     <string name="eun">照片</string>
@@ -9531,6 +9531,7 @@ https://weixin.qq.com
     <string name="fze">"距离:  "</string>
     <string name="fzf">看一看</string>
     <string name="fzg">"地区:  "</string>
+    <string name="wx_profile_region">"地区：%s"</string>
     <string name="fzh">设置权限</string>
     <string name="fzi">把他推荐给朋友</string>
     <string name="fzj">把她推荐给朋友</string>
@@ -9643,8 +9644,8 @@ https://weixin.qq.com
     <string name="g1i">M3.27,4.27 L19.74,20.74</string>
     <string name="g1j">正在发送...</string>
     <string name="g1k">正在处理中</string>
-    <string name="g1l">发消息</string>
-    <string name="g1m">音视频通话</string>
+    <string name="wx_send_message">发消息</string>
+    <string name="wx_media_call">音视频通话</string>
     <string name="project_id">wechat-android-dev</string>
     <string name="g1n">https://weixin110.qq.com/security/readtemplate?t=device_protection/index&amp;safety=%1$d&amp;started=%2$d&amp;reddot=%3$d</string>
     <string name="g1o">恭喜你已经进入恢复模式！</string>
