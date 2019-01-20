@@ -103,7 +103,7 @@ public class Constant {
     public static final int RESULT_CODE_SUCCESS = 1000;
     public static final int RESULT_CODE_CANCEL = 2000;
     public static final int RESULT_CODE_FAILED = 3000;
-
+    public static final int RESULT_CODE_DELETE = 4000;
 
     public static final String CONTRACT_QQ = "236690125";
 

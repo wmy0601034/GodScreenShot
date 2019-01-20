@@ -2708,7 +2708,7 @@ All Rights Reserved."</string>
     <string name="b3l">删除</string>
     <string name="b3m">删除</string>
     <string name="b3n">删除按钮</string>
-    <string name="b3o">删除好友</string>
+    <string name="wx_contact_delete">删除好友</string>
     <string name="b3p">可释放空间：%s</string>
     <string name="b3q">删除</string>
     <string name="b3r">删除</string>
@@ -3149,7 +3149,7 @@ All Rights Reserved."</string>
     <string name="bef">已连接%d个设备</string>
     <string name="beg">连接中</string>
     <string name="beh">等待设备接入</string>
-    <string name="bei">编辑</string>
+    <string name="wx_contact_edit">编辑</string>
     <string name="bej">修改备注失败</string>
     <string name="bek">编辑备注名</string>
     <string name="bel">编辑备注名</string>

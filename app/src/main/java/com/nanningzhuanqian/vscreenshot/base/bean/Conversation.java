@@ -25,7 +25,7 @@ public class Conversation implements Comparable {
     //网络图片
     public static final int ICON_TYPE_NETWORK = 1;
     //数据库id
-    private int id;
+    private long id;
     //图标类型 0 本地 1 网络
     private int iconType;
     //本地图片资源ID
@@ -76,11 +76,11 @@ public class Conversation implements Comparable {
         this.type = type;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -184,5 +184,26 @@ public class Conversation implements Comparable {
     public int compareTo(@NonNull Object o) {
         Conversation item = (Conversation) o;
         return (int) item.getUpdateTime() - (int) this.updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Conversation{" +
+                "id=" + id +
+                ", iconType=" + iconType +
+                ", iconRes=" + iconRes +
+                ", iconUrl='" + iconUrl + '\'' +
+                ", name='" + name + '\'' +
+                ", badgeCount=" + badgeCount +
+                ", updateTime=" + updateTime +
+                ", displayContent='" + displayContent + '\'' +
+                ", ignore=" + ignore +
+                ", isImportant=" + isImportant +
+                ", contact=" + contact.toString() +
+                ", contactId=" + contactId +
+                ", group=" + group +
+                ", type=" + type +
+                ", pointToUser='" + pointToUser + '\'' +
+                '}';
     }
 }

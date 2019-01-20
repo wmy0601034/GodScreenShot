@@ -61,8 +61,8 @@ public class MyDB extends SQLiteOpenHelper {
             + "iconUrl text,"
             + "badgeCount integer,"
             + "updateTime integer,"
-            + "ignore boolean,"
-            + "isImportant boolean,"
+            + "ignore integer,"
+            + "isImportant integer,"
             + "type integer,"
             + "pointToUser text"
             + ")";

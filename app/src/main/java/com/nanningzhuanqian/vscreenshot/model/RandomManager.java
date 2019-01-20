@@ -276,17 +276,17 @@ public class RandomManager {
     }
 
     public Conversation getRandomConversation(Context context){
-        Contact randomContact = getRandomContact(context);
+        Contact contact = getRandomContact(context);
         Conversation randomConversation = new Conversation();
         Random random = new Random();
         int badge = random.nextInt(100);
         boolean isIgnore = random.nextBoolean();
         boolean isImportant =random.nextBoolean();
         long timeMillis = RandomManager.getRandomTime();
-        String name = randomContact.getRemarkName();
-        int imgType = randomContact.getIconType();
-        int imgRes =randomContact.getIconRes();
-        String imgUrl = randomContact.getIconUrl();
+        String name = contact.getRemarkName();
+        int imgType = contact.getIconType();
+        int imgRes =contact.getIconRes();
+        String imgUrl = contact.getIconUrl();
         String content = RandomManager.getInstance().getRandomContent();
 
         randomConversation.setType(Conversation.TYPE_SINGLE_CHAT);
@@ -294,7 +294,7 @@ public class RandomManager {
         randomConversation.setIconUrl(imgUrl);
         randomConversation.setIconRes(imgRes);
         randomConversation.setImportant(isImportant);
-        randomConversation.setContact(randomContact);
+        randomConversation.setContact(contact);
         randomConversation.setBadgeCount(badge);
         randomConversation.setName(name);
         randomConversation.setDisplayContent(content);

@@ -20,6 +20,7 @@ import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
+import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
@@ -67,7 +68,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     private EditText edContent;
     //    private SwitchButton switchPublic;
     private SwitchButton switchIgnore;
-    private SwitchButton switchRedIndicator;
+//    private SwitchButton switchRedIndicator;
     private EditText edBadge;
     private LinearLayout llTime;
     private TextView tvTime;
@@ -86,7 +87,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     private String content;
     //    private boolean isPublic;
     private boolean isIgnore;
-    private boolean isBadge;
+//    private boolean isBadge;
     private int badge;
     private long timeMillis;
 
@@ -107,7 +108,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         edContent = (EditText) findViewById(R.id.edContent);
 //        switchPublic = (SwitchButton) findViewById(R.id.switchPublic);
         switchIgnore = (SwitchButton) findViewById(R.id.switchIgnore);
-        switchRedIndicator = (SwitchButton) findViewById(R.id.switchRedIndicator);
+//        switchRedIndicator = (SwitchButton) findViewById(R.id.switchRedIndicator);
         edBadge = (EditText) findViewById(R.id.edBadge);
         llTime = (LinearLayout) findViewById(R.id.llTime);
         tvTime = (TextView) findViewById(R.id.tvTime);
@@ -134,28 +135,17 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
                 isIgnore = isChecked;
             }
         });
-        switchRedIndicator.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
-                isBadge = isChecked;
-            }
-        });
+//        switchRedIndicator.setOnCheckedChangeListener(new SwitchButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(SwitchButton view, boolean isChecked) {
+//                isBadge = isChecked;
+//            }
+//        });
     }
 
     protected void initData() {
         tvTitle.setText("添加自定义对话");
-        contact = RandomManager.getInstance().getRandomContact(getApplicationContext());
-        if (contact == null) {
-            toast(getString(R.string.wx_internal_error));
-            finish();
-            return;
-        }
-        name = contact.getRemarkName();
-        imgType = Contact.ICON_TYPE_RESOURCE;
-        imgRes = contact.getIconRes();
-        imgUrl = "";
-        edName.setText(name);
-        imgIcon.setImageResource(imgRes);
+        randomCreate();
     }
 
     @Override
@@ -413,6 +403,32 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
      */
     private void randomCreate() {
         Conversation conversation = RandomManager.getInstance().getRandomConversation(getApplicationContext());
+        contact = conversation.getContact();
+        name = contact.getRemarkName();
+        imgType = conversation.getIconType();
+        imgRes = conversation.getIconRes();
+        imgUrl = conversation.getIconUrl();
+        content = conversation.getDisplayContent();
+        isIgnore = conversation.isIgnore();
+        badge = conversation.getBadgeCount();
+        timeMillis = conversation.getUpdateTime();
+        edName.setText(name);
+        if(imgType==Contact.ICON_TYPE_RESOURCE){
+            imgIcon.setImageResource(imgRes);
+        }else if(imgType==Contact.ICON_TYPE_NETWORK){
+            Picasso.with(getThis())
+                    .load(imgUrl)
+                    .error(R.mipmap.app_images_defaultface)
+                    .placeholder(R.mipmap.app_images_defaultface)
+                    .into(imgIcon);
+        }else {
+            imgIcon.setImageResource(R.mipmap.app_images_defaultface);
+        }
+        edContent.setText(content);
+        switchIgnore.setChecked(isIgnore);
+        edBadge.setText(String.valueOf(badge));
+        updateTime = Util.timeStampToDate(timeMillis);
+        tvTime.setText(updateTime);
     }
 
     @Override
@@ -496,20 +512,12 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         });
     }
 
-    private boolean selectAvatarFinish(int requestCode, int resultCode) {
-        return requestCode == 999 && resultCode == 999;
-    }
-
     private boolean selectLocalAvatarFinish(int requestCode, int resultCode) {
         return requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR && resultCode == 999;
     }
 
     private boolean selectNetworkAvatarFinish(int requestCode, int resultCode) {
         return requestCode == Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR && resultCode == 999;
-    }
-
-    private boolean selectTagFinish(int requestCode, int resultCode) {
-        return requestCode == Constant.REQUEST_CODE_SELECT_CONTACT_TAG && resultCode == Constant.RESULT_CODE_SUCCESS;
     }
 
     private void save() {
@@ -523,14 +531,12 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             toast("请输入聊天内容");
             return;
         }
-        if (!isBadge) {
-            String number = edBadge.getText().toString();
-            if (TextUtils.isEmpty(number)) {
-                toast("请输入角标数字");
-                return;
-            } else {
-                badge = Integer.valueOf(number);
-            }
+
+        String badgeCount = edBadge.getText().toString();
+        if (TextUtils.isEmpty(badgeCount)) {
+            badge = 0 ;
+        } else {
+            badge = Integer.valueOf(badgeCount);
         }
         String time = tvTime.getText().toString();
         if (TextUtils.isEmpty(time)) {

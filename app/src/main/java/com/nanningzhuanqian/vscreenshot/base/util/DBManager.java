@@ -131,6 +131,52 @@ public class DBManager {
         return MyDB.getInstance(context).update(MyDB.TABLE_WX_CONTACT,contentValues,whereClause,whereArgs);
     }
 
+    public static final int deleteContact(Context context,String contactId){
+        return MyDB.getInstance(context).delete(MyDB.TABLE_WX_TAG,"id = ?",new String[]{contactId});
+    }
+
+    public static final Contact getContact(Context context,String contactId){
+        String selection = "id = ?";
+        String[] selectionArgs = new String[]{contactId};
+        Cursor cursor = MyDB.getInstance(context).query(MyDB.TABLE_WX_CONTACT,null,selection,selectionArgs,null,null,null);
+        Contact contact = new Contact();
+        while (cursor.moveToNext()){
+            contact = new Contact();
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String wechatNickName = cursor.getString(cursor.getColumnIndex("wechatNickName"));
+            String remarkName = cursor.getString(cursor.getColumnIndex("remarkName"));
+            String wechatAccount = cursor.getString(cursor.getColumnIndex("wechatAccount"));
+            String wechatAddress = cursor.getString(cursor.getColumnIndex("wechatAddress"));
+            String mobile = cursor.getString(cursor.getColumnIndex("mobile"));
+            String personalitySign = cursor.getString(cursor.getColumnIndex("personalitySign"));
+            int iconType = cursor.getInt(cursor.getColumnIndex("iconType"));
+            int iconRes = cursor.getInt(cursor.getColumnIndex("iconRes"));
+            String iconUrl = cursor.getString(cursor.getColumnIndex("iconUrl"));
+            int gender = cursor.getInt(cursor.getColumnIndex("gender"));
+            int commonGroup = cursor.getInt(cursor.getColumnIndex("commonGroup"));
+            int fromType = cursor.getInt(cursor.getColumnIndex("fromType"));
+            String tag = cursor.getString(cursor.getColumnIndex("tag"));
+            String pointToUser = cursor.getString(cursor.getColumnIndex("pointToUser"));
+            contact.setId(id);
+            contact.setWechatNickName(wechatNickName);
+            contact.setRemarkName(remarkName);
+            contact.setWechatAccount(wechatAccount);
+            contact.setWechatAddress(wechatAddress);
+            contact.setMobile(mobile);
+            contact.setPersonalitySign(personalitySign);
+            contact.setIconType(iconType);
+            contact.setIconRes(iconRes);
+            contact.setIconUrl(iconUrl);
+            contact.setGender(gender);
+            contact.setCommonGroup(commonGroup);
+            contact.setTag(tag);
+            contact.setFromType(fromType);
+            contact.setPointToUser(pointToUser);
+            return contact;
+        }
+        return contact;
+    }
+
     //获取所有联系人
     public static final List<Contact> getContacts(Context context){
         Cursor cursor = MyDB.getInstance(context).query(MyDB.TABLE_WX_CONTACT);
@@ -202,13 +248,51 @@ public class DBManager {
         contentValues.put("iconType",iconType);
         contentValues.put("iconRes",iconRes);
         contentValues.put("iconUrl",iconUrl);
-        contentValues.put("ignore",ignore);
-        contentValues.put("isImportant",isImportant);
+        contentValues.put("ignore",ignore?0:1);
+        contentValues.put("isImportant",isImportant?0:1);
         contentValues.put("contactId",contactId);
         contentValues.put("pointToUser",pointToUser);
         long id = MyDB.getInstance(context).insert(MyDB.TABLE_WX_CONVERSATION,contentValues);
         return id;
     }
 
+    public static List<Conversation> getConversations(Context context){
+        Cursor cursor = MyDB.getInstance(context).query(MyDB.TABLE_WX_CONVERSATION);
+        List<Conversation> conversations = new ArrayList<>();
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(cursor.getColumnIndex("id"));
+            String name = cursor.getString(cursor.getColumnIndex("name"));
+            int type = cursor.getInt(cursor.getColumnIndex("type"));
+            int iconType = cursor.getInt(cursor.getColumnIndex("iconType"));
+            int iconRes = cursor.getInt(cursor.getColumnIndex("iconRes"));
+            String iconUrl = cursor.getString(cursor.getColumnIndex("iconUrl"));
+            int badgeCount = cursor.getInt(cursor.getColumnIndex("badgeCount"));
+            long updateTime = cursor.getLong(cursor.getColumnIndex("updateTime"));
+            String displayContent = cursor.getString(cursor.getColumnIndex("displayContent"));
+            boolean ignore = (cursor.getInt(cursor.getColumnIndex("ignore"))==0);
+            boolean isImportant = (cursor.getInt(cursor.getColumnIndex("isImportant"))==0);
+            long contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
+            String pointToUser = cursor.getString(cursor.getColumnIndex("pointToUser"));
+            Contact contact = getContact(context,String.valueOf(contactId));
+            Conversation conversation = new Conversation();
+            conversation.setId(id);
+            conversation.setType(Conversation.TYPE_SINGLE_CHAT);
+            conversation.setIconType(iconType);
+            conversation.setIconUrl(iconUrl);
+            conversation.setIconRes(iconRes);
+            conversation.setImportant(isImportant);
+            conversation.setContactId(contactId);
+            conversation.setContact(contact);
+            conversation.setType(type);
+            conversation.setBadgeCount(badgeCount);
+            conversation.setName(name);
+            conversation.setDisplayContent(displayContent);
+            conversation.setUpdateTime(updateTime);
+            conversation.setIgnore(ignore);
+            conversation.setPointToUser(pointToUser);
+            conversations.add(conversation);
+        }
+        return conversations;
+    }
 
 }

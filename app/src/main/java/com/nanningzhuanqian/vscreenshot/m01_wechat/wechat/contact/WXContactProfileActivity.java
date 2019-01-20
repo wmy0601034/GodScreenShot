@@ -1,5 +1,6 @@
 package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.contact;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,12 +16,14 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contacts;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.EditCustomContactActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatMediaChatActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingleChatActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.moment.WxMomentVisitorActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.tag.WxContactTagListActivity;
+import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -172,9 +175,7 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
                 finish();
                 break;
             case R.id.btnMore:
-                Intent intent = new Intent(getThis(),EditCustomContactActivity.class);
-                intent.putExtra(Constant.INTENT_KEY_CONTACT,contact);
-                startActivityForResult(intent,Constant.REQUEST_CODE_EDIT_CONTACT);
+                showContactOptionDialog();
                 break;
             case R.id.imgAvatar:
                 Intent intent1 = new Intent(getThis(),WxFullGraphActivity.class);
@@ -205,6 +206,32 @@ public class WXContactProfileActivity extends BaseActivity implements View.OnCli
                 startActivity(intent6);
                 break;
         }
+    }
+
+    private void showContactOptionDialog(){
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(WXContactProfileActivity.this)
+                .setCancelable(true)
+                .setCancelButtonVisiable(true)
+                .setCanceledOnTouchOutside(true)
+                .addSheetItem(getString(R.string.wx_contact_edit), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(int which) {
+                        Intent intent = new Intent(getThis(),EditCustomContactActivity.class);
+                        intent.putExtra(Constant.INTENT_KEY_CONTACT,contact);
+                        startActivityForResult(intent,Constant.REQUEST_CODE_EDIT_CONTACT);
+                    }
+                })
+                .addSheetItem(getString(R.string.wx_contact_delete), NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+                    @Override
+                    public void onClick(int which) {
+                        String contactId = String.valueOf(contact.getId());
+                        DBManager.deleteContact(getApplicationContext(),contactId);
+                        setResult(Constant.RESULT_CODE_DELETE);
+                        finish();
+                    }
+                });
+        Dialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override

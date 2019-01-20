@@ -16,6 +16,7 @@ import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ConversationAdapter;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
+import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
@@ -81,7 +82,10 @@ public class ConversationListFragment extends Fragment {
 
     private void initData() {
         Conversations.getInstance().clear();
-//        String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
+        List<Conversation> conversations = DBManager.getConversations(getActivity());
+        Conversations.getInstance().add(conversations);
+        //
+// String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
 //        List<Conversation> conversations = LitePal.where("pointToUser", mobile).find(Conversation.class);
 //        Conversations.getInstance().add(conversations);
 //        Conversation conversation = new Conversation();
