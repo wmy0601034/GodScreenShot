@@ -132,7 +132,7 @@ public class DBManager {
     }
 
     public static final int deleteContact(Context context,String contactId){
-        return MyDB.getInstance(context).delete(MyDB.TABLE_WX_TAG,"id = ?",new String[]{contactId});
+        return MyDB.getInstance(context).delete(MyDB.TABLE_WX_CONTACT,"id = ?",new String[]{contactId});
     }
 
     public static final Contact getContact(Context context,String contactId){
@@ -297,6 +297,49 @@ public class DBManager {
 
     public static final int clearConversation(Context context){
         return MyDB.getInstance(context).delete(MyDB.TABLE_WX_CONVERSATION,null,null);
+    }
+
+    public static final int deleteConversation(Context context,Conversation conversation){
+        Contact contact = conversation.getContact();
+        if(contact!=null) {
+            String contactId = String.valueOf(contact.getId());
+            deleteContact(context,contactId);
+        }
+        String conversationId = String.valueOf(conversation.getId());
+        int result = MyDB.getInstance(context).delete(MyDB.TABLE_WX_CONVERSATION, "id = ?", new String[]{conversationId});
+        return result;
+    }
+
+    public static final int updateConversation(Context context,Conversation conversation){
+        long id = conversation.getId();
+        String name = conversation.getName();
+        int type = conversation.getType();
+        int iconType = conversation.getIconType();
+        int iconRes = conversation.getIconRes();
+        String iconUrl = conversation.getIconUrl();
+        int badgeCount = conversation.getBadgeCount();
+        long updateTime = conversation.getUpdateTime();
+        String displayContent = conversation.getDisplayContent();
+        boolean ignore = conversation.isIgnore();
+        boolean isImportant = conversation.isImportant();
+        long contactId = conversation.getContactId();
+        String pointToUser = conversation.getPointToUser();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put("name",name);
+        contentValues.put("type",type);
+        contentValues.put("badgeCount",badgeCount);
+        contentValues.put("updateTime",updateTime);
+        contentValues.put("displayContent",displayContent);
+        contentValues.put("iconType",iconType);
+        contentValues.put("iconRes",iconRes);
+        contentValues.put("iconUrl",iconUrl);
+        contentValues.put("isIgnore",ignore?0:1);
+        contentValues.put("isImportant",isImportant?0:1);
+        contentValues.put("contactId",contactId);
+        contentValues.put("pointToUser",pointToUser);
+        String whereClause = "id = ?";
+        String[] whereArgs={String.valueOf(id)};
+        return MyDB.getInstance(context).update(MyDB.TABLE_WX_CONVERSATION,contentValues,whereClause,whereArgs);
     }
 
 }

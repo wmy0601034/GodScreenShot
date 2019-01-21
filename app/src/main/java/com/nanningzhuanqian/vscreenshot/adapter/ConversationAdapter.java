@@ -10,8 +10,10 @@ import android.widget.TextView;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.base.Util;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by WMY on 2018/9/14.
@@ -58,29 +60,42 @@ public class ConversationAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        Conversation item = Conversations.getInstance().get(position);
-        viewHolder.imgIcon.setImageResource(item.getIconRes());
-        viewHolder.tvName.setText(item.getName());
-        viewHolder.tvDescription.setText(item.getDisplayContent());
-        if(item.isIgnore()){
+        Conversation conversation = Conversations.getInstance().get(position);
+
+        int iconType = conversation.getIconType();
+        if(iconType== Contact.ICON_TYPE_RESOURCE) {
+            viewHolder.imgIcon.setImageResource(conversation.getIconRes());
+        }else if(iconType==Contact.ICON_TYPE_NETWORK){
+            String imgUrl = conversation.getIconUrl();
+            Picasso.with(context)
+                    .load(imgUrl)
+                    .error(R.mipmap.app_images_defaultface)
+                    .placeholder(R.mipmap.app_images_defaultface)
+                    .into(viewHolder.imgIcon);
+        }else{
+            viewHolder.imgIcon.setImageResource(R.mipmap.app_images_defaultface);
+        }
+        viewHolder.tvName.setText(conversation.getName());
+        viewHolder.tvDescription.setText(conversation.getDisplayContent());
+        if(conversation.isIgnore()){
             viewHolder.imgIgnore.setVisibility(View.VISIBLE);
             viewHolder.tvBadge.setVisibility(View.GONE);
-            if(item.getBadgeCount()!=0) {
+            if(conversation.getBadgeCount()!=0) {
                 viewHolder.tvIndicator.setVisibility(View.VISIBLE);
             }else {
                 viewHolder.tvIndicator.setVisibility(View.GONE);
             }
         }else{
             viewHolder.imgIgnore.setVisibility(View.GONE);
-            if(item.getBadgeCount()!=0) {
+            if(conversation.getBadgeCount()!=0) {
                 viewHolder.tvBadge.setVisibility(View.VISIBLE);
-                viewHolder.tvBadge.setText(item.getBadgeCount() + "");
+                viewHolder.tvBadge.setText(conversation.getBadgeCount() + "");
             }else{
                 viewHolder.tvBadge.setVisibility(View.GONE);
             }
             viewHolder.tvIndicator.setVisibility(View.GONE);
         }
-        String displayTime = Util.getDisplayTime(item.getUpdateTime());
+        String displayTime = Util.getDisplayTime(conversation.getUpdateTime());
         viewHolder.tvUpdateTime.setText(displayTime);
         return convertView;
     }

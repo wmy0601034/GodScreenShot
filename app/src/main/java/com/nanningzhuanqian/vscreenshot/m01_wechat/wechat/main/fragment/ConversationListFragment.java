@@ -15,12 +15,15 @@ import android.widget.ListView;
 
 import com.nanningzhuanqian.vscreenshot.R;
 import com.nanningzhuanqian.vscreenshot.adapter.ConversationAdapter;
+import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.EditCustomConversationActiviy;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingleChatActivity;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 
@@ -74,7 +77,7 @@ public class ConversationListFragment extends Fragment {
                 Log.i(getActivity().getLocalClassName(),"onItemClick "+conversation.toString());
                 switch (type) {
                     case Conversation.TYPE_SINGLE_CHAT:
-
+                        showConversationOptionSheetDialog(position);
                         break;
                     case Conversation.TYPE_GROUP_CHAT:
 
@@ -114,13 +117,25 @@ public class ConversationListFragment extends Fragment {
         builder.setCancelButtonVisiable(true);
         builder.setCanceledOnTouchOutside(true);
         builder.setTitle(getString(R.string.action_settings));
+        builder.addSheetItem("聊天详情", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
+            @Override
+            public void onClick(int which) {
+                Conversation conversation = Conversations.getInstance().get(position);
+                Intent intent = new Intent(getActivity(), WechatSingleChatActivity.class);
+                intent.putExtra(Constant.INTENT_KEY_CONVERSATION,conversation);
+                startActivity(intent);
+            }
+        });
         builder.addSheetItem("编辑", NewActionSheetDialog
                 .SheetItemColor.Blue, new NewActionSheetDialog.Builder
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
                 //编辑
-                Intent intent = new Intent(getActivity(), AddCustomConversationActivity.class);
+                Conversation conversation = Conversations.getInstance().get(position);
+                Log.i(getClass().getSimpleName(),"edit conversation id = "+conversation.getId()+" "+conversation.toString());
+                Intent intent = new Intent(getActivity(), EditCustomConversationActiviy.class);
+                intent.putExtra(Constant.INTENT_KEY_CONVERSATION,conversation);
                 startActivity(intent);
             }
         });
@@ -132,6 +147,7 @@ public class ConversationListFragment extends Fragment {
                 //删除
                 Conversation conversation = Conversations.getInstance().get(position);
                 Conversations.getInstance().remove(position);
+                DBManager.deleteConversation(getActivity(),conversation);
                 conversationAdapter.notifyDataSetChanged();
             }
         });

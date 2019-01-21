@@ -83,6 +83,8 @@ public class ContactAdapter extends RecyclerView.Adapter {
                 Picasso.with(context)
                         .load(imgUrl)
                         .into(viewHolder.imgAvatar);
+            }else{
+                viewHolder.imgAvatar.setImageResource(R.mipmap.app_images_defaultface);
             }
             int type = contact.getType();
             String remarkName = contact.getRemarkName();

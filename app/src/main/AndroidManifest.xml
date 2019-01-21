@@ -101,6 +101,7 @@
         <activity android:name=".m01_wechat.custom.AddCustomContactActivityNew"
             android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".m01_wechat.custom.EditCustomContactActivity"/>
+        <activity android:name=".m01_wechat.custom.EditCustomConversationActiviy"/>
         <activity android:name=".m01_wechat.custom.WxContactTagSelectionActivity"/>
         <activity android:name=".m01_wechat.custom.WechatChangeEditActivity"/>
         <activity android:name=".m01_wechat.custom.AddCustomWechatChangeDetailActivity"/>

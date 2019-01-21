@@ -115,11 +115,11 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
     }
 
     private void initUnReadCount(){
-        int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
+//        int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         int contractUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
         int discoveryUnReadCount = (int)SPUtils.get(getThis(),Constant.KEY_DISCOVERY_UNREAD_COUNT,0);
-        Log.i(TAG,"initUnReadCount "+conversationUnReadCount);
-        rdoWechat.setUnreadCount(conversationUnReadCount);
+//        Log.i(TAG,"initUnReadCount "+conversationUnReadCount);
+//        rdoWechat.setUnreadCount(conversationUnReadCount);
         rdoContract.setUnreadCount(contractUnReadCount);
         rdoDiscovery.setUnreadCount(discoveryUnReadCount);
         rdoUser.setUnreadCount(0);
@@ -313,11 +313,11 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             DBManager.saveConversation(getApplicationContext(),conversation);
             unReadCount+=badgeCount;
         }
-        int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
-        unReadCount +=lastUnreadCount;
-        Log.i(TAG,"unReadCount = "+unReadCount);
-        SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
+//        int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
+//        unReadCount +=lastUnreadCount;
+//        Log.i(TAG,"unReadCount = "+unReadCount);
+//        SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
         conversationListFragment.initData();
-        rdoWechat.setUnreadCount(unReadCount);
+//        rdoWechat.setUnreadCount(unReadCount);
     }
 }

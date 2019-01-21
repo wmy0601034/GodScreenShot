@@ -23,10 +23,7 @@ import com.nanningzhuanqian.vscreenshot.base.BaseActivity;
 import com.nanningzhuanqian.vscreenshot.base.Util;
 import com.nanningzhuanqian.vscreenshot.base.bean.Contact;
 import com.nanningzhuanqian.vscreenshot.base.bean.Conversation;
-import com.nanningzhuanqian.vscreenshot.base.bean.Conversations;
 import com.nanningzhuanqian.vscreenshot.base.event.OnConversationRefreshEvent;
-import com.nanningzhuanqian.vscreenshot.base.net.CallbackListener;
-import com.nanningzhuanqian.vscreenshot.base.net.HttpUtil;
 import com.nanningzhuanqian.vscreenshot.base.util.DBManager;
 import com.nanningzhuanqian.vscreenshot.base.util.PermissionUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
@@ -55,15 +52,13 @@ import cn.bmob.v3.listener.SaveListener;
 import cn.bmob.v3.listener.UploadFileListener;
 
 /**
- * 添加自定义对话界面
- * Created by WMY on 2018/9/14.
+ * 编辑自定义对话框页面
+ * Created by lenovo on 2019/1/21.
  */
 
-public class AddCustomConversationActivity extends BaseActivity implements View.OnClickListener {
+public class EditCustomConversationActiviy extends BaseActivity implements View.OnClickListener {
 
     private TextView tvBack;
-    private TextView tvTitle;
-    private TextView tvSubmit;
     private LinearLayout llType;
     private LinearLayout llAvatar;
     private ImageView imgIcon;
@@ -77,6 +72,8 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     private Button btnSubmit;
     private TextView tvType;
     private int type = Conversation.TYPE_SINGLE_CHAT;
+
+    private Conversation conversation;
 
     private long contactId;
     private Contact contact;
@@ -92,23 +89,19 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_add_conversation;
+        return R.layout.activity_edit_conversation;
     }
 
     protected void initView() {
         tvBack = (TextView) findViewById(R.id.tvBack);
         tvTitle = (TextView) findViewById(R.id.tvTitle);
-        tvSubmit = (TextView) findViewById(R.id.tvSubmit);
-        tvSubmit.setVisibility(View.GONE);
-        tvType = (TextView)findViewById(R.id.tvType);
         llType = (LinearLayout) findViewById(R.id.llType);
+        tvType = (TextView)findViewById(R.id.tvType);
         llAvatar = (LinearLayout) findViewById(R.id.llAvatar);
         imgIcon = (ImageView) findViewById(R.id.imgIcon);
         edName = (EditText) findViewById(R.id.edName);
         edContent = (EditText) findViewById(R.id.edContent);
-//        switchPublic = (SwitchButton) findViewById(R.id.switchPublic);
         switchIgnore = (SwitchButton) findViewById(R.id.switchIgnore);
-//        switchRedIndicator = (SwitchButton) findViewById(R.id.switchRedIndicator);
         edBadge = (EditText) findViewById(R.id.edBadge);
         llTime = (LinearLayout) findViewById(R.id.llTime);
         tvTime = (TextView) findViewById(R.id.tvTime);
@@ -133,8 +126,58 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     }
 
     protected void initData() {
-        tvTitle.setText("添加自定义对话");
-        randomCreate();
+        conversation = (Conversation) getIntent().getSerializableExtra(Constant.INTENT_KEY_CONVERSATION);
+        if(conversation==null){
+            Log.i(TAG,"wx_internal_error 129");
+            toast(getString(R.string.wx_internal_error));
+            finish();
+            return;
+        }
+        type = conversation.getType();
+        contact = conversation.getContact();
+        name = conversation.getName();
+        imgType = conversation.getIconType();
+        imgRes = conversation.getIconRes();
+        imgUrl = conversation.getIconUrl();
+        Log.i(TAG,"initData imgUrl = "+imgUrl);
+        content = conversation.getDisplayContent();
+        isIgnore = conversation.isIgnore();
+        badge = conversation.getBadgeCount();
+        timeMillis = conversation.getUpdateTime();
+        updateTime = Util.stampToDate(timeMillis);
+        switch (type){
+            case Conversation.TYPE_SINGLE_CHAT:
+                tvType.setText("单人聊天");
+                break;
+            case Conversation.TYPE_GROUP_CHAT:
+                tvType.setText("群聊");
+                break;
+            case Conversation.TYPE_WECHAT_SERVICE:
+                tvType.setText("服务号");
+                break;
+            case Conversation.TYPE_WECHAT_SYSTEM:
+                tvType.setText("微信系统功能");
+                break;
+            case Conversation.TYPE_WECHAT_SUBCRIBE:
+                tvType.setText("订阅号");
+                break;
+        }
+        edName.setText(name);
+        if(imgType==Contact.ICON_TYPE_RESOURCE){
+            imgIcon.setImageResource(imgRes);
+        }else if(imgType == Contact.ICON_TYPE_NETWORK){
+            Picasso.with(getThis())
+                    .load(imgUrl)
+                    .error(R.mipmap.app_images_defaultface)
+                    .placeholder(R.mipmap.app_images_defaultface)
+                    .into(imgIcon);
+        }else {
+            imgIcon.setImageResource(R.mipmap.app_images_defaultface);
+        }
+        edContent.setText(content);
+        switchIgnore.setChecked(isIgnore);
+        edBadge.setText(String.valueOf(badge));
+        tvTime.setText(updateTime);
     }
 
     @Override
@@ -162,7 +205,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     }
 
     private void showTypeSelectionDialog() {
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomConversationActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(EditCustomConversationActiviy.this);
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
         builder.setCanceledOnTouchOutside(true);
@@ -198,20 +241,12 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
                 tvType.setText("微信系统功能");
             }
         });
-        builder.addSheetItem("订阅号", NewActionSheetDialog.SheetItemColor.Blue, new NewActionSheetDialog.Builder.OnSheetItemClickListener() {
-            @Override
-            public void onClick(int which) {
-                //微信系统功能
-                type = Conversation.TYPE_WECHAT_SUBCRIBE;
-                tvType.setText("订阅号");
-            }
-        });
         Dialog dialog = builder.create();
         dialog.show();
     }
 
     private void showAvatarSheetDialog() {
-        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(AddCustomConversationActivity.this);
+        NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(EditCustomConversationActiviy.this);
 
         builder.setCancelable(false);
         builder.setCancelButtonVisiable(true);
@@ -240,7 +275,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
                 .OnSheetItemClickListener() {
             @Override
             public void onClick(int which) {
-                Intent intent = new Intent(AddCustomConversationActivity.this, LocalAvatarSelectActivity.class);
+                Intent intent = new Intent(EditCustomConversationActiviy.this, LocalAvatarSelectActivity.class);
                 startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
             }
         });
@@ -250,7 +285,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             @Override
             public void onClick(int which) {
                 //进入在线头像库
-                Intent intent = new Intent(AddCustomConversationActivity.this, NetworkAvatarSelectActivity.class);
+                Intent intent = new Intent(EditCustomConversationActiviy.this, NetworkAvatarSelectActivity.class);
                 startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR);
             }
         });
@@ -337,7 +372,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     }
 
     private void goPickPictrue() {
-        Intent intent = new Intent(AddCustomConversationActivity.this, ImageGridActivity.class);
+        Intent intent = new Intent(EditCustomConversationActiviy.this, ImageGridActivity.class);
         startActivityForResult(intent, Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR);
     }
 
@@ -405,6 +440,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         imgType = conversation.getIconType();
         imgRes = conversation.getIconRes();
         imgUrl = conversation.getIconUrl();
+        Log.i(TAG,"randomCreate imgUrl = "+imgUrl);
         content = conversation.getDisplayContent();
         isIgnore = conversation.isIgnore();
         badge = conversation.getBadgeCount();
@@ -462,8 +498,9 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             imgIcon.setImageResource(imgRes);
         } else if (selectNetworkAvatarFinish(requestCode, resultCode)) {
             imgUrl = intent.getStringExtra("imgUrl");
+            Log.i(TAG,"selectNetworkAvatarFinish imgUrl = "+imgUrl);
             imgType = Contact.ICON_TYPE_NETWORK;
-            Picasso.with(AddCustomConversationActivity.this)
+            Picasso.with(EditCustomConversationActiviy.this)
                     .load(imgUrl)
                     .into(imgIcon);
         }
@@ -479,6 +516,7 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
 
                 if (e == null) {
                     imgUrl = bmobFile.getFileUrl();
+                    Log.i(TAG,"uploadImage imgUrl = "+imgUrl);
                     imgType = Contact.ICON_TYPE_NETWORK;
                     uploadNetworkAvatar(imgUrl);
                 } else {
@@ -497,9 +535,9 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             public void done(String s, BmobException e) {
                 hideLoadingDialog();
                 if (e == null) {
-                    Log.i("wmy", "networkAvatar save done " + s);
+                    Log.i("wmy", "networkAvatar save done " + imgUrl);
                     toast("保存成功");
-                    Picasso.with(AddCustomConversationActivity.this)
+                    Picasso.with(EditCustomConversationActiviy.this)
                             .load(imgUrl)
                             .into(imgIcon);
                 } else {
@@ -510,11 +548,11 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
     }
 
     private boolean selectLocalAvatarFinish(int requestCode, int resultCode) {
-        return requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR && resultCode == 999;
+        return requestCode == Constant.REQUEST_CODE_SELECT_LOCAL_AVATAR && resultCode == Constant.RESULT_CODE_SUCCESS;
     }
 
     private boolean selectNetworkAvatarFinish(int requestCode, int resultCode) {
-        return requestCode == Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR && resultCode == 999;
+        return requestCode == Constant.REQUEST_CODE_SELECT_NETWORK_AVATAR && resultCode == Constant.RESULT_CODE_SUCCESS;
     }
 
     private void save() {
@@ -543,7 +581,10 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             timeMillis = getTimeMillis(time);
             Log.i(TAG, "timeMillis = " + timeMillis);
         }
-        Conversation conversation = new Conversation();
+        contact.setIconType(imgType);
+        contact.setIconRes(imgRes);
+        contact.setIconUrl(imgUrl);
+        contact.setRemarkName(name);
         conversation.setContact(contact);
         conversation.setBadgeCount(badge);
         conversation.setName(name);
@@ -555,26 +596,16 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         conversation.setIgnore(isIgnore);
         String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE, "");
         conversation.setPointToUser(mobile);
-        long contactId = DBManager.saveContact(getApplicationContext(), contact);
-        if (contactId == -1) {
+        DBManager.updateContact(getApplicationContext(),contact);
+        int result = DBManager.updateConversation(getApplicationContext(),conversation);
+        Log.i(TAG,"save result "+result+" id = "+conversation.getId()+" "+conversation.toString());
+        if (result == -1) {
             Log.i(TAG,"562 wx_internal_error");
             toast(getString(R.string.wx_internal_error));
+            finish();
             return;
         }
-        conversation.setContactId(contactId);
-        long conversationId = DBManager.saveConversation(getApplicationContext(), conversation);
-        if (conversationId == -1) {
-            Log.i(TAG,"562 wx_internal_error");
-            toast(getString(R.string.wx_internal_error));
-            return;
-        }
-        Log.i(TAG,"save conversation = "+conversation.toString());
         EventBus.getDefault().post(new OnConversationRefreshEvent());
-//        if(!isIgnore) {
-//            int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT, 0);
-//            int unreadCount = conversationUnReadCount + badge;
-//            SPUtils.put(getApplicationContext(), Constant.KEY_CONVERSATION_UNREAD_COUNT, unreadCount);
-//        }
         setResult(Constant.RESULT_CODE_SUCCESS);
         finish();
     }
