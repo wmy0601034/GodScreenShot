@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class ConversationListFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        conversationAdapter.notifyDataSetChanged();
+        initData();
     }
 
     private void initView() {
@@ -68,7 +69,26 @@ public class ConversationListFragment extends Fragment {
         lvConversation.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                showConversationOptionSheetDialog(position);
+                Conversation conversation = Conversations.getInstance().get(position);
+                int type = conversation.getType();
+                Log.i(getActivity().getLocalClassName(),"onItemClick "+conversation.toString());
+                switch (type) {
+                    case Conversation.TYPE_SINGLE_CHAT:
+
+                        break;
+                    case Conversation.TYPE_GROUP_CHAT:
+
+                        break;
+                    case Conversation.TYPE_WECHAT_SERVICE:
+
+                        break;
+                    case Conversation.TYPE_WECHAT_SYSTEM:
+
+                        break;
+                    case Conversation.TYPE_WECHAT_SUBCRIBE:
+
+                        break;
+                }
             }
         });
         lvConversation.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
@@ -80,31 +100,14 @@ public class ConversationListFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    public void initData() {
         Conversations.getInstance().clear();
         List<Conversation> conversations = DBManager.getConversations(getActivity());
         Conversations.getInstance().add(conversations);
-        //
-// String mobile = (String) SPUtils.get(getActivity(), Constant.KEY_MOBILE, "");
-//        List<Conversation> conversations = LitePal.where("pointToUser", mobile).find(Conversation.class);
-//        Conversations.getInstance().add(conversations);
-//        Conversation conversation = new Conversation();
-//        conversation.setType(Conversation.TYPE_WECHAT_SUBCRIBE);
-//        conversation.setIconType(Conversation.ICON_TYPE_RESOURCE);
-//        conversation.setIconRes(R.mipmap.app_views_pages_wechat_home_images_contacticon4);
-//        conversation.setName("订阅号");
-//        conversation.setDisplayContent("鸟哥笔记：马云新开的HHB酒吧怎么样...");
-//        conversation.setUpdateTime(System.currentTimeMillis()-10*60*1000);
-//        Conversations.getInstance().add(conversation);
-//        Conversations.getInstance().sort();
-//        conversationAdapter.notifyDataSetChanged();
-    }
-
-    public void notifyDataSetChanged(){
         conversationAdapter.notifyDataSetChanged();
     }
 
-    private void showConversationOptionSheetDialog(final int position){
+    private void showConversationOptionSheetDialog(final int position) {
         NewActionSheetDialog.Builder builder = new NewActionSheetDialog.Builder(getActivity());
 
         builder.setCancelable(false);
@@ -117,7 +120,7 @@ public class ConversationListFragment extends Fragment {
             @Override
             public void onClick(int which) {
                 //编辑
-                Intent intent = new Intent(getActivity(),AddCustomConversationActivity.class);
+                Intent intent = new Intent(getActivity(), AddCustomConversationActivity.class);
                 startActivity(intent);
             }
         });
@@ -127,10 +130,8 @@ public class ConversationListFragment extends Fragment {
             @Override
             public void onClick(int which) {
                 //删除
-                Conversation conversation =Conversations.getInstance().get(position);
+                Conversation conversation = Conversations.getInstance().get(position);
                 Conversations.getInstance().remove(position);
-//                LitePal.deleteAll(Conversation.class,"name=?and content = ?",conversation.getName(),
-//                        conversation.getDisplayContent());
                 conversationAdapter.notifyDataSetChanged();
             }
         });

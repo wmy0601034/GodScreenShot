@@ -105,6 +105,12 @@ public class ContactListFragment extends BaseFragment {
         rcvContract.setItemAnimator(new DefaultItemAnimator());
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
     public void initData() {
         pinyinComparator = new PinyinComparator();
         List<Contact> contacts = DBManager.getContacts(getContext());

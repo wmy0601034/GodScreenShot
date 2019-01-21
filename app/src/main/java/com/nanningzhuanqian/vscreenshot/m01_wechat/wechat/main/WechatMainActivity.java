@@ -184,7 +184,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //随机添加1个对话
-                randomSingleConversation();
+                randomCreateConversation(1);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_add_20_conversation), NewActionSheetDialog
@@ -193,7 +193,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             @Override
             public void onClick(int which) {
                 //随机添加20个对话
-                random20Conversation();
+                randomCreateConversation(20);
             }
         });
         builder.addSheetItem(getResources().getString(R.string.sheet_item_page_setting), NewActionSheetDialog
@@ -213,11 +213,10 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
             public void onClick(int which) {
                 //清空对话内容
                 Conversations.getInstance().clear();
-//                LitePal.deleteAll(Conversation.class);
-                conversationListFragment.notifyDataSetChanged();
+                DBManager.clearConversation(getApplicationContext());
+                conversationListFragment.initData();
             }
         });
-
         Dialog dialog = builder.create();
         dialog.show();
     }
@@ -301,50 +300,21 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         contactListFragment.initData();
     }
 
-    private void randomSingleConversation(){
-        generateRandomConversation(1);
-    }
-
-    private void random20Conversation(){
-        generateRandomConversation(20);
-    }
-
-    private void generateRandomConversation(int count){
+    private void randomCreateConversation(int count){
         int unReadCount = 0;
         for(int i = 0;i<count;i++){
-            Random random = new Random();
-            int badge = random.nextInt(10);
-            boolean isPublic = random.nextBoolean();
-            boolean isBadge = random.nextBoolean();
-            boolean isIgnore = random.nextBoolean();
-            String name = RandomManager.getInstance().getRandomName();
-            long timeMillis = RandomManager.getRandomTime();
-            int imgRes =RandomManager.getInstance().getAvatarRes();
-            String content = RandomManager.getInstance().getRandomContent();
-            Conversation item = new Conversation();
-            item.setBadgeCount(badge);
-            item.setName(name);
-            item.setDisplayContent(content);
-            item.setUpdateTime(timeMillis);
-            item.setIconRes(imgRes);
-            item.setIgnore(isIgnore);
-//            item.S(isBadge);
-//            item.setPublic(isPublic);
-            if(!isIgnore){
-                unReadCount+=badge;
-            }
-            String mobile = (String) SPUtils.get(getThis(), Constant.KEY_MOBILE,"");
-//            item.setPointToUser(mobile);
-            Conversations.getInstance().addFirst(item);
-
-            //保存到本地
-//            item.save();
+            Conversation conversation = RandomManager.getInstance().getRandomConversation(getApplicationContext());
+            Contact contact = conversation.getContact();
+            long contactId = DBManager.saveContact(getApplicationContext(),contact);
+            int badgeCount = conversation.getBadgeCount();
+            conversation.setContactId(contactId);
+            DBManager.saveConversation(getApplicationContext(),conversation);
+            unReadCount+=badgeCount;
         }
         int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         unReadCount +=lastUnreadCount;
         SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
-        Conversations.getInstance().sort();
-        conversationListFragment.notifyDataSetChanged();
+        conversationListFragment.initData();
         rdoWechat.setUnreadCount(unReadCount);
     }
 }

@@ -559,12 +559,14 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
         conversation.setPointToUser(mobile);
         long contactId = DBManager.saveContact(getApplicationContext(), contact);
         if (contactId == -1) {
+            Log.i(TAG,"562 wx_internal_error");
             toast(getString(R.string.wx_internal_error));
             return;
         }
         conversation.setContactId(contactId);
         long conversationId = DBManager.saveConversation(getApplicationContext(), conversation);
         if (conversationId == -1) {
+            Log.i(TAG,"562 wx_internal_error");
             toast(getString(R.string.wx_internal_error));
             return;
         }

@@ -248,7 +248,7 @@ public class DBManager {
         contentValues.put("iconType",iconType);
         contentValues.put("iconRes",iconRes);
         contentValues.put("iconUrl",iconUrl);
-        contentValues.put("ignore",ignore?0:1);
+        contentValues.put("isIgnore",ignore?0:1);
         contentValues.put("isImportant",isImportant?0:1);
         contentValues.put("contactId",contactId);
         contentValues.put("pointToUser",pointToUser);
@@ -269,7 +269,7 @@ public class DBManager {
             int badgeCount = cursor.getInt(cursor.getColumnIndex("badgeCount"));
             long updateTime = cursor.getLong(cursor.getColumnIndex("updateTime"));
             String displayContent = cursor.getString(cursor.getColumnIndex("displayContent"));
-            boolean ignore = (cursor.getInt(cursor.getColumnIndex("ignore"))==0);
+            boolean ignore = (cursor.getInt(cursor.getColumnIndex("isIgnore"))==0);
             boolean isImportant = (cursor.getInt(cursor.getColumnIndex("isImportant"))==0);
             long contactId = cursor.getInt(cursor.getColumnIndex("contactId"));
             String pointToUser = cursor.getString(cursor.getColumnIndex("pointToUser"));
@@ -293,6 +293,10 @@ public class DBManager {
             conversations.add(conversation);
         }
         return conversations;
+    }
+
+    public static final int clearConversation(Context context){
+        return MyDB.getInstance(context).delete(MyDB.TABLE_WX_CONVERSATION,null,null);
     }
 
 }
