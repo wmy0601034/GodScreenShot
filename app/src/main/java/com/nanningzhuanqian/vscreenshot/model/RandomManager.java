@@ -279,7 +279,7 @@ public class RandomManager {
         Contact contact = getRandomContact(context);
         Conversation randomConversation = new Conversation();
         Random random = new Random();
-        int badge = random.nextInt(100);
+        int badge = random.nextInt(10);
         boolean isIgnore = random.nextBoolean();
         boolean isImportant =random.nextBoolean();
         long timeMillis = RandomManager.getRandomTime();

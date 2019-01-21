@@ -570,6 +570,11 @@ public class AddCustomConversationActivity extends BaseActivity implements View.
             toast(getString(R.string.wx_internal_error));
             return;
         }
+        if(!isIgnore) {
+            int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT, 0);
+            int unreadCount = conversationUnReadCount + badge;
+            SPUtils.put(getApplicationContext(), Constant.KEY_CONVERSATION_UNREAD_COUNT, unreadCount);
+        }
         setResult(Constant.RESULT_CODE_SUCCESS);
         finish();
     }

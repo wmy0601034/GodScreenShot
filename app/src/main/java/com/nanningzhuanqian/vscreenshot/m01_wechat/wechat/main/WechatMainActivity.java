@@ -3,6 +3,7 @@ package com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.main;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -117,6 +118,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         int conversationUnReadCount = (int) SPUtils.get(getThis(), Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         int contractUnReadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONTRACT_UNREAD_COUNT,0);
         int discoveryUnReadCount = (int)SPUtils.get(getThis(),Constant.KEY_DISCOVERY_UNREAD_COUNT,0);
+        Log.i(TAG,"initUnReadCount "+conversationUnReadCount);
         rdoWechat.setUnreadCount(conversationUnReadCount);
         rdoContract.setUnreadCount(contractUnReadCount);
         rdoDiscovery.setUnreadCount(discoveryUnReadCount);
@@ -313,6 +315,7 @@ public class WechatMainActivity extends BaseActivity implements DMTabHost.OnChec
         }
         int lastUnreadCount = (int) SPUtils.get(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,0);
         unReadCount +=lastUnreadCount;
+        Log.i(TAG,"unReadCount = "+unReadCount);
         SPUtils.put(getThis(),Constant.KEY_CONVERSATION_UNREAD_COUNT,unReadCount);
         conversationListFragment.initData();
         rdoWechat.setUnreadCount(unReadCount);
