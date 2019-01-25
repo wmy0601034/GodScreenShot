@@ -4,13 +4,15 @@ import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
+import cn.bmob.v3.BmobObject;
+
 
 /**
  * 微信首页 对话
  * Created by lenovo on 2019/1/11.
  */
 
-public class Conversation implements Comparable,Serializable {
+public class Conversation extends BmobObject implements Comparable,Serializable {
 
     //单人聊天
     public static final int TYPE_SINGLE_CHAT = 0;

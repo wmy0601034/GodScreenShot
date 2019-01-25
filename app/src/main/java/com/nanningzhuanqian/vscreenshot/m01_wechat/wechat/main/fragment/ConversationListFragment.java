@@ -24,6 +24,8 @@ import com.nanningzhuanqian.vscreenshot.common.Constant;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.AddCustomConversationActivity;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.custom.EditCustomConversationActiviy;
 import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.chat.WechatSingleChatActivity;
+import com.nanningzhuanqian.vscreenshot.m01_wechat.wechat.subcribe.WxSubcribeListActivity;
+import com.nanningzhuanqian.vscreenshot.model.RandomManager;
 import com.nanningzhuanqian.vscreenshot.widget.NewActionSheetDialog;
 
 
@@ -89,7 +91,7 @@ public class ConversationListFragment extends Fragment {
 
                         break;
                     case Conversation.TYPE_WECHAT_SUBCRIBE:
-
+                        goSubcribe();
                         break;
                 }
             }
@@ -107,6 +109,9 @@ public class ConversationListFragment extends Fragment {
         Conversations.getInstance().clear();
         List<Conversation> conversations = DBManager.getConversations(getActivity());
         Conversations.getInstance().add(conversations);
+        List<Conversation> wxServices = RandomManager.getInstance().getRandomWXServices(getActivity());
+        Conversations.getInstance().add(wxServices);
+        Conversations.getInstance().sort();
         conversationAdapter.notifyDataSetChanged();
     }
 
@@ -153,6 +158,11 @@ public class ConversationListFragment extends Fragment {
         });
         Dialog dialog = builder.create();
         dialog.show();
+    }
+
+    private void goSubcribe(){
+        Intent intent = new Intent(getActivity(),WxSubcribeListActivity.class);
+        startActivity(intent);
     }
 
 }

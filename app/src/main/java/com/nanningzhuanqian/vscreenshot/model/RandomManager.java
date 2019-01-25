@@ -13,6 +13,7 @@ import com.nanningzhuanqian.vscreenshot.base.util.SPUtils;
 import com.nanningzhuanqian.vscreenshot.base.util.WXRegionManager;
 import com.nanningzhuanqian.vscreenshot.common.Constant;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -303,6 +304,49 @@ public class RandomManager {
         String mobile = (String) SPUtils.get(context, Constant.KEY_MOBILE,"");
         randomConversation.setPointToUser(mobile);
         return randomConversation;
+    }
+
+    public List<Conversation> getRandomWXServices(Context context){
+        List<Conversation> conversations = new ArrayList<>();
+        Conversation conversation = getSubcribeConversation(context);
+        conversations.add(conversation);
+        return conversations;
+    }
+
+    /**
+     * 随机生成一个服务号的会话集合
+     * 但是现在只做一个订阅号的先
+     * @return
+     */
+    public Conversation getSubcribeConversation(Context context){
+        Conversation conversation = new Conversation();
+
+        Contact contact = getRandomContact(context);
+        Random random = new Random();
+        int badge = random.nextInt(10);
+        boolean isIgnore = random.nextBoolean();
+        boolean isImportant =random.nextBoolean();
+        long timeMillis = RandomManager.getRandomTime();
+        String name = contact.getRemarkName();
+        int imgType = contact.getIconType();
+        int imgRes =contact.getIconRes();
+        String imgUrl = contact.getIconUrl();
+        String content = RandomManager.getInstance().getRandomContent();
+
+        conversation.setType(Conversation.TYPE_WECHAT_SUBCRIBE);
+        conversation.setIconType(imgType);
+        conversation.setIconUrl(imgUrl);
+        conversation.setIconRes(imgRes);
+        conversation.setImportant(isImportant);
+        conversation.setContact(contact);
+        conversation.setBadgeCount(badge);
+        conversation.setName(name);
+        conversation.setDisplayContent(content);
+        conversation.setUpdateTime(timeMillis);
+        conversation.setIgnore(isIgnore);
+        String mobile = (String) SPUtils.get(context, Constant.KEY_MOBILE,"");
+        conversation.setPointToUser(mobile);
+        return conversation;
     }
 
 }
